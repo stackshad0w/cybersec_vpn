@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CYBERSEC — AI-Powered IPsec VPN Security Analyzer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Navigation Bar -->
+    <header class="top-nav">
+      <div class="brand">
+        <div class="logo-shield">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="M9 12l2 2 4-4"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>CYBERSEC <span class="badge-tag">AI ANALYZER</span></h1>
+          <p class="subtitle">Privacy-Preserving IPsec Security & Side-Channel Assessment</p>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <div class="status-pill active">
+          <span class="status-dot"></span>
+          <span class="status-label">Local Privacy Engine: Active</span>
+        </div>
+        <button id="load-demo-btn" class="btn btn-secondary">
+          <span class="btn-icon">⚡</span> Load PRD Demo Analysis
+        </button>
+        <a href="/docs" target="_blank" class="btn btn-ghost">API Docs</a>
+      </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="dashboard-content">
+      <!-- Upload & Ingestion Strip -->
+      <section class="upload-section glass-panel">
+        <div class="upload-dropzone" id="dropzone">
+          <input type="file" id="pcap-file-input" accept=".pcap,.pcapng,.cap" hidden>
+          <div class="dropzone-content">
+            <div class="upload-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+            </div>
+            <div class="dropzone-text">
+              <h3>Drop IPsec Capture (.pcap / .pcapng) or <span class="highlight">Browse</span></h3>
+              <p>Untrusted input validation: Magic bytes, SHA-256 integrity, structural inspection</p>
+            </div>
+          </div>
+          <div class="sample-pcap-pills">
+            <span class="pill-label">Testbed Scenarios:</span>
+            <button class="sample-btn" data-sample="secure_ikev2_tunnel.pcap">Secure IKEv2 Tunnel</button>
+            <button class="sample-btn" data-sample="weak_ikev1_tunnel.pcap">Weak IKEv1 (3DES/MD5)</button>
+            <button class="sample-btn" data-sample="transport_gcm.pcap">Transport Mode</button>
+          </div>
+        </div>
+        <div id="upload-progress" class="upload-progress hidden">
+          <div class="progress-bar-fill"></div>
+          <span class="progress-text">Analyzing encrypted flows & running AI models...</span>
+        </div>
+      </section>
+
+      <!-- Overview Cards & Score Dashboard -->
+      <div class="grid-row top-row">
+        <!-- Security Score Dial -->
+        <section class="card glass-panel score-card">
+          <div class="card-header">
+            <h2>Overall Security Posture</h2>
+            <span id="risk-badge" class="risk-badge badge-good">GOOD</span>
+          </div>
+          <div class="score-display-container">
+            <div class="score-circle">
+              <svg class="score-svg" viewBox="0 0 160 160">
+                <circle class="score-bg" cx="80" cy="80" r="70"></circle>
+                <circle id="score-meter" class="score-meter" cx="80" cy="80" r="70"></circle>
+              </svg>
+              <div class="score-center-text">
+                <span id="score-val" class="score-number">82</span>
+                <span class="score-max">/ 100</span>
+              </div>
+            </div>
+            <div class="score-breakdown">
+              <div class="score-dim">
+                <span class="dim-name">Cryptography (25%)</span>
+                <div class="dim-bar"><div class="dim-fill" style="width: 100%;"></div></div>
+                <span class="dim-score">100</span>
+              </div>
+              <div class="score-dim">
+                <span class="dim-name">Key Exchange (15%)</span>
+                <div class="dim-bar"><div class="dim-fill" style="width: 100%;"></div></div>
+                <span class="dim-score">100</span>
+              </div>
+              <div class="score-dim">
+                <span class="dim-name">PFS Secrecy (15%)</span>
+                <div class="dim-bar"><div class="dim-fill" style="width: 100%;"></div></div>
+                <span class="dim-score">100</span>
+              </div>
+              <div class="score-dim">
+                <span class="dim-name">Replay Defense (10%)</span>
+                <div class="dim-bar"><div class="dim-fill" style="width: 100%;"></div></div>
+                <span class="dim-score">100</span>
+              </div>
+              <div class="score-dim">
+                <span class="dim-name">Metadata Privacy (5%)</span>
+                <div class="dim-bar"><div class="dim-fill" style="width: 48%;"></div></div>
+                <span class="dim-score">48</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- AI Traffic Classification & Anomaly -->
+        <section class="card glass-panel ai-card">
+          <div class="card-header">
+            <h2>AI Encrypted Traffic Classifier</h2>
+            <span class="ai-badge">Random Forest Engine</span>
+          </div>
+          <div class="ai-body">
+            <div class="prediction-banner">
+              <div class="pred-label-box">
+                <span class="pred-title">Predicted Behavior</span>
+                <span id="pred-class" class="pred-class-val">Video-like</span>
+              </div>
+              <div class="pred-confidence-box">
+                <span class="pred-title">Confidence</span>
+                <span id="pred-confidence" class="pred-conf-val">91.0%</span>
+              </div>
+              <div class="anomaly-indicator" id="anomaly-badge">
+                <span class="anomaly-dot normal"></span>
+                <span id="anomaly-label">Normal Flow Baseline</span>
+              </div>
+            </div>
+
+            <p id="ai-explanation" class="ai-explanation-text">
+              Classified as Video-like with 91.0% confidence based on high average packet size (1303.8 bytes), high throughput bursts (182 pkts/s), and asymmetric download streaming ratio (0.08).
+            </p>
+
+            <div class="flow-metrics-grid">
+              <div class="metric-chip">
+                <span class="chip-label">Packets</span>
+                <span id="stat-packets" class="chip-val">1,850</span>
+              </div>
+              <div class="metric-chip">
+                <span class="chip-label">Data Volume</span>
+                <span id="stat-volume" class="chip-val">2.41 MB</span>
+              </div>
+              <div class="metric-chip">
+                <span class="chip-label">Mean Pkt Size</span>
+                <span id="stat-size" class="chip-val">1,303 B</span>
+              </div>
+              <div class="metric-chip">
+                <span class="chip-label">Peak Burst</span>
+                <span id="stat-burst" class="chip-val">182 pkts/s</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Second Row: Protocol Inspector & Metadata Exposure -->
+      <div class="grid-row mid-row">
+        <!-- Protocol Telemetry Inspector -->
+        <section class="card glass-panel protocol-card">
+          <div class="card-header">
+            <h2>IPsec Protocol & Session Inspection</h2>
+            <span class="mode-tag" id="ipsec-mode-tag">Tunnel Mode (96% Confidence)</span>
+          </div>
+          <div class="protocol-grid">
+            <div class="proto-item">
+              <span class="p-label">Protocol Version</span>
+              <span id="p-proto" class="p-val">IKEv2 (RFC 7296)</span>
+            </div>
+            <div class="proto-item">
+              <span class="p-label">Encryption Transform</span>
+              <span id="p-cipher" class="p-val text-cyan">AES-256-GCM (AEAD)</span>
+            </div>
+            <div class="proto-item">
+              <span class="p-label">Diffie-Hellman Group</span>
+              <span id="p-dh" class="p-val">Group 19 (256-bit ECP)</span>
+            </div>
+            <div class="proto-item">
+              <span class="p-label">Perfect Forward Secrecy</span>
+              <span id="p-pfs" class="p-val text-emerald">Enabled (VERIFIED)</span>
+            </div>
+            <div class="proto-item">
+              <span class="p-label">Inbound ESP SPI</span>
+              <span id="p-spi" class="p-val font-mono">0x7f3a910c</span>
+            </div>
+            <div class="proto-item">
+              <span class="p-label">Anti-Replay Window</span>
+              <span id="p-replay" class="p-val text-emerald">Active (Seq 1 - 1850)</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Metadata Side-Channel Exposure -->
+        <section class="card glass-panel exposure-card">
+          <div class="card-header">
+            <h2>Metadata Side-Channel Exposure</h2>
+            <span class="exposure-index" id="meta-index">Index: 52 / 100</span>
+          </div>
+          <div class="exposure-list">
+            <div class="exp-item">
+              <div class="exp-header">
+                <span>Packet Size Leaks (Chunk Signatures)</span>
+                <span id="exp-size-val">78%</span>
+              </div>
+              <div class="exp-bar"><div id="exp-size-bar" class="exp-fill" style="width: 78%;"></div></div>
+            </div>
+            <div class="exp-item">
+              <div class="exp-header">
+                <span>Volume Asymmetry</span>
+                <span id="exp-vol-val">65%</span>
+              </div>
+              <div class="exp-bar"><div id="exp-vol-bar" class="exp-fill" style="width: 65%;"></div></div>
+            </div>
+            <div class="exp-item">
+              <div class="exp-header">
+                <span>Endpoint Geography Disclosure</span>
+                <span id="exp-end-val">45%</span>
+              </div>
+              <div class="exp-bar"><div id="exp-end-bar" class="exp-fill" style="width: 45%;"></div></div>
+            </div>
+            <div class="exp-item">
+              <div class="exp-header">
+                <span>Timing Jitter Predictability</span>
+                <span id="exp-time-val">35%</span>
+              </div>
+              <div class="exp-bar"><div id="exp-time-bar" class="exp-fill" style="width: 35%;"></div></div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Third Row: Security Findings & Threat Matrix -->
+      <section class="card glass-panel findings-section">
+        <div class="card-header">
+          <div class="findings-title-wrap">
+            <h2>Security Findings & Threat Matrix</h2>
+            <span id="findings-count" class="findings-count-badge">6 Identified</span>
+          </div>
+          <!-- Download Report Action Buttons -->
+          <div class="report-actions">
+            <button id="dl-exec-pdf" class="btn btn-action">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Executive PDF
+            </button>
+            <button id="dl-tech-pdf" class="btn btn-action">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Technical PDF
+            </button>
+            <button id="dl-json" class="btn btn-action btn-outline">
+              JSON Export
+            </button>
+          </div>
+        </div>
+
+        <div id="findings-container" class="findings-list">
+          <!-- Dynamic Finding Cards will be rendered here -->
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

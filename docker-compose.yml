@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: cybsec_vpn_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: cybsec
+      POSTGRES_PASSWORD: cybsec_secure_pwd
+      POSTGRES_DB: cybsec_vpn
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cybsec -d cybsec_vpn"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: cybsec_vpn_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.backend
+    container_name: cybsec_vpn_backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=production
+      - DEBUG=False
+      - DATABASE_URL=postgresql://cybsec:cybsec_secure_pwd@db:5432/cybsec_vpn
+      - REDIS_URL=redis://redis:6379/0
+      - JWT_SECRET=super-secret-production-key-change-in-real-env-32-chars
+      - MAX_PCAP_SIZE_MB=100
+      - PCAP_RETENTION_MINUTES=1440
+      - MODEL_PATH=/app/ml/models/random_forest_vpn_traffic.joblib
+    volumes:
+      - uploads_data:/app/uploads
+      - ./ml/models:/app/ml/models
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  worker:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.worker
+    container_name: cybsec_vpn_worker
+    restart: unless-stopped
+    environment:
+      - DATABASE_URL=postgresql://cybsec:cybsec_secure_pwd@db:5432/cybsec_vpn
+      - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - uploads_data:/app/uploads
+      - ./ml/models:/app/ml/models
+    depends_on:
+      - backend
+      - redis
+
+volumes:
+  postgres_data:
+  redis_data:
+  uploads_data:

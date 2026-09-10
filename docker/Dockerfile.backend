@@ -1,0 +1,44 @@
+# Multi-stage hardened non-root container for CyberSec VPN Analyzer Backend
+FROM python:3.11-slim AS builder
+
+WORKDIR /build
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libpcap-dev \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY backend/requirements.txt .
+RUN pip install --no-cache-dir --user -r requirements.txt
+
+# Final stage
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install minimal runtime dependencies including tshark/libpcap
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    tshark \
+    libpcap0.8 \
+    libpq5 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy python packages from builder
+COPY --from=builder /root/.local /root/.local
+ENV PATH=/root/.local/bin:$PATH
+ENV PYTHONPATH=/app
+
+# Create non-root system user
+RUN groupadd -r cybsec && useradd -r -g cybsec -u 1001 cybsec \
+    && mkdir -p /app/uploads /app/ml/models \
+    && chown -R cybsec:cybsec /app
+
+COPY backend /app/backend
+COPY ml /app/ml
+COPY testbed /app/testbed
+
+USER cybsec
+
+EXPOSE 8000
+
+CMD ["uvicorn", "backend.app.main:app", "--host", "0.0.0.0", "--port", "8000"]

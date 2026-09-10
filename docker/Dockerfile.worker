@@ -1,0 +1,27 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    tshark \
+    libpcap0.8 \
+    libpq5 \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY backend/requirements.txt requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Non-root user
+RUN useradd -m -u 1001 cybsec \
+    && mkdir -p /app/uploads /app/ml/models \
+    && chown -R cybsec:cybsec /app
+
+COPY backend /app/backend
+COPY ml /app/ml
+COPY testbed /app/testbed
+
+USER cybsec
+ENV PYTHONPATH=/app
+
+# Background worker process
+CMD ["python", "-m", "backend.app.services.worker"]
