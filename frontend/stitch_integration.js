@@ -1,93 +1,135 @@
 // =============================================================================
-// Cyber Wala IPsec SOC Analyzer - Live Integration Layer
-// Connects Stitch UI screens to FastAPI backend (PRD-02/03 compliant)
+// Cyber Wala IPsec SOC Analyzer - Master Unified SPA Integration
+// Connects ALL views under a single localhost link: http://127.0.0.1:8000/
 // =============================================================================
 
 (function () {
   let currentAnalysisId = null;
   let currentAnalysisData = null;
+  let activeTab = "dashboard";
+
+  // Template in-memory cache
+  const viewCache = {
+    dashboard: null,
+    analyze: null,
+    results: null,
+    "traffic-ai": null
+  };
 
   document.addEventListener("DOMContentLoaded", () => {
-    initApp();
+    initMasterApp();
   });
 
-  async function initApp() {
-    updateActiveNav();
-    setupGlobalSearch();
-
-    const path = window.location.pathname.toLowerCase();
-    const urlParams = new URLSearchParams(window.location.search);
-    const paramId = urlParams.get("id");
-
-    // Route-specific initializers
-    if (path.includes("analyze.html")) {
-      initAnalyzePage();
-    } else if (path.includes("results.html")) {
-      await loadAnalysisData(paramId);
-      initResultsPage();
-    } else if (path.includes("traffic-ai.html")) {
-      await loadAnalysisData(paramId);
-      initTrafficAIPage();
-    } else {
-      // Dashboard (index.html or /)
-      initDashboardPage();
+  async function initMasterApp() {
+    // Cache initial dashboard markup
+    const mainEl = document.querySelector("main");
+    if (mainEl && (window.location.pathname === "/" || window.location.pathname.endsWith("index.html"))) {
+      viewCache.dashboard = mainEl.innerHTML;
     }
+
+    // Enhance sidebar navigation links for SPA routing
+    setupSidebarRouting();
+    setupGlobalHeader();
+
+    // Listen to hash changes (for back/forward buttons and direct bookmarking)
+    window.addEventListener("hashchange", handleHashChange);
+
+    // Initial route handling
+    const hash = window.location.hash.replace(/^#/, "");
+    if (hash) {
+      handleRoute(hash);
+    } else {
+      // Default to dashboard
+      await switchTab("dashboard");
+    }
+
+    // Prefetch other views in the background for sub-millisecond tab switching
+    prefetchViews();
   }
 
   // ---------------------------------------------------------------------------
-  // Data Fetching
+  // Prefetch Views
   // ---------------------------------------------------------------------------
-  async function loadAnalysisData(requestedId) {
-    try {
-      if (requestedId) {
-        const res = await fetch(`/api/v1/analyses/${requestedId}`);
-        if (res.ok) {
-          currentAnalysisData = await res.json();
-          currentAnalysisId = currentAnalysisData.id;
-          return currentAnalysisData;
+  async function prefetchViews() {
+    const viewsToFetch = [
+      { key: "analyze", url: "/analyze.html" },
+      { key: "results", url: "/results.html" },
+      { key: "traffic-ai", url: "/traffic-ai.html" }
+    ];
+
+    for (const v of viewsToFetch) {
+      if (!viewCache[v.key]) {
+        try {
+          const res = await fetch(v.url);
+          if (res.ok) {
+            const html = await res.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, "text/html");
+            const m = doc.querySelector("main");
+            if (m) viewCache[v.key] = m.innerHTML;
+          }
+        } catch (e) {
+          console.debug("Prefetch notice:", e);
         }
       }
-      // Fallback to demo analysis
-      const res = await fetch("/api/v1/demo/load", { method: "POST" });
-      if (res.ok) {
-        currentAnalysisData = await res.json();
-        currentAnalysisId = currentAnalysisData.id;
-        return currentAnalysisData;
-      }
-    } catch (err) {
-      console.warn("Analysis load fallback notice:", err);
     }
-    return null;
   }
 
   // ---------------------------------------------------------------------------
-  // Navigation & UI Helpers
+  // SPA Routing & Navigation
   // ---------------------------------------------------------------------------
-  function updateActiveNav() {
-    const path = window.location.pathname.toLowerCase();
+  function setupSidebarRouting() {
+    // Map data-path to tabs
+    const pathToTab = {
+      "dashboard": "dashboard",
+      "analyze-pcap": "analyze",
+      "analyses": "results",
+      "vpn-profiles": "results",
+      "findings-and-threats": "results",
+      "traffic-ai": "traffic-ai",
+      "packet-explorer": "traffic-ai",
+      "reports": "reports",
+      "settings": "settings"
+    };
+
     document.querySelectorAll("aside nav a").forEach((a) => {
-      const href = (a.getAttribute("href") || "").toLowerCase();
-      const dataPath = (a.getAttribute("data-path") || "").toLowerCase();
-      let isActive = false;
+      const dataPath = a.getAttribute("data-path") || "";
+      const tab = pathToTab[dataPath];
 
-      if (path === "/" || path.endsWith("/index.html")) {
-        isActive = dataPath === "dashboard" || href === "/" || href === "/index.html";
-      } else if (path.includes("analyze.html")) {
-        isActive = dataPath === "analyze-pcap" || href.includes("analyze.html");
-      } else if (path.includes("results.html")) {
-        isActive = dataPath === "analyses" || dataPath === "vpn-profiles" || dataPath === "findings-and-threats" || href.includes("results.html");
-      } else if (path.includes("traffic-ai.html")) {
-        isActive = dataPath === "traffic-ai" || href.includes("traffic-ai.html");
-      }
-
-      if (isActive) {
-        a.classList.add("bg-surface-raised", "text-primary", "border-l-2", "border-border-active");
-        a.classList.remove("text-text-secondary");
+      if (tab) {
+        a.addEventListener("click", (e) => {
+          e.preventDefault();
+          if (tab === "reports") {
+            showReportModal(currentAnalysisId || 1);
+          } else if (tab === "settings") {
+            showSettingsModal();
+          } else {
+            switchTab(tab, currentAnalysisId);
+          }
+        });
       }
     });
+
+    // Add API Docs / Swagger link in the sidebar footer if not present
+    const asideFooter = document.querySelector("aside > div:last-child");
+    if (asideFooter && !document.getElementById("docs-nav-link")) {
+      const docsLink = document.createElement("a");
+      docsLink.id = "docs-nav-link";
+      docsLink.href = "/docs";
+      docsLink.target = "_blank";
+      docsLink.className = "mt-2 pt-2 border-t border-border-subtle flex items-center justify-between font-mono-packet text-mono-packet text-text-secondary hover:text-primary transition-colors";
+      docsLink.innerHTML = `
+        <span class="flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[14px] text-primary">api</span>
+          REST API Docs (Swagger)
+        </span>
+        <span class="material-symbols-outlined text-[13px]">open_in_new</span>
+      `;
+      asideFooter.appendChild(docsLink);
+    }
   }
 
-  function setupGlobalSearch() {
+  function setupGlobalHeader() {
     const searchInput = document.querySelector('header input[type="text"]');
     if (!searchInput) return;
 
@@ -104,21 +146,155 @@
         } else if (q.includes("transport")) {
           loadScenarioAndNavigate("transport_gcm");
         } else if (q.includes("ai") || q.includes("traffic") || q.includes("ml")) {
-          window.location.href = `/traffic-ai.html${currentAnalysisId ? `?id=${currentAnalysisId}` : ""}`;
+          switchTab("traffic-ai", currentAnalysisId);
         } else if (q.includes("upload") || q.includes("analyze")) {
-          window.location.href = "/analyze.html";
+          switchTab("analyze");
         } else {
-          showToast(`Search for "${q}" filtered results.`, "info");
+          showToast(`Filtered by "${q}"`, "info");
         }
       }
     });
   }
 
+  function handleHashChange() {
+    const hash = window.location.hash.replace(/^#/, "");
+    if (hash) handleRoute(hash);
+  }
+
+  function handleRoute(routeStr) {
+    const [tabPart, queryPart] = routeStr.split("?");
+    let requestedId = null;
+    if (queryPart) {
+      const params = new URLSearchParams(queryPart);
+      requestedId = params.get("id");
+    }
+    switchTab(tabPart, requestedId, false);
+  }
+
+  async function switchTab(tab, analysisId = null, updateHash = true) {
+    activeTab = tab;
+    if (analysisId) currentAnalysisId = analysisId;
+
+    // Update active nav styling
+    updateActiveNavClasses(tab);
+
+    const mainEl = document.querySelector("main");
+    if (!mainEl) return;
+
+    // Fade out slightly
+    mainEl.style.opacity = "0.4";
+    mainEl.style.transition = "opacity 0.15s ease-out";
+
+    // Load template
+    let content = viewCache[tab];
+    if (!content) {
+      let fetchUrl = "";
+      if (tab === "analyze") fetchUrl = "/analyze.html";
+      else if (tab === "results") fetchUrl = "/results.html";
+      else if (tab === "traffic-ai") fetchUrl = "/traffic-ai.html";
+      else fetchUrl = "/";
+
+      try {
+        const res = await fetch(fetchUrl);
+        const html = await res.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
+        const m = doc.querySelector("main");
+        if (m) {
+          content = m.innerHTML;
+          viewCache[tab] = content;
+        }
+      } catch (e) {
+        console.error("Error loading view:", e);
+      }
+    }
+
+    if (content) {
+      mainEl.innerHTML = content;
+    }
+
+    // Fade in
+    setTimeout(() => {
+      mainEl.style.opacity = "1";
+    }, 50);
+
+    // Update browser URL hash if requested
+    if (updateHash) {
+      const hashStr = `#${tab}${currentAnalysisId ? `?id=${currentAnalysisId}` : ""}`;
+      if (window.location.hash !== hashStr) {
+        history.pushState(null, "", hashStr);
+      }
+    }
+
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    // Initialize the active view
+    if (tab === "dashboard") {
+      await initDashboardPage();
+    } else if (tab === "analyze") {
+      initAnalyzePage();
+    } else if (tab === "results") {
+      await loadAnalysisData(currentAnalysisId);
+      initResultsPage();
+    } else if (tab === "traffic-ai") {
+      await loadAnalysisData(currentAnalysisId);
+      initTrafficAIPage();
+    }
+  }
+
+  function updateActiveNavClasses(activeTab) {
+    const navMap = {
+      "dashboard": ["dashboard"],
+      "analyze": ["analyze-pcap"],
+      "results": ["analyses", "vpn-profiles", "findings-and-threats"],
+      "traffic-ai": ["traffic-ai", "packet-explorer"]
+    };
+
+    const targetPaths = navMap[activeTab] || [];
+
+    document.querySelectorAll("aside nav a").forEach((a) => {
+      const path = a.getAttribute("data-path") || "";
+      if (targetPaths.includes(path)) {
+        a.classList.add("bg-surface-raised", "text-primary", "border-l-2", "border-border-active");
+        a.classList.remove("text-text-secondary");
+      } else {
+        a.classList.remove("bg-surface-raised", "text-primary", "border-l-2", "border-border-active");
+        a.classList.add("text-text-secondary");
+      }
+    });
+  }
+
   // ---------------------------------------------------------------------------
-  // 1. DASHBOARD (index.html)
+  // Data Fetching
+  // ---------------------------------------------------------------------------
+  async function loadAnalysisData(requestedId) {
+    try {
+      if (requestedId) {
+        const res = await fetch(`/api/v1/analyses/${requestedId}`);
+        if (res.ok) {
+          currentAnalysisData = await res.json();
+          currentAnalysisId = currentAnalysisData.id;
+          return currentAnalysisData;
+        }
+      }
+      // Fallback to load demo
+      const res = await fetch("/api/v1/demo/load", { method: "POST" });
+      if (res.ok) {
+        currentAnalysisData = await res.json();
+        currentAnalysisId = currentAnalysisData.id;
+        return currentAnalysisData;
+      }
+    } catch (err) {
+      console.warn("Analysis load error:", err);
+    }
+    return null;
+  }
+
+  // ---------------------------------------------------------------------------
+  // 1. DASHBOARD VIEW
   // ---------------------------------------------------------------------------
   async function initDashboardPage() {
-    // Populate Recent Analyses Queue table
     await refreshDashboardQueue();
 
     // Wire "Start Instant Analysis" button
@@ -132,7 +308,7 @@
       });
     }
 
-    // Wire Dashboard Dropzone for instant upload
+    // Wire Quick Upload dropzone
     const dashDropzone = document.getElementById("dropzone");
     if (dashDropzone) {
       const fileInput = document.createElement("input");
@@ -172,7 +348,7 @@
       if (txt.includes("audit list") || txt.includes("open full threat matrix")) {
         btn.addEventListener("click", (e) => {
           e.preventDefault();
-          window.location.href = "/results.html#findings";
+          switchTab("results", currentAnalysisId);
         });
       }
     });
@@ -244,11 +420,11 @@
         tbody.appendChild(tr);
       });
 
-      // Bind row actions
+      // Bind row actions for SPA navigation
       tbody.querySelectorAll(".btn-view-assessment").forEach(btn => {
         btn.addEventListener("click", () => {
           const id = btn.getAttribute("data-id");
-          window.location.href = `/results.html?id=${id}`;
+          switchTab("results", id);
         });
       });
 
@@ -265,7 +441,7 @@
   }
 
   // ---------------------------------------------------------------------------
-  // 2. ANALYZE PCAP INGESTION (analyze.html)
+  // 2. ANALYZE PCAP INGESTION VIEW
   // ---------------------------------------------------------------------------
   function initAnalyzePage() {
     const dropZone = document.getElementById("drop-container");
@@ -280,12 +456,10 @@
     if (dropZone && fileInput) {
       dropZone.style.cursor = "pointer";
 
-      // File selection handler
       const handleFile = (file) => {
         if (!file) return;
         selectedFile = file;
 
-        // Populate preview card
         if (previewCard) {
           previewCard.classList.remove("hidden");
           previewCard.style.display = "block";
@@ -315,7 +489,6 @@
         }
       });
 
-      // Clear File
       const clearFile = (e) => {
         if (e) e.preventDefault();
         selectedFile = null;
@@ -325,7 +498,6 @@
       if (clearBtn) clearBtn.addEventListener("click", clearFile);
       if (clearBtnAlt) clearBtnAlt.addEventListener("click", clearFile);
 
-      // Start Assessment
       if (startBtn) {
         startBtn.addEventListener("click", (e) => {
           e.preventDefault();
@@ -339,7 +511,7 @@
       }
     }
 
-    // Wire sample scenario table / cards
+    // Wire testbed scenario buttons
     document.querySelectorAll("table tr, div").forEach((row) => {
       const text = (row.textContent || "").toLowerCase();
       if (text.includes("secure_ikev2") || text.includes("weak_ikev1") || text.includes("transport_gcm") || text.includes("demo_video") || text.includes("video_call")) {
@@ -364,13 +536,13 @@
   }
 
   // ---------------------------------------------------------------------------
-  // 3. RESULTS & CRYPTO AUDIT (results.html)
+  // 3. RESULTS & CRYPTO AUDIT VIEW
   // ---------------------------------------------------------------------------
   function initResultsPage() {
     if (!currentAnalysisData) return;
     const data = currentAnalysisData;
 
-    // 1. Header Metadata
+    // Header metadata
     const idStr = `ANL-${data.id.toString().padStart(4, "0")}-IPSEC`;
     document.querySelectorAll('[class*="mono-data"]').forEach((el) => {
       if (el.textContent.includes("ANL-")) {
@@ -387,7 +559,7 @@
       });
     }
 
-    // 2. Score & Risk Gauge
+    // Score & Risk Gauge
     const scoreVal = Math.round(data.security_score || 0);
     const riskLvl = (data.risk_level || "Good").toUpperCase();
 
@@ -406,7 +578,7 @@
       }
     });
 
-    // 3. Cryptographic Parameters Binding
+    // Cryptographic Parameters Binding
     const ike = (data.ike_sessions && data.ike_sessions.length > 0) ? data.ike_sessions[0] : null;
     const esp = (data.ipsec_sessions && data.ipsec_sessions.length > 0) ? data.ipsec_sessions[0] : null;
 
@@ -414,10 +586,10 @@
       bindCryptoPanel(ike, esp);
     }
 
-    // 4. Render Dynamic Findings
+    // Render Dynamic Findings
     renderFindingsCards(data.findings || []);
 
-    // 5. Wire Export & Report buttons
+    // Wire Export & Report buttons
     setupResultsActionButtons(data.id);
   }
 
@@ -426,10 +598,7 @@
     const integAlg = ike ? (ike.integrity_algorithm || "HMAC-SHA256-128") : "HMAC-SHA256";
     const dhGroup = ike ? (ike.dh_group || "Group 19 (256-bit ECP)") : "Group 19 (256-bit ECP)";
     const pfsStatus = (ike && ike.pfs_enabled) ? "PFS Active (Verified)" : "PFS Not Enforced";
-    const mode = esp ? (esp.mode || "Tunnel") : "Tunnel";
-    const replayStatus = (esp && esp.replay_protection_enabled) ? "Monotonic (Zero Duplicates)" : "Replay Violations Detected";
 
-    // Walk through elements to bind observed parameters
     document.querySelectorAll("div, span").forEach((el) => {
       const txt = el.textContent.trim();
       if (txt === "3DES-CBC" || txt === "AES-256-GCM" || txt.includes("Negotiated Cipher")) {
@@ -448,18 +617,15 @@
   }
 
   function renderFindingsCards(findings) {
-    // Find findings container in results.html
     const container = Array.from(document.querySelectorAll("div")).find(d => {
       const h = d.querySelector(".font-headline-sm");
       return h && (h.textContent || "").includes("Key Findings & Threat Matrix");
     });
     if (!container) return;
 
-    // Find the wrapper holding finding cards
     let cardsParent = container.parentElement;
     if (!cardsParent) return;
 
-    // Remove static mockup finding cards (cards after the title)
     const existingCards = cardsParent.querySelectorAll('[class*="border-threat-"], [class*="rounded-xl"]');
     existingCards.forEach((c) => {
       if (c.querySelector('[class*="text-threat-"]') && c !== container) {
@@ -553,7 +719,6 @@
       cardsParent.appendChild(card);
     });
 
-    // Wire copy buttons
     cardsParent.querySelectorAll(".copy-cmd-btn").forEach((btn) => {
       btn.addEventListener("click", () => {
         const cmd = btn.getAttribute("data-cmd");
@@ -592,79 +757,14 @@
       if (txt.includes("packet explorer")) {
         btn.addEventListener("click", (e) => {
           e.preventDefault();
-          window.location.href = `/traffic-ai.html?id=${analysisId}`;
+          switchTab("traffic-ai", analysisId);
         });
       }
     });
   }
 
-  function showReportModal(analysisId) {
-    const existing = document.getElementById("report-modal");
-    if (existing) existing.remove();
-
-    const modal = document.createElement("div");
-    modal.id = "report-modal";
-    modal.className = "fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in";
-    modal.innerHTML = `
-      <div class="bg-surface-base border border-border-strong rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-5">
-        <div class="flex items-center justify-between border-b border-border-subtle pb-3">
-          <div class="flex items-center gap-2">
-            <span class="material-symbols-outlined text-primary text-[24px]">description</span>
-            <h3 class="font-headline-sm text-text-primary font-bold">Export Audit Reports</h3>
-          </div>
-          <button id="close-modal-btn" class="p-1 rounded hover:bg-surface-raised text-text-muted hover:text-text-primary transition-colors">
-            <span class="material-symbols-outlined text-[20px]">close</span>
-          </button>
-        </div>
-
-        <p class="font-body-sm text-text-secondary">Select the target report format to download PDF reports generated directly from PCAP forensic evidence:</p>
-
-        <div class="space-y-3">
-          <a href="/api/v1/analyses/${analysisId}/reports/executive.pdf" target="_blank" class="flex items-center justify-between p-4 rounded-xl bg-surface-subtle border border-border-subtle hover:border-primary hover:bg-surface-raised transition-all group">
-            <div class="flex items-center gap-3">
-              <span class="material-symbols-outlined text-threat-info text-[28px]">shield</span>
-              <div class="flex flex-col">
-                <span class="font-headline-sm text-[15px] text-text-primary font-semibold group-hover:text-primary">Executive Summary PDF</span>
-                <span class="font-mono-packet text-mono-packet text-text-muted">High-level risk posture, KPIs & C-suite compliance</span>
-              </div>
-            </div>
-            <span class="material-symbols-outlined text-text-muted group-hover:text-primary text-[20px]">download</span>
-          </a>
-
-          <a href="/api/v1/analyses/${analysisId}/reports/technical.pdf" target="_blank" class="flex items-center justify-between p-4 rounded-xl bg-surface-subtle border border-border-subtle hover:border-tertiary hover:bg-surface-raised transition-all group">
-            <div class="flex items-center gap-3">
-              <span class="material-symbols-outlined text-tertiary text-[28px]">terminal</span>
-              <div class="flex flex-col">
-                <span class="font-headline-sm text-[15px] text-text-primary font-semibold group-hover:text-tertiary">Technical Deep-Dive PDF</span>
-                <span class="font-mono-packet text-mono-packet text-text-muted">Detailed IKE/ESP SPIs, rules, CLI fixes & AI telemetry</span>
-              </div>
-            </div>
-            <span class="material-symbols-outlined text-text-muted group-hover:text-tertiary text-[20px]">download</span>
-          </a>
-
-          <a href="/api/v1/analyses/${analysisId}/reports/export.json" target="_blank" class="flex items-center justify-between p-4 rounded-xl bg-surface-subtle border border-border-subtle hover:border-secondary hover:bg-surface-raised transition-all group">
-            <div class="flex items-center gap-3">
-              <span class="material-symbols-outlined text-secondary text-[28px]">data_object</span>
-              <div class="flex flex-col">
-                <span class="font-headline-sm text-[15px] text-text-primary font-semibold group-hover:text-secondary">Structured JSON Matrix</span>
-                <span class="font-mono-packet text-mono-packet text-text-muted">Raw telemetry for SIEM & SOC orchestration</span>
-              </div>
-            </div>
-            <span class="material-symbols-outlined text-text-muted group-hover:text-secondary text-[20px]">download</span>
-          </a>
-        </div>
-      </div>
-    `;
-
-    document.body.appendChild(modal);
-    modal.querySelector("#close-modal-btn").addEventListener("click", () => modal.remove());
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) modal.remove();
-    });
-  }
-
   // ---------------------------------------------------------------------------
-  // 4. TRAFFIC AI & METADATA EXPOSURE (traffic-ai.html)
+  // 4. TRAFFIC AI & METADATA EXPOSURE VIEW
   // ---------------------------------------------------------------------------
   function initTrafficAIPage() {
     if (!currentAnalysisData) return;
@@ -672,7 +772,6 @@
     const traffic = data.traffic_prediction || {};
     const meta = data.metadata_exposure || {};
 
-    // 1. Prediction Card
     const predClass = traffic.predicted_class || "Video-like";
     const conf = Math.round((traffic.confidence_score || 0.91) * 100);
 
@@ -689,7 +788,6 @@
       }
     });
 
-    // 2. Anomaly status indicator
     if (traffic.is_anomaly) {
       document.querySelectorAll('[class*="threat-secure"]').forEach((el) => {
         if (el.textContent.includes("NOMINAL") || el.textContent.includes("BASELINE")) {
@@ -699,7 +797,6 @@
       });
     }
 
-    // 3. Metadata Exposure Bars (5 Dimensions)
     const setMeter = (selectorKeyword, scoreVal) => {
       document.querySelectorAll("div").forEach((d) => {
         if ((d.textContent || "").includes(selectorKeyword) && d.parentElement) {
@@ -721,7 +818,7 @@
   }
 
   // ---------------------------------------------------------------------------
-  // Action Handlers (Upload & Scenario Loaders)
+  // Action Handlers
   // ---------------------------------------------------------------------------
   async function uploadAndAnalyze(file) {
     const banner = showStatusBanner(`Validating and analyzing ${file.name}...`);
@@ -742,9 +839,10 @@
       }
 
       const anl = await res.json();
-      banner.textContent = `Analysis complete (Score ${Math.round(anl.security_score || 80)}/100). Redirecting...`;
+      banner.textContent = `Analysis complete (Score ${Math.round(anl.security_score || 80)}/100). Loading results...`;
       setTimeout(() => {
-        window.location.href = `/results.html?id=${anl.id}`;
+        if (banner) banner.remove();
+        switchTab("results", anl.id);
       }, 500);
     } catch (err) {
       alert(`PCAP Upload Error: ${err.message}`);
@@ -753,21 +851,21 @@
   }
 
   async function loadScenarioAndNavigate(scenarioName) {
-    const banner = showStatusBanner(`Loading scenario: ${scenarioName}...`);
+    const banner = showStatusBanner(`Loading testbed scenario: ${scenarioName}...`);
     try {
       const res = await fetch(`/api/v1/demo/scenario/${scenarioName}`, { method: "POST" });
-      if (!res.ok) {
-        // Fallback to load demo
+      let anl = null;
+      if (res.ok) {
+        anl = await res.json();
+      } else {
         const demoRes = await fetch("/api/v1/demo/load", { method: "POST" });
-        if (demoRes.ok) {
-          const d = await demoRes.json();
-          window.location.href = `/results.html?id=${d.id}`;
-          return;
-        }
-        throw new Error("Failed to load scenario.");
+        if (demoRes.ok) anl = await demoRes.json();
       }
-      const data = await res.json();
-      window.location.href = `/results.html?id=${data.id}`;
+
+      if (anl) {
+        if (banner) banner.remove();
+        switchTab("results", anl.id);
+      }
     } catch (err) {
       alert(`Scenario Load Error: ${err.message}`);
       if (banner) banner.remove();
@@ -775,8 +873,136 @@
   }
 
   // ---------------------------------------------------------------------------
-  // Notifications & Utilities
+  // Modals & Notifications
   // ---------------------------------------------------------------------------
+  function showReportModal(analysisId) {
+    const existing = document.getElementById("report-modal");
+    if (existing) existing.remove();
+
+    const id = analysisId || currentAnalysisId || 1;
+    const modal = document.createElement("div");
+    modal.id = "report-modal";
+    modal.className = "fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in";
+    modal.innerHTML = `
+      <div class="bg-surface-base border border-border-strong rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-5">
+        <div class="flex items-center justify-between border-b border-border-subtle pb-3">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary text-[24px]">description</span>
+            <h3 class="font-headline-sm text-text-primary font-bold">Export Audit Reports</h3>
+          </div>
+          <button id="close-modal-btn" class="p-1 rounded hover:bg-surface-raised text-text-muted hover:text-text-primary transition-colors">
+            <span class="material-symbols-outlined text-[20px]">close</span>
+          </button>
+        </div>
+
+        <p class="font-body-sm text-text-secondary">Instant forensic report downloads for Analysis #${id}:</p>
+
+        <div class="space-y-3">
+          <a href="/api/v1/analyses/${id}/reports/executive.pdf" target="_blank" class="flex items-center justify-between p-4 rounded-xl bg-surface-subtle border border-border-subtle hover:border-primary hover:bg-surface-raised transition-all group">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-threat-info text-[28px]">shield</span>
+              <div class="flex flex-col">
+                <span class="font-headline-sm text-[15px] text-text-primary font-semibold group-hover:text-primary">Executive Summary PDF</span>
+                <span class="font-mono-packet text-mono-packet text-text-muted">High-level risk posture, KPIs & C-suite compliance</span>
+              </div>
+            </div>
+            <span class="material-symbols-outlined text-text-muted group-hover:text-primary text-[20px]">download</span>
+          </a>
+
+          <a href="/api/v1/analyses/${id}/reports/technical.pdf" target="_blank" class="flex items-center justify-between p-4 rounded-xl bg-surface-subtle border border-border-subtle hover:border-tertiary hover:bg-surface-raised transition-all group">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-tertiary text-[28px]">terminal</span>
+              <div class="flex flex-col">
+                <span class="font-headline-sm text-[15px] text-text-primary font-semibold group-hover:text-tertiary">Technical Deep-Dive PDF</span>
+                <span class="font-mono-packet text-mono-packet text-text-muted">Detailed IKE/ESP SPIs, rules, CLI fixes & AI telemetry</span>
+              </div>
+            </div>
+            <span class="material-symbols-outlined text-text-muted group-hover:text-tertiary text-[20px]">download</span>
+          </a>
+
+          <a href="/api/v1/analyses/${id}/reports/export.json" target="_blank" class="flex items-center justify-between p-4 rounded-xl bg-surface-subtle border border-border-subtle hover:border-secondary hover:bg-surface-raised transition-all group">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-secondary text-[28px]">data_object</span>
+              <div class="flex flex-col">
+                <span class="font-headline-sm text-[15px] text-text-primary font-semibold group-hover:text-secondary">Structured JSON Matrix</span>
+                <span class="font-mono-packet text-mono-packet text-text-muted">Raw telemetry for SIEM & SOC orchestration</span>
+              </div>
+            </div>
+            <span class="material-symbols-outlined text-text-muted group-hover:text-secondary text-[20px]">download</span>
+          </a>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+    modal.querySelector("#close-modal-btn").addEventListener("click", () => modal.remove());
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) modal.remove();
+    });
+  }
+
+  function showSettingsModal() {
+    const existing = document.getElementById("settings-modal");
+    if (existing) existing.remove();
+
+    const modal = document.createElement("div");
+    modal.id = "settings-modal";
+    modal.className = "fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in";
+    modal.innerHTML = `
+      <div class="bg-surface-base border border-border-strong rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-5">
+        <div class="flex items-center justify-between border-b border-border-subtle pb-3">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary text-[24px]">tune</span>
+            <h3 class="font-headline-sm text-text-primary font-bold">Engine Configuration & Policies</h3>
+          </div>
+          <button id="close-settings-btn" class="p-1 rounded hover:bg-surface-raised text-text-muted hover:text-text-primary transition-colors">
+            <span class="material-symbols-outlined text-[20px]">close</span>
+          </button>
+        </div>
+
+        <div class="space-y-4 font-body-sm text-text-secondary">
+          <div class="bg-surface-subtle p-3 rounded-lg border border-border-subtle flex items-center justify-between">
+            <div>
+              <div class="font-semibold text-text-primary">Deterministic Compliance Profile</div>
+              <div class="font-mono-packet text-mono-packet text-text-muted">NIST SP 800-77 Rev. 1 / NSA CNSA Suite B</div>
+            </div>
+            <span class="px-2 py-0.5 rounded bg-threat-secure/15 text-threat-secure font-mono-packet font-semibold">ENFORCED</span>
+          </div>
+
+          <div class="bg-surface-subtle p-3 rounded-lg border border-border-subtle flex items-center justify-between">
+            <div>
+              <div class="font-semibold text-text-primary">Zero-Storage Privacy Mode</div>
+              <div class="font-mono-packet text-mono-packet text-text-muted">Raw payload data scrubbed immediately from memory</div>
+            </div>
+            <span class="px-2 py-0.5 rounded bg-threat-secure/15 text-threat-secure font-mono-packet font-semibold">ACTIVE</span>
+          </div>
+
+          <div class="bg-surface-subtle p-3 rounded-lg border border-border-subtle flex items-center justify-between">
+            <div>
+              <div class="font-semibold text-text-primary">Interactive OpenAPI / Swagger</div>
+              <div class="font-mono-packet text-mono-packet text-text-muted">REST API definitions, schemas and live test runner</div>
+            </div>
+            <a href="/docs" target="_blank" class="px-3 py-1 rounded bg-primary text-surface-base font-semibold hover:bg-primary-container transition-colors flex items-center gap-1 font-mono-packet">
+              <span>Open /docs</span>
+              <span class="material-symbols-outlined text-[13px]">open_in_new</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="pt-2 flex justify-end">
+          <button id="close-settings-done" class="px-4 py-2 rounded-lg bg-surface-raised hover:bg-surface-bright text-text-primary font-body-sm transition-colors">Close</button>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+    modal.querySelector("#close-settings-btn").addEventListener("click", () => modal.remove());
+    modal.querySelector("#close-settings-done").addEventListener("click", () => modal.remove());
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) modal.remove();
+    });
+  }
+
   function showStatusBanner(msg) {
     const existing = document.getElementById("status-banner");
     if (existing) existing.remove();
