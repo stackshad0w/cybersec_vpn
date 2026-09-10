@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "surface-container-low": "#181c24",
+          "threat-critical": "#EF4444",
+          "on-background": "#dfe2ee",
+          "threat-high": "#F97316",
+          "primary": "#4cd7f6",
+          "surface-variant": "#31353e",
+          "secondary-fixed-dim": "#adc6ff",
+          "on-surface-variant": "#bcc9cd",
+          "tertiary-fixed-dim": "#4edea3",
+          "inverse-primary": "#00687a",
+          "surface-overlay": "#283548",
+          "on-error-container": "#ffdad6",
+          "tertiary": "#4edea3",
+          "surface-subtle": "#111827",
+          "background": "#0f131c",
+          "on-tertiary": "#003824",
+          "border-subtle": "#1E293B",
+          "on-secondary-fixed-variant": "#004395",
+          "threat-secure": "#10B981",
+          "error": "#ffb4ab",
+          "secondary-fixed": "#d8e2ff",
+          "threat-info": "#06B6D4",
+          "on-tertiary-container": "#00452e",
+          "border-strong": "#334155",
+          "on-primary": "#003640",
+          "secondary-container": "#0566d9",
+          "surface-base": "#0B0F17",
+          "inverse-on-surface": "#2c3039",
+          "text-muted": "#64748B",
+          "secondary": "#adc6ff",
+          "surface-bright": "#353942",
+          "on-tertiary-fixed": "#002113",
+          "on-secondary-fixed": "#001a42",
+          "surface-tint": "#4cd7f6",
+          "on-surface": "#dfe2ee",
+          "on-secondary-container": "#e6ecff",
+          "tertiary-container": "#1bbd85",
+          "surface-container-lowest": "#0a0e16",
+          "border-active": "#06B6D4",
+          "on-secondary": "#002e6a",
+          "error-container": "#93000a",
+          "primary-fixed": "#acedff",
+          "on-error": "#690005",
+          "tertiary-fixed": "#6ffbbe",
+          "text-primary": "#F8FAFC",
+          "inverse-surface": "#dfe2ee",
+          "primary-container": "#06b6d4",
+          "surface": "#0f131c",
+          "on-primary-fixed": "#001f26",
+          "surface-container": "#1c2028",
+          "outline-variant": "#3d494c",
+          "on-tertiary-fixed-variant": "#005236",
+          "primary-fixed-dim": "#4cd7f6",
+          "threat-warning": "#F59E0B",
+          "surface-raised": "#1F2937",
+          "on-primary-container": "#00424f",
+          "outline": "#869397",
+          "surface-dim": "#0f131c",
+          "surface-container-high": "#262a33",
+          "on-primary-fixed-variant": "#004e5c",
+          "surface-container-highest": "#31353e",
+          "text-secondary": "#94A3B8"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "space-md": "0.75rem",
+          "space-lg": "1.5rem",
+          "space-2xs": "0.125rem",
+          "space-xl": "2rem",
+          "gutter-desktop": "1.5rem",
+          "space-2xl": "3rem",
+          "space-sm": "0.5rem",
+          "space-base": "1rem",
+          "sidebar-collapsed": "4rem",
+          "space-xs": "0.25rem",
+          "gutter-mobile": "0.75rem",
+          "header-height": "3.5rem",
+          "sidebar-expanded": "16rem"
+        },
+        "fontFamily": {
+          "headline-md": ["Geist"],
+          "display-lg": ["Geist"],
+          "label-caps": ["Inter"],
+          "mono-data": ["JetBrains Mono"],
+          "body-sm": ["Inter"],
+          "mono-packet": ["JetBrains Mono"],
+          "headline-sm": ["Geist"],
+          "display-lg-mobile": ["Geist"],
+          "body-lg": ["Inter"],
+          "mono-metric": ["JetBrains Mono"],
+          "body-md": ["Inter"]
+        },
+        "fontSize": {
+          "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+          "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+          "label-caps": ["11px", {"lineHeight": "14px", "letterSpacing": "0.06em", "fontWeight": "600"}],
+          "mono-data": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+          "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+          "mono-packet": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+          "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "500"}],
+          "display-lg-mobile": ["26px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+          "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+          "mono-metric": ["24px", {"lineHeight": "28px", "letterSpacing": "-0.03em", "fontWeight": "700"}],
+          "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+        }
+      }
+    }
+  }</script></head><body class="bg-surface-container-lowest font-body-md text-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 bottom-0 w-64 bg-surface-base border-r border-border-subtle z-50 flex flex-col justify-between select-none"><div class="flex flex-col"><div class="h-14 px-space-base flex items-center gap-space-sm border-b border-border-subtle bg-surface-container-lowest"><img alt="Brand logo. - Primary color: #06b6d4
+- Font: geist
+- Mode: dark
+- Roundness: rounded-sm
+" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Uok4RZYFrUjcg9Yvyo0u7UBscNxx8HYJUGHH9qgKJnm_TDrWmU16Z5s37PWzAIgpDvkbsIGrDK-e6rDAI5VhJZp3zkvUnQIsSRUj5CBvvvgPnVethxp0ADWbvbNM2I-UkDF84it2qep-hKl8lWbYbzCNO7QMrpPd9CZfMXcqJSx_Q1spsVJAz7v3_ygwjoKswR84Dp9ccoREOs_6GT4QCN74SNtfFDtL-TddSOyNJZdVIV7BL2N_8oBu4"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-text-primary tracking-tight font-semibold leading-tight">Cyber Wala</span><span class="font-label-caps text-label-caps text-primary tracking-wider uppercase">IPsec SOC Analyzer</span></div></div><div class="px-space-base pt-space-md pb-space-xs"><span class="font-label-caps text-label-caps text-text-muted uppercase tracking-wider font-semibold">SOC Operations</span></div><nav class="flex flex-col px-space-xs space-y-0.5" data-active-classes="bg-surface-raised text-primary border-l-2 border-border-active"><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-text-secondary hover:bg-surface-raised hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[18px]">space_dashboard</span><span>Dashboard</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-text-secondary hover:bg-surface-raised hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="analyze-pcap" href="#"><span class="material-symbols-outlined text-[18px]">upload_file</span><span>Analyze PCAP</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-text-secondary hover:bg-surface-raised hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="analyses" href="#"><span class="material-symbols-outlined text-[18px]">history</span><span>Analyses</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-text-secondary hover:bg-surface-raised hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="vpn-profiles" href="#"><span class="material-symbols-outlined text-[18px]">vpn_lock</span><span>VPN Profiles</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-text-secondary hover:bg-surface-raised hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="findings-and-threats" href="#"><span class="material-symbols-outlined text-[18px]">gshield</span><span>Findings &amp; Threats</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-space-xs rounded transition-colors font-body-sm bg-surface-raised text-primary border-l-2 border-border-active" data-path="traffic-ai" href="#"><span class="material-symbols-outlined text-[18px]">neurology</span><span>Traffic AI</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-text-secondary hover:bg-surface-raised hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="packet-explorer" href="#"><span class="material-symbols-outlined text-[18px]">data_array</span><span>Packet Explorer</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-text-secondary hover:bg-surface-raised hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="reports" href="#"><span class="material-symbols-outlined text-[18px]">description</span><span>Reports</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-text-secondary hover:bg-surface-raised hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="settings" href="#"><span class="material-symbols-outlined text-[18px]">tune</span><span>Settings</span></a></nav></div><div class="p-space-base border-t border-border-subtle bg-surface-container-lowest flex flex-col gap-space-xs"><div class="flex items-center justify-between font-label-caps text-label-caps"><span class="text-text-muted flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-threat-secure">verified_user</span>Zero-Storage Mode</span><span class="text-threat-secure font-mono-data text-mono-data">ENFORCED</span></div><p class="font-mono-packet text-mono-packet text-text-muted leading-tight">Raw PCAP Not Stored · Ephemeral In-Memory Processing</p><div class="mt-space-xs pt-space-xs border-t border-border-subtle flex items-center justify-between font-mono-packet text-mono-packet"><span class="text-text-muted flex items-center gap-1"><span class="material-symbols-outlined text-[13px] text-threat-info">dns</span>API Ping</span><span class="text-threat-secure">12ms</span></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-14 bg-surface-base/95 backdrop-blur-md border-b border-border-subtle z-40 px-space-lg flex items-center justify-between"><div class="flex items-center gap-space-base flex-1 max-w-xl"><div class="relative w-full flex items-center"><span class="material-symbols-outlined absolute left-3 text-text-muted text-[18px]">search</span><input class="w-full h-8 pl-9 pr-12 bg-surface-subtle border border-border-subtle rounded font-mono-data text-mono-data text-text-primary placeholder:text-text-muted focus:outline-none focus:border-border-active transition-colors" placeholder="Filter IP, SPI, Hash or Analysis ID..." type="text"/><div class="absolute right-2 flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-surface-raised border border-border-strong text-text-muted font-mono-packet text-mono-packet"><span class="text-[10px]">⌘</span><span>K</span></div></div><div class="flex items-center gap-2 px-2.5 py-1 rounded bg-surface-subtle border border-border-subtle"><span class="w-2 h-2 rounded-full bg-threat-secure animate-pulse"></span><span class="font-mono-packet text-mono-packet text-text-secondary whitespace-nowrap">Engine: v2.4 Active · API Ready</span></div></div><div class="flex items-center gap-space-md"><button class="relative p-1.5 rounded hover:bg-surface-raised text-text-secondary hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 bg-threat-high rounded-full ring-2 ring-surface-base"></span></button><div class="h-5 w-[1px] bg-border-subtle"></div><div class="flex items-center gap-space-sm pl-space-xs"><div class="flex flex-col items-end"><span class="font-headline-sm text-[13px] text-text-primary font-medium leading-none">SOC Lead Analyst</span><span class="font-mono-packet text-mono-packet text-text-muted leading-none mt-1">analyst@cyberwala.sec</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="relative pt-14 min-h-screen bg-surface-container-lowest w-full px-space-lg py-space-md"><div class="flex flex-col w-full space-y-space-md">
+<!-- Top Navigation Context & Engine Header -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-sm bg-surface-subtle p-space-base rounded-lg shadow-sm">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs text-text-muted font-mono-packet text-mono-packet mb-1">
+<span>SOC</span>
+<span>/</span>
+<span>FLOW-ANALYSIS-9021</span>
+<span>/</span>
+<span class="text-primary font-semibold">AI_ENGINE_TELEMETRY</span>
+</div>
+<h1 class="font-headline-md text-headline-md text-text-primary tracking-tight font-semibold flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[26px]">neurology</span>
+        Traffic AI Classification &amp; Metadata Leakage Engine
+      </h1>
+<p class="font-body-sm text-body-sm text-text-secondary mt-0.5">
+        Multi-variate statistical flow telemetry &amp; cryptographic payload shape classification
+      </p>
+</div>
+<div class="flex items-center gap-space-sm self-start md:self-auto">
+<div class="flex flex-col items-end px-space-sm py-1 rounded bg-surface-base">
+<span class="font-label-caps text-label-caps text-text-muted">CAPTURE HASH</span>
+<span class="font-mono-packet text-mono-packet text-primary select-all">e3b0c442...98fc</span>
+</div>
+<button class="flex items-center gap-1.5 h-8 px-space-md rounded bg-surface-raised hover:bg-surface-overlay text-text-primary font-body-sm text-body-sm transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px] text-threat-info">refresh</span>
+<span>Re-classify</span>
+</button>
+<button class="flex items-center gap-1.5 h-8 px-space-md rounded bg-primary hover:bg-primary-container text-on-primary font-body-sm text-body-sm font-semibold transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px]">file_download</span>
+<span>Export Vectors</span>
+</button>
+</div>
+</div>
+<!-- Mandatory AI UX Banner (PRD Sec 5) -->
+<div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-space-base p-space-base rounded-lg bg-surface-subtle shadow-sm relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+<div class="flex items-center gap-space-base pl-space-xs">
+<div class="w-9 h-9 rounded bg-surface-base flex items-center justify-center flex-shrink-0 text-primary">
+<span class="material-symbols-outlined text-[22px]">privacy_tip</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-primary tracking-wider uppercase font-semibold">Zero-Decrypt Deep Observability Notice</span>
+<p class="font-body-md text-body-md text-text-primary font-medium mt-0.5">
+          Classification is based on observable encrypted traffic metadata and does not decrypt user payloads.
+        </p>
+<span class="font-mono-packet text-mono-packet text-text-muted mt-0.5">
+          Compliant with Zero-Storage Mode &amp; Ephemeral Memory RFC-Compliance isolation specs.
+        </span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-base text-threat-secure font-mono-packet text-mono-packet self-end md:self-auto flex-shrink-0">
+<span class="w-1.5 h-1.5 rounded-full bg-threat-secure animate-pulse"></span>
+<span>EPHEMERAL RAM VERIFIED</span>
+</div>
+</div>
+<!-- Primary Intelligence Grid: Prediction Card & Metadata Exposure Index -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md">
+<!-- Highlighted Prediction Card (PRD Sec 5) (7 cols) -->
+<div class="lg:col-span-7 flex flex-col p-space-base rounded-lg bg-surface-subtle shadow-sm relative overflow-hidden justify-between space-y-space-md">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="flex h-3 w-3 relative">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-threat-info opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-threat-info"></span>
+</span>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-text-muted uppercase">FLOW INFERENCE RESULT</span>
+<h2 class="font-headline-md text-headline-md text-text-primary font-semibold tracking-tight mt-0.5">
+              Enterprise Video Conferencing <span class="text-text-secondary font-normal text-body-lg">(Video-like)</span>
+</h2>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<div class="flex items-baseline gap-1">
+<span class="font-mono-metric text-mono-metric text-primary">91.4%</span>
+<span class="font-label-caps text-label-caps text-text-muted uppercase">CONF</span>
+</div>
+<span class="font-mono-packet text-mono-packet text-threat-secure">High Statistical Precision</span>
+</div>
+</div>
+<!-- Flow Metrics Row -->
+<div class="grid grid-cols-3 gap-space-sm bg-surface-base p-space-sm rounded">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-text-muted uppercase">FLOW DURATION</span>
+<span class="font-mono-metric text-[18px] leading-snug text-text-primary font-semibold mt-0.5">18m 42s</span>
+<span class="font-mono-packet text-mono-packet text-text-muted">Active Stream</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-text-muted uppercase">PACKETS ANALYZED</span>
+<span class="font-mono-metric text-[18px] leading-snug text-text-primary font-semibold mt-0.5">24,190</span>
+<span class="font-mono-packet text-mono-packet text-text-muted">ESP Encapsulated</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-text-muted uppercase">PEAK THROUGHPUT</span>
+<span class="font-mono-metric text-[18px] leading-snug text-primary font-semibold mt-0.5">4.8 Mbps</span>
+<span class="font-mono-packet text-mono-packet text-threat-warning">Bursty Dynamic</span>
+</div>
+</div>
+<!-- Observable Evidence Block -->
+<div class="flex flex-col p-space-sm rounded bg-surface-raised space-y-1.5">
+<div class="flex items-center gap-space-xs text-text-muted font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-[15px] text-threat-info">radar</span>
+<span>OBSERVABLE CRYPTOGRAPHIC EVIDENCE</span>
+</div>
+<p class="font-mono-data text-mono-data text-text-primary leading-relaxed bg-surface-base p-space-sm rounded select-text">
+          Bimodal packet length distribution (1280B downstream video frames, 96B upstream audio packets), consistent 20ms audio jitter intervals.
+        </p>
+<div class="flex flex-wrap items-center gap-2 pt-1">
+<span class="px-2 py-0.5 rounded bg-surface-base font-mono-packet text-mono-packet text-text-secondary">ESP SPI: 0x4F91CA3D</span>
+<span class="px-2 py-0.5 rounded bg-surface-base font-mono-packet text-mono-packet text-text-secondary">UDP 4500 (NAT-T)</span>
+<span class="px-2 py-0.5 rounded bg-surface-base font-mono-packet text-mono-packet text-text-secondary">RFC 3948 Encapsulation</span>
+</div>
+</div>
+<!-- Live Confidence Progress Bar -->
+<div class="flex flex-col space-y-1">
+<div class="flex justify-between items-center font-label-caps text-label-caps">
+<span class="text-text-muted">MODEL CERTAINTY SCORE</span>
+<span class="font-mono-packet text-mono-packet text-primary">0.9142 [SIGMA-4]</span>
+</div>
+<div class="w-full bg-surface-base h-2 rounded overflow-hidden flex">
+<div class="bg-primary h-full rounded transition-all duration-1000" style="width: 91.4%;"></div>
+</div>
+</div>
+</div>
+<!-- Metadata Exposure Index (PRD Sec 3) (5 cols) -->
+<div class="lg:col-span-5 flex flex-col p-space-base rounded-lg bg-surface-subtle shadow-sm space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-text-muted uppercase">LEAKAGE ASSESSMENT</span>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-semibold mt-0.5">Metadata Exposure Index</h3>
+</div>
+<div class="flex items-center gap-space-sm bg-surface-base px-space-sm py-1 rounded">
+<div class="flex flex-col items-end">
+<span class="font-mono-metric text-[20px] text-threat-warning font-bold leading-none">64<span class="text-mono-data text-text-muted">/100</span></span>
+<span class="font-label-caps text-label-caps text-threat-warning">MODERATE LEAKAGE</span>
+</div>
+</div>
+</div>
+<!-- 5 Exposure Component Progress Meters -->
+<div class="flex flex-col space-y-space-sm flex-1 justify-center">
+<!-- 1. Endpoint Identity -->
+<div class="flex flex-col space-y-1 p-space-xs rounded bg-surface-base">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-threat-critical">badge</span>
+<span class="font-body-sm text-body-sm text-text-primary font-medium">Endpoint Identity</span>
+</div>
+<span class="font-mono-data text-mono-data text-threat-critical font-bold">75/100</span>
+</div>
+<div class="w-full bg-surface-subtle h-1.5 rounded overflow-hidden">
+<div class="bg-threat-critical h-full rounded" style="width: 75%;"></div>
+</div>
+<span class="font-mono-packet text-mono-packet text-text-muted truncate">
+            IKE ID_FQDN transmitted in plaintext before Phase 1 completion
+          </span>
+</div>
+<!-- 2. Timing & Flow Correlation -->
+<div class="flex flex-col space-y-1 p-space-xs rounded bg-surface-base">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-threat-critical">schedule</span>
+<span class="font-body-sm text-body-sm text-text-primary font-medium">Timing &amp; Flow Correlation</span>
+</div>
+<span class="font-mono-data text-mono-data text-threat-critical font-bold">82/100</span>
+</div>
+<div class="w-full bg-surface-subtle h-1.5 rounded overflow-hidden">
+<div class="bg-threat-critical h-full rounded" style="width: 82%;"></div>
+</div>
+<span class="font-mono-packet text-mono-packet text-text-muted truncate">
+            High predictability of burst intervals
+          </span>
+</div>
+<!-- 3. Packet Size Fingerprinting -->
+<div class="flex flex-col space-y-1 p-space-xs rounded bg-surface-base">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-threat-warning">straighten</span>
+<span class="font-body-sm text-body-sm text-text-primary font-medium">Packet Size Fingerprinting</span>
+</div>
+<span class="font-mono-data text-mono-data text-threat-warning font-bold">68/100</span>
+</div>
+<div class="w-full bg-surface-subtle h-1.5 rounded overflow-hidden">
+<div class="bg-threat-warning h-full rounded" style="width: 68%;"></div>
+</div>
+<span class="font-mono-packet text-mono-packet text-text-muted truncate">
+            Fixed padding disabled, payload sizes reveal application behavior
+          </span>
+</div>
+<!-- 4. Traffic Volume Drift -->
+<div class="flex flex-col space-y-1 p-space-xs rounded bg-surface-base">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-threat-info">waterfall_chart</span>
+<span class="font-body-sm text-body-sm text-text-primary font-medium">Traffic Volume Drift</span>
+</div>
+<span class="font-mono-data text-mono-data text-threat-info font-bold">45/100</span>
+</div>
+<div class="w-full bg-surface-subtle h-1.5 rounded overflow-hidden">
+<div class="bg-threat-info h-full rounded" style="width: 45%;"></div>
+</div>
+<span class="font-mono-packet text-mono-packet text-text-muted truncate">
+            Moderate masking observed across frame queues
+          </span>
+</div>
+<!-- 5. IKE Negotiation Metadata -->
+<div class="flex flex-col space-y-1 p-space-xs rounded bg-surface-base">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-threat-warning">handshake</span>
+<span class="font-body-sm text-body-sm text-text-primary font-medium">IKE Negotiation Metadata</span>
+</div>
+<span class="font-mono-data text-mono-data text-threat-warning font-bold">50/100</span>
+</div>
+<div class="w-full bg-surface-subtle h-1.5 rounded overflow-hidden">
+<div class="bg-threat-warning h-full rounded" style="width: 50%;"></div>
+</div>
+<span class="font-mono-packet text-mono-packet text-text-muted truncate">
+            Vendor IDs and proposal lists exposed in pre-SA init
+          </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Visual Traffic Analytics Charts Section -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-12 gap-space-md">
+<!-- Chart 1: Packet Size Histogram (5 cols) -->
+<div class="xl:col-span-5 flex flex-col p-space-base rounded-lg bg-surface-subtle shadow-sm space-y-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-text-muted uppercase">PAYLOAD DISTRIBUTION</span>
+<h4 class="font-headline-sm text-headline-sm text-text-primary font-semibold">ESP Packet Size Histogram</h4>
+</div>
+<span class="font-mono-packet text-mono-packet text-threat-info bg-surface-base px-2 py-0.5 rounded">Bimodal Signature</span>
+</div>
+<!-- Inline Histogram SVG -->
+<div class="w-full h-44 bg-surface-base rounded p-space-sm flex flex-col justify-between">
+<div class="flex justify-between items-center text-text-muted font-mono-packet text-mono-packet">
+<span>Frames</span>
+<span>Max: 14,200 (Downstream Video MTU)</span>
+</div>
+<svg class="w-full h-28" fill="none" preserveaspectratio="none" viewbox="0 0 340 100">
+<!-- Baseline -->
+<line stroke="#334155" stroke-width="1" x1="0" x2="340" y1="95" y2="95"></line>
+<!-- Low byte bucket: 96B Audio (Peak 1) -->
+<rect fill="#4cd7f6" height="65" opacity="0.85" rx="1" width="16" x="25" y="30"></rect>
+<text fill="#adc6ff" font-family="JetBrains Mono" font-size="8" text-anchor="middle" x="33" y="24">96B</text>
+<!-- Mid control packets -->
+<rect fill="#31353e" height="15" rx="1" width="16" x="50" y="80"></rect>
+<rect fill="#31353e" height="10" rx="1" width="16" x="75" y="85"></rect>
+<rect fill="#31353e" height="7" rx="1" width="16" x="100" y="88"></rect>
+<rect fill="#31353e" height="20" rx="1" width="16" x="125" y="75"></rect>
+<rect fill="#31353e" height="13" rx="1" width="16" x="150" y="82"></rect>
+<rect fill="#31353e" height="25" rx="1" width="16" x="175" y="70"></rect>
+<rect fill="#31353e" height="30" rx="1" width="16" x="200" y="65"></rect>
+<rect fill="#31353e" height="40" rx="1" width="16" x="225" y="55"></rect>
+<!-- High byte bucket: 1280B Video Frames (Peak 2) -->
+<rect fill="#06b6d4" height="87" rx="1" width="22" x="260" y="8"></rect>
+<text fill="#4cd7f6" font-family="JetBrains Mono" font-size="8" text-anchor="middle" x="271" y="5">1280B</text>
+<rect fill="#31353e" height="35" rx="1" width="16" x="290" y="60"></rect>
+<rect fill="#31353e" height="5" rx="1" width="16" x="315" y="90"></rect>
+</svg>
+<div class="flex justify-between font-mono-packet text-mono-packet text-text-muted">
+<span>64B</span>
+<span>512B</span>
+<span>1024B</span>
+<span>1500B</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary leading-tight">
+        Clear dual peaks at 96B and 1280B confirm unpadded VoIP/video framing over ESP without random padding.
+      </p>
+</div>
+<!-- Chart 2: Inter-Arrival Time (IAT) Scatter/Curve (4 cols) -->
+<div class="xl:col-span-4 flex flex-col p-space-base rounded-lg bg-surface-subtle shadow-sm space-y-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-text-muted uppercase">RATE &amp; TEMPORAL CADENCE</span>
+<h4 class="font-headline-sm text-headline-sm text-text-primary font-semibold">Inter-Arrival Time (IAT)</h4>
+</div>
+<span class="font-mono-packet text-mono-packet text-threat-critical bg-surface-base px-2 py-0.5 rounded">20ms Jitter Spike</span>
+</div>
+<!-- Inline IAT Curve SVG -->
+<div class="w-full h-44 bg-surface-base rounded p-space-sm flex flex-col justify-between">
+<div class="flex justify-between items-center text-text-muted font-mono-packet text-mono-packet">
+<span>IAT Variance</span>
+<span class="text-threat-critical">Audio Tick: ~20.04 ms</span>
+</div>
+<svg class="w-full h-28" fill="none" preserveaspectratio="none" viewbox="0 0 280 100">
+<!-- Guide lines -->
+<line stroke="#1E293B" stroke-dasharray="3 3" x1="0" x2="280" y1="50" y2="50"></line>
+<!-- 20ms Marker Line -->
+<line opacity="0.6" stroke="#F97316" stroke-dasharray="2 2" x1="0" x2="280" y1="35" y2="35"></line>
+<!-- IAT Curve line with strong periodicity -->
+<path d="M0,90 Q 20,20 40,85 T 80,35 T 120,88 T 160,34 T 200,86 T 240,36 T 280,82" fill="none" stroke="#4cd7f6" stroke-width="2"></path>
+<!-- Scatter points representing bursts -->
+<circle cx="40" cy="85" fill="#EF4444" r="2.5"></circle>
+<circle cx="80" cy="35" fill="#4cd7f6" r="2.5"></circle>
+<circle cx="120" cy="88" fill="#EF4444" r="2.5"></circle>
+<circle cx="160" cy="34" fill="#4cd7f6" r="2.5"></circle>
+<circle cx="200" cy="86" fill="#EF4444" r="2.5"></circle>
+<circle cx="240" cy="36" fill="#4cd7f6" r="2.5"></circle>
+</svg>
+<div class="flex justify-between font-mono-packet text-mono-packet text-text-muted">
+<span>0s</span>
+<span>+5m</span>
+<span>+10m</span>
+<span>+18m</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary leading-tight">
+        Harmonic pulse intervals at exact 20ms boundaries expose RTP payload packaging despite encryption.
+      </p>
+</div>
+<!-- Chart 3: Directional Flow Balance (3 cols) -->
+<div class="xl:col-span-3 flex flex-col p-space-base rounded-lg bg-surface-subtle shadow-sm space-y-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-text-muted uppercase">BANDWIDTH RATIO</span>
+<h4 class="font-headline-sm text-headline-sm text-text-primary font-semibold">Directional Balance</h4>
+</div>
+<span class="font-mono-packet text-mono-packet text-primary bg-surface-base px-2 py-0.5 rounded">Asymmetric</span>
+</div>
+<!-- Directional Donut & Ratio Stats -->
+<div class="w-full h-44 bg-surface-base rounded p-space-sm flex flex-col items-center justify-center relative">
+<svg class="w-28 h-28 transform -rotate-90" viewbox="0 0 36 36">
+<!-- Background track -->
+<path class="text-surface-raised" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="4.5"></path>
+<!-- Downstream Arc (82%) -->
+<path class="text-primary" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="82, 100" stroke-linecap="round" stroke-width="4.5"></path>
+<!-- Upstream Arc (18%) -->
+<path class="text-secondary-container" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="18, 100" stroke-dashoffset="-82" stroke-width="4.5"></path>
+</svg>
+<div class="absolute flex flex-col items-center justify-center pointer-events-none">
+<span class="font-mono-metric text-headline-sm text-text-primary font-bold">4.6:1</span>
+<span class="font-label-caps text-[9px] text-text-muted uppercase">RX / TX</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-space-xs font-mono-packet text-mono-packet">
+<div class="p-1.5 rounded bg-surface-base flex flex-col">
+<span class="text-text-muted flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-primary inline-block"></span>Downstream
+          </span>
+<span class="text-text-primary font-semibold mt-0.5">82.4% (19.9k pkts)</span>
+</div>
+<div class="p-1.5 rounded bg-surface-base flex flex-col">
+<span class="text-text-muted flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-secondary-container inline-block"></span>Upstream
+          </span>
+<span class="text-text-primary font-semibold mt-0.5">17.6% (4.2k pkts)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Hardening & Remediation Recommendations -->
+<div class="flex flex-col p-space-base rounded-lg bg-surface-subtle shadow-sm space-y-space-md">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded bg-surface-base flex items-center justify-center text-threat-warning">
+<span class="material-symbols-outlined text-[20px]">shield</span>
+</div>
+<div class="flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-semibold">Mitigation &amp; Hardening Recommendations</h3>
+<span class="font-body-sm text-body-sm text-text-muted">Targeted crypto-profile adjustments to nullify side-channel inference</span>
+</div>
+</div>
+<span class="px-space-sm py-1 rounded bg-surface-base text-threat-warning font-mono-packet text-mono-packet font-semibold">
+        3 ACTIONABLE REMEDIATIONS
+      </span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<!-- Recommendation 1 -->
+<div class="flex flex-col justify-between p-space-base rounded-lg bg-surface-base space-y-space-sm">
+<div class="flex flex-col space-y-2">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded bg-surface-raised font-mono-packet text-mono-packet text-threat-critical">PRIORITY 1</span>
+<span class="font-label-caps text-label-caps text-text-muted uppercase">RFC 4303 §2.4</span>
+</div>
+<h5 class="font-headline-sm text-[16px] text-text-primary font-semibold">Enable ESP Random Traffic Padding</h5>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">
+            Configure ESP Traffic Flow Confidentiality (TFC) and dynamic dummy frame insertion to obscure distinctive 96B/1280B bimodal frame signatures.
+          </p>
+</div>
+<div class="pt-space-sm flex flex-col space-y-1">
+<div class="flex justify-between font-mono-packet text-mono-packet text-text-muted">
+<span>Expected Leakage Drop</span>
+<span class="text-threat-secure">-28 pts</span>
+</div>
+<button class="w-full mt-1 h-7 rounded bg-surface-raised hover:bg-surface-overlay text-primary font-mono-packet text-mono-packet transition-colors flex items-center justify-center gap-1" type="button">
+<span>View Cisco/strongSwan Config</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Recommendation 2 -->
+<div class="flex flex-col justify-between p-space-base rounded-lg bg-surface-base space-y-space-sm">
+<div class="flex flex-col space-y-2">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded bg-surface-raised font-mono-packet text-mono-packet text-threat-critical">PRIORITY 2</span>
+<span class="font-label-caps text-label-caps text-text-muted uppercase">RFC 7296 §3.5</span>
+</div>
+<h5 class="font-headline-sm text-[16px] text-text-primary font-semibold">Migrate to IKEv2 Protected IDs (EAP/Cert)</h5>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">
+            Eliminate unencrypted Phase 1 Identification payloads (<code class="text-primary font-mono-packet">ID_FQDN</code>). Enforce identity encryption inside Encrypted Payloads (SK).
+          </p>
+</div>
+<div class="pt-space-sm flex flex-col space-y-1">
+<div class="flex justify-between font-mono-packet text-mono-packet text-text-muted">
+<span>Expected Leakage Drop</span>
+<span class="text-threat-secure">-22 pts</span>
+</div>
+<button class="w-full mt-1 h-7 rounded bg-surface-raised hover:bg-surface-overlay text-primary font-mono-packet text-mono-packet transition-colors flex items-center justify-center gap-1" type="button">
+<span>Generate Certificate Spec</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Recommendation 3 -->
+<div class="flex flex-col justify-between p-space-base rounded-lg bg-surface-base space-y-space-sm">
+<div class="flex flex-col space-y-2">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded bg-surface-raised font-mono-packet text-mono-packet text-threat-warning">PRIORITY 3</span>
+<span class="font-label-caps text-label-caps text-text-muted uppercase">TIMING DEFENSE</span>
+</div>
+<h5 class="font-headline-sm text-[16px] text-text-primary font-semibold">Jitter Normalization &amp; Constant Bitrate</h5>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">
+            Implement queuing delay shaping at tunnel headends to mask 20ms audio cadence and packet interval cross-correlation.
+          </p>
+</div>
+<div class="pt-space-sm flex flex-col space-y-1">
+<div class="flex justify-between font-mono-packet text-mono-packet text-text-muted">
+<span>Expected Leakage Drop</span>
+<span class="text-threat-secure">-14 pts</span>
+</div>
+<button class="w-full mt-1 h-7 rounded bg-surface-raised hover:bg-surface-overlay text-primary font-mono-packet text-mono-packet transition-colors flex items-center justify-center gap-1" type="button">
+<span>Tunnel QoS Policy Spec</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div></main></div><script src="/static/stitch_integration.js"></script></body></html>
+

@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "surface-container-low": "#181c24",
+          "threat-critical": "#EF4444",
+          "on-background": "#dfe2ee",
+          "threat-high": "#F97316",
+          "primary": "#4cd7f6",
+          "surface-variant": "#31353e",
+          "secondary-fixed-dim": "#adc6ff",
+          "on-surface-variant": "#bcc9cd",
+          "tertiary-fixed-dim": "#4edea3",
+          "inverse-primary": "#00687a",
+          "surface-overlay": "#283548",
+          "on-error-container": "#ffdad6",
+          "tertiary": "#4edea3",
+          "surface-subtle": "#111827",
+          "background": "#0f131c",
+          "on-tertiary": "#003824",
+          "border-subtle": "#1E293B",
+          "on-secondary-fixed-variant": "#004395",
+          "threat-secure": "#10B981",
+          "error": "#ffb4ab",
+          "secondary-fixed": "#d8e2ff",
+          "threat-info": "#06B6D4",
+          "on-tertiary-container": "#00452e",
+          "border-strong": "#334155",
+          "on-primary": "#003640",
+          "secondary-container": "#0566d9",
+          "surface-base": "#0B0F17",
+          "inverse-on-surface": "#2c3039",
+          "text-muted": "#64748B",
+          "secondary": "#adc6ff",
+          "surface-bright": "#353942",
+          "on-tertiary-fixed": "#002113",
+          "on-secondary-fixed": "#001a42",
+          "surface-tint": "#4cd7f6",
+          "on-surface": "#dfe2ee",
+          "on-secondary-container": "#e6ecff",
+          "tertiary-container": "#1bbd85",
+          "surface-container-lowest": "#0a0e16",
+          "border-active": "#06B6D4",
+          "on-secondary": "#002e6a",
+          "error-container": "#93000a",
+          "primary-fixed": "#acedff",
+          "on-error": "#690005",
+          "tertiary-fixed": "#6ffbbe",
+          "text-primary": "#F8FAFC",
+          "inverse-surface": "#dfe2ee",
+          "primary-container": "#06b6d4",
+          "surface": "#0f131c",
+          "on-primary-fixed": "#001f26",
+          "surface-container": "#1c2028",
+          "outline-variant": "#3d494c",
+          "on-tertiary-fixed-variant": "#005236",
+          "primary-fixed-dim": "#4cd7f6",
+          "threat-warning": "#F59E0B",
+          "surface-raised": "#1F2937",
+          "on-primary-container": "#00424f",
+          "outline": "#869397",
+          "surface-dim": "#0f131c",
+          "surface-container-high": "#262a33",
+          "on-primary-fixed-variant": "#004e5c",
+          "surface-container-highest": "#31353e",
+          "text-secondary": "#94A3B8"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "space-md": "0.75rem",
+          "space-lg": "1.5rem",
+          "space-2xs": "0.125rem",
+          "space-xl": "2rem",
+          "gutter-desktop": "1.5rem",
+          "space-2xl": "3rem",
+          "space-sm": "0.5rem",
+          "space-base": "1rem",
+          "sidebar-collapsed": "4rem",
+          "space-xs": "0.25rem",
+          "gutter-mobile": "0.75rem",
+          "header-height": "3.5rem",
+          "sidebar-expanded": "16rem"
+        },
+        "fontFamily": {
+          "headline-md": ["Geist"],
+          "display-lg": ["Geist"],
+          "label-caps": ["Inter"],
+          "mono-data": ["JetBrains Mono"],
+          "body-sm": ["Inter"],
+          "mono-packet": ["JetBrains Mono"],
+          "headline-sm": ["Geist"],
+          "display-lg-mobile": ["Geist"],
+          "body-lg": ["Inter"],
+          "mono-metric": ["JetBrains Mono"],
+          "body-md": ["Inter"]
+        },
+        "fontSize": {
+          "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+          "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+          "label-caps": ["11px", {"lineHeight": "14px", "letterSpacing": "0.06em", "fontWeight": "600"}],
+          "mono-data": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+          "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+          "mono-packet": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+          "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "500"}],
+          "display-lg-mobile": ["26px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+          "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+          "mono-metric": ["24px", {"lineHeight": "28px", "letterSpacing": "-0.03em", "fontWeight": "700"}],
+          "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+        }
+      }
+    }
+  }</script></head><body class="bg-surface-container-lowest font-body-md text-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 bottom-0 w-64 bg-surface-base border-r border-border-subtle z-50 flex flex-col justify-between select-none"><div class="flex flex-col"><div class="h-14 px-space-base flex items-center gap-space-sm border-b border-border-subtle bg-surface-container-lowest"><img alt="Brand logo. - Primary color: #06b6d4
+- Font: geist
+- Mode: dark
+- Roundness: rounded-sm
+" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Uok4RZYFrUjcg9Yvyo0u7UBscNxx8HYJUGHH9qgKJnm_TDrWmU16Z5s37PWzAIgpDvkbsIGrDK-e6rDAI5VhJZp3zkvUnQIsSRUj5CBvvvgPnVethxp0ADWbvbNM2I-UkDF84it2qep-hKl8lWbYbzCNO7QMrpPd9CZfMXcqJSx_Q1spsVJAz7v3_ygwjoKswR84Dp9ccoREOs_6GT4QCN74SNtfFDtL-TddSOyNJZdVIV7BL2N_8oBu4"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-text-primary tracking-tight font-semibold leading-tight">Cyber Wala</span><span class="font-label-caps text-label-caps text-primary tracking-wider uppercase">IPsec SOC Analyzer</span></div></div><div class="px-space-base pt-space-md pb-space-xs"><span class="font-label-caps text-label-caps text-text-muted uppercase tracking-wider font-semibold">SOC Operations</span></div><nav class="flex flex-col px-space-xs space-y-0.5" data-active-classes="bg-surface-raised text-primary border-l-2 border-border-active"><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-text-secondary hover:bg-surface-raised hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[18px]">space_dashboard</span><span>Dashboard</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-space-xs rounded transition-colors font-body-sm bg-surface-raised text-primary border-l-2 border-border-active" data-path="analyze-pcap" href="#"><span class="material-symbols-outlined text-[18px]">upload_file</span><span>Analyze PCAP</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-text-secondary hover:bg-surface-raised hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="analyses" href="#"><span class="material-symbols-outlined text-[18px]">history</span><span>Analyses</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-text-secondary hover:bg-surface-raised hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="vpn-profiles" href="#"><span class="material-symbols-outlined text-[18px]">vpn_lock</span><span>VPN Profiles</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-text-secondary hover:bg-surface-raised hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="findings-and-threats" href="#"><span class="material-symbols-outlined text-[18px]">gshield</span><span>Findings &amp; Threats</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-text-secondary hover:bg-surface-raised hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="traffic-ai" href="#"><span class="material-symbols-outlined text-[18px]">neurology</span><span>Traffic AI</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-text-secondary hover:bg-surface-raised hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="packet-explorer" href="#"><span class="material-symbols-outlined text-[18px]">data_array</span><span>Packet Explorer</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-text-secondary hover:bg-surface-raised hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="reports" href="#"><span class="material-symbols-outlined text-[18px]">description</span><span>Reports</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-text-secondary hover:bg-surface-raised hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="settings" href="#"><span class="material-symbols-outlined text-[18px]">tune</span><span>Settings</span></a></nav></div><div class="p-space-base border-t border-border-subtle bg-surface-container-lowest flex flex-col gap-space-xs"><div class="flex items-center justify-between font-label-caps text-label-caps"><span class="text-text-muted flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-threat-secure">verified_user</span>Zero-Storage Mode</span><span class="text-threat-secure font-mono-data text-mono-data">ENFORCED</span></div><p class="font-mono-packet text-mono-packet text-text-muted leading-tight">Raw PCAP Not Stored · Ephemeral In-Memory Processing</p><div class="mt-space-xs pt-space-xs border-t border-border-subtle flex items-center justify-between font-mono-packet text-mono-packet"><span class="text-text-muted flex items-center gap-1"><span class="material-symbols-outlined text-[13px] text-threat-info">dns</span>API Ping</span><span class="text-threat-secure">12ms</span></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-14 bg-surface-base/95 backdrop-blur-md border-b border-border-subtle z-40 px-space-lg flex items-center justify-between"><div class="flex items-center gap-space-base flex-1 max-w-xl"><div class="relative w-full flex items-center"><span class="material-symbols-outlined absolute left-3 text-text-muted text-[18px]">search</span><input class="w-full h-8 pl-9 pr-12 bg-surface-subtle border border-border-subtle rounded font-mono-data text-mono-data text-text-primary placeholder:text-text-muted focus:outline-none focus:border-border-active transition-colors" placeholder="Filter IP, SPI, Hash or Analysis ID..." type="text"/><div class="absolute right-2 flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-surface-raised border border-border-strong text-text-muted font-mono-packet text-mono-packet"><span class="text-[10px]">⌘</span><span>K</span></div></div><div class="flex items-center gap-2 px-2.5 py-1 rounded bg-surface-subtle border border-border-subtle"><span class="w-2 h-2 rounded-full bg-threat-secure animate-pulse"></span><span class="font-mono-packet text-mono-packet text-text-secondary whitespace-nowrap">Engine: v2.4 Active · API Ready</span></div></div><div class="flex items-center gap-space-md"><button class="relative p-1.5 rounded hover:bg-surface-raised text-text-secondary hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 bg-threat-high rounded-full ring-2 ring-surface-base"></span></button><div class="h-5 w-[1px] bg-border-subtle"></div><div class="flex items-center gap-space-sm pl-space-xs"><div class="flex flex-col items-end"><span class="font-headline-sm text-[13px] text-text-primary font-medium leading-none">SOC Lead Analyst</span><span class="font-mono-packet text-mono-packet text-text-muted leading-none mt-1">analyst@cyberwala.sec</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="relative pt-14 min-h-screen bg-surface-container-lowest w-full px-space-lg py-space-md"><div class="flex flex-col w-full space-y-6 pb-12">
+<!-- Top Banner / Header Segment -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-primary/10 text-primary font-mono-packet text-mono-packet uppercase tracking-wider font-semibold">Engine Pipeline 01</span>
+<span class="font-mono-packet text-mono-packet text-text-muted">SESSION ID #ANL-2025-9842</span>
+</div>
+<h1 class="font-headline-md text-headline-md text-text-primary tracking-tight font-semibold">Analyze PCAP / PCAPNG Stream</h1>
+<p class="font-body-md text-body-md text-text-secondary max-w-3xl">Upload raw network capture to inspect IPsec IKE/ESP crypto suites, protocol anomalies, and AI metadata exposure.</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-2 px-3 py-1.5 rounded bg-surface-subtle border border-border-subtle shadow-sm">
+<span class="material-symbols-outlined text-threat-info text-[18px]">memory</span>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-text-muted">BUFFER LOAD</span>
+<span class="font-mono-data text-mono-data text-text-primary leading-tight font-medium">0.00 / 250 MB</span>
+</div>
+</div>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded bg-surface-raised border border-border-strong hover:border-primary text-text-secondary hover:text-text-primary font-body-sm text-body-sm transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px]">help_outline</span>
+<span>PCAP Prep Guide</span>
+</button>
+</div>
+</div>
+<!-- Zero-Storage Privacy Card Banner (PRD Sec 6) -->
+<div class="relative overflow-hidden rounded bg-surface-subtle border border-border-subtle p-4 shadow-sm">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-threat-secure"></div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pl-1">
+<div class="flex items-start sm:items-center gap-3">
+<div class="w-8 h-8 rounded bg-threat-secure/10 border border-threat-secure/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-threat-secure text-[18px]">verified_user</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-[13px] text-text-primary font-semibold uppercase tracking-wider">Strict Privacy Mode Active</span>
+<span class="px-1.5 py-0.2 rounded bg-threat-secure/15 text-threat-secure font-mono-packet text-mono-packet">RAM-ONLY AUDIT</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary mt-0.5">
+            Strict Privacy Mode Active: Zero PCAP retention. Payload content is never stored or transmitted to external AI models. All temporary memory structures are scrubbed post-assessment.
+          </p>
+</div>
+</div>
+<div class="flex items-center gap-2 shrink-0 self-end sm:self-center">
+<span class="font-mono-packet text-mono-packet text-threat-secure flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-threat-secure"></span>
+          ENCRYPTED SCRUBBER ONLINE
+        </span>
+</div>
+</div>
+</div>
+<!-- Core Two-Column Upload & Configuration Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- Left Column: Drag & Drop Dropzone + File Inspection Card -->
+<div class="lg:col-span-8 flex flex-col space-y-4">
+<!-- Upload Surface Card -->
+<div class="relative group rounded bg-surface-subtle border-2 border-dashed border-border-strong hover:border-border-active bg-gradient-to-b from-surface-subtle to-surface-base p-6 transition-all duration-200 cursor-pointer shadow-sm" id="drop-container">
+<input accept=".pcap,.pcapng,.cap" class="absolute inset-0 opacity-0 cursor-pointer z-10" id="file-input" type="file"/>
+<div class="flex flex-col items-center justify-center text-center py-6 px-4">
+<div class="w-14 h-14 rounded-full bg-surface-raised border border-border-strong group-hover:border-primary flex items-center justify-center text-primary group-hover:scale-105 transition-all shadow-inner mb-3">
+<span class="material-symbols-outlined text-[30px]">file_upload</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-medium">Drop network capture here, or <span class="text-primary hover:underline">browse storage</span></h3>
+<p class="font-body-sm text-body-sm text-text-muted mt-1 max-w-md">Supports Wireshark &amp; tcpdump stream outputs. Standard packet slices and full payload dumps accepted up to 250 MB.</p>
+<div class="flex items-center gap-2 mt-4">
+<span class="px-2 py-0.5 rounded bg-surface-raised border border-border-subtle font-mono-packet text-mono-packet text-text-secondary">.PCAP</span>
+<span class="px-2 py-0.5 rounded bg-surface-raised border border-border-subtle font-mono-packet text-mono-packet text-text-secondary">.PCAPNG</span>
+<span class="px-2 py-0.5 rounded bg-surface-raised border border-border-subtle font-mono-packet text-mono-packet text-text-secondary">.CAP</span>
+<span class="text-text-muted text-[11px]">•</span>
+<span class="font-mono-packet text-mono-packet text-text-muted">Max Payload: 250 MB</span>
+</div>
+</div>
+</div>
+<!-- Selected File Mockup State Card (PRD Sec 3) -->
+<div class="rounded bg-surface-subtle border border-border-subtle p-4 shadow-sm relative" id="file-preview-card">
+<div class="flex items-start justify-between gap-4">
+<div class="flex items-start gap-3 min-w-0">
+<div class="w-10 h-10 rounded bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-primary text-[22px]">description</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-headline-sm text-[14px] text-text-primary font-semibold truncate">enterprise-vpn-session-2025.pcapng</span>
+<span class="px-2 py-0.5 rounded bg-threat-info/10 text-threat-info border border-threat-info/30 font-label-caps text-label-caps font-bold">READY</span>
+<span class="font-mono-packet text-mono-packet text-text-muted">42.8 MB</span>
+</div>
+<div class="mt-2 flex flex-col gap-1">
+<span class="font-label-caps text-label-caps text-text-muted uppercase">Real-Time Cryptographic Digest (SHA-256):</span>
+<div class="flex items-center gap-2 bg-surface-base px-2.5 py-1.5 rounded border border-border-subtle">
+<span class="material-symbols-outlined text-threat-info text-[15px] shrink-0">fingerprint</span>
+<code class="font-mono-data text-[12px] text-text-secondary select-all truncate">e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</code>
+<button class="ml-auto text-text-muted hover:text-text-primary p-0.5 rounded hover:bg-surface-raised transition-colors" title="Copy Hash" type="button">
+<span class="material-symbols-outlined text-[15px]">content_copy</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="p-1 rounded text-text-muted hover:text-threat-critical hover:bg-threat-critical/10 transition-colors" id="clear-btn" title="Remove File" type="button">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<!-- Capture Quick Telemetry Overview -->
+<div class="mt-4 pt-3 border-t border-border-subtle grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-text-muted uppercase">Estimated Packets</span>
+<span class="font-mono-metric text-[16px] text-text-primary mt-0.5">148,290</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-text-muted uppercase">Detected Protocols</span>
+<span class="font-mono-data text-mono-data text-primary mt-0.5">ESP, IKEv2, UDP</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-text-muted uppercase">Capture Window</span>
+<span class="font-mono-data text-mono-data text-text-secondary mt-0.5">00:14:32.81</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-text-muted uppercase">Framing Health</span>
+<span class="font-mono-data text-mono-data text-threat-secure mt-0.5">100% Valid Wire</span>
+</div>
+</div>
+</div>
+<!-- Action Area -->
+<div class="flex items-center justify-between pt-2">
+<button class="px-4 py-2 rounded bg-surface-raised border border-border-strong hover:bg-surface-overlay text-text-secondary font-body-sm text-body-sm transition-colors" id="btn-clear-alt" type="button">
+          Clear File
+        </button>
+<div class="flex items-center gap-3">
+<button class="px-4 py-2 rounded bg-surface-raised border border-border-strong hover:border-primary text-text-primary font-body-sm text-body-sm transition-colors flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[17px]">tune</span>
+<span>Inspection Rules</span>
+</button>
+<button class="px-5 py-2 rounded bg-primary hover:bg-primary-container text-surface-base font-semibold font-body-sm text-body-sm transition-all flex items-center gap-2 shadow-lg shadow-primary/20" id="start-btn" type="button">
+<span class="material-symbols-outlined text-[18px]">lock_open</span>
+<span>Start Security Assessment</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Right Column: Audit Configuration Options & Policy Constraints -->
+<div class="lg:col-span-4 flex flex-col space-y-4">
+<!-- Analysis Settings Module -->
+<div class="rounded bg-surface-subtle border border-border-subtle p-4 shadow-sm flex flex-col">
+<div class="flex items-center justify-between pb-3 border-b border-border-subtle">
+<span class="font-headline-sm text-[13px] text-text-primary font-semibold uppercase tracking-wider flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[17px]">checklist</span>
+            Analysis Directives
+          </span>
+<span class="font-mono-packet text-mono-packet text-primary bg-primary/10 px-2 py-0.5 rounded">PROFILE: DEFAULT-SOC</span>
+</div>
+<div class="flex flex-col space-y-3 mt-4">
+<!-- Option 1 -->
+<label class="flex items-start gap-3 p-2 rounded hover:bg-surface-raised/60 transition-colors cursor-pointer border border-transparent hover:border-border-subtle">
+<input checked="" class="mt-0.5 rounded border-border-strong text-primary focus:ring-0 focus:ring-offset-0 bg-surface-base cursor-pointer" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-text-primary font-medium">Perform deep IKE SA audit</span>
+<span class="font-mono-packet text-mono-packet text-text-muted mt-0.5">Parse proposal transforms, PFS DH groups, nonce length, and vendor ID anomalies</span>
+</div>
+</label>
+<!-- Option 2 -->
+<label class="flex items-start gap-3 p-2 rounded hover:bg-surface-raised/60 transition-colors cursor-pointer border border-transparent hover:border-border-subtle">
+<input checked="" class="mt-0.5 rounded border-border-strong text-primary focus:ring-0 focus:ring-offset-0 bg-surface-base cursor-pointer" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-text-primary font-medium">Enable ML encrypted traffic flow fingerprinting</span>
+<span class="font-mono-packet text-mono-packet text-text-muted mt-0.5">Statistical packet-length &amp; inter-arrival delta inference without payload decryption</span>
+</div>
+</label>
+<!-- Option 3 -->
+<label class="flex items-start gap-3 p-2 rounded hover:bg-surface-raised/60 transition-colors cursor-pointer border border-transparent hover:border-border-subtle">
+<input checked="" class="mt-0.5 rounded border-border-strong text-primary focus:ring-0 focus:ring-offset-0 bg-surface-base cursor-pointer" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-text-primary font-medium">Inspect NAT-Traversal keepalive drift</span>
+<span class="font-mono-packet text-mono-packet text-text-muted mt-0.5">Detect ESP-in-UDP Port 4500 encapsulation degradation &amp; silent session dropouts</span>
+</div>
+</label>
+<!-- Option 4 -->
+<label class="flex items-start gap-3 p-2 rounded hover:bg-surface-raised/60 transition-colors cursor-pointer border border-transparent hover:border-border-subtle">
+<input class="mt-0.5 rounded border-border-strong text-primary focus:ring-0 focus:ring-offset-0 bg-surface-base cursor-pointer" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-text-primary font-medium">Strict Compliance Check (NIST SP 800-77r1)</span>
+<span class="font-mono-packet text-mono-packet text-text-muted mt-0.5">Flag legacy 3DES, SHA-1, DH Groups &lt; 14, and non-AEAD ESP suites as CRITICAL</span>
+</div>
+</label>
+</div>
+<div class="mt-4 pt-3 border-t border-border-subtle flex items-center justify-between">
+<span class="font-mono-packet text-mono-packet text-text-muted">Target Security Baseline</span>
+<span class="font-mono-data text-[12px] text-threat-warning font-semibold">CNSA 2.0 Transition</span>
+</div>
+</div>
+<!-- AI Inference Footnote Card (PRD Sec 5) -->
+<div class="rounded bg-surface-subtle border-l-2 border-primary border-t border-r border-b border-border-subtle p-3.5 shadow-sm">
+<div class="flex items-center gap-2 text-primary font-label-caps text-label-caps uppercase font-semibold">
+<span class="material-symbols-outlined text-[16px]">neurology</span>
+<span>Traffic AI Protocol Guard</span>
+</div>
+<p class="font-body-sm text-[12px] text-text-secondary mt-1.5 leading-relaxed">
+          Classification is based on observable encrypted traffic metadata and does not decrypt user payloads. Inferences provide probabilistic categorization (e.g. Video-like, VoIP, Bulk Transfer) strictly via packet burst cadences.
+        </p>
+<div class="mt-2.5 flex items-center gap-2 font-mono-packet text-mono-packet text-text-muted">
+<span class="w-1.5 h-1.5 rounded-full bg-threat-secure"></span>
+<span>Zero-Knowledge Pipeline Compliant</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 8-Step Analysis Pipeline Visual Preview (PRD Sec 3 & 4) -->
+<div class="rounded bg-surface-subtle border border-border-subtle p-4 shadow-sm flex flex-col space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">account_tree</span>
+<span class="font-headline-sm text-[13px] text-text-primary font-semibold uppercase tracking-wider">Ingestion Pipeline Topology</span>
+</div>
+<span class="font-mono-packet text-mono-packet text-text-muted">8 STAGES SEQUENCED · STANDBY</span>
+</div>
+<!-- Stepper Grid -->
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-2 pt-2">
+<!-- Stage 1 -->
+<div class="flex flex-col p-2.5 rounded bg-surface-raised border border-threat-secure/40 relative overflow-hidden">
+<div class="flex items-center justify-between mb-1">
+<span class="font-mono-packet text-mono-packet text-text-muted">01</span>
+<span class="material-symbols-outlined text-threat-secure text-[15px]">check_circle</span>
+</div>
+<span class="font-body-sm text-[12px] font-semibold text-text-primary truncate">File Validation</span>
+<span class="font-mono-packet text-[10px] text-threat-secure truncate mt-0.5">CHECKSUM OK</span>
+</div>
+<!-- Stage 2 -->
+<div class="flex flex-col p-2.5 rounded bg-surface-raised border border-threat-secure/40 relative overflow-hidden">
+<div class="flex items-center justify-between mb-1">
+<span class="font-mono-packet text-mono-packet text-text-muted">02</span>
+<span class="material-symbols-outlined text-threat-secure text-[15px]">check_circle</span>
+</div>
+<span class="font-body-sm text-[12px] font-semibold text-text-primary truncate">Packet Extraction</span>
+<span class="font-mono-packet text-[10px] text-threat-secure truncate mt-0.5">148K PARSED</span>
+</div>
+<!-- Stage 3 -->
+<div class="flex flex-col p-2.5 rounded bg-surface-base border border-border-subtle">
+<div class="flex items-center justify-between mb-1">
+<span class="font-mono-packet text-mono-packet text-text-muted">03</span>
+<span class="w-2 h-2 rounded-full bg-threat-info"></span>
+</div>
+<span class="font-body-sm text-[12px] font-semibold text-text-secondary truncate">IPsec Framing</span>
+<span class="font-mono-packet text-[10px] text-text-muted truncate mt-0.5">QUEUED</span>
+</div>
+<!-- Stage 4 -->
+<div class="flex flex-col p-2.5 rounded bg-surface-base border border-border-subtle">
+<div class="flex items-center justify-between mb-1">
+<span class="font-mono-packet text-mono-packet text-text-muted">04</span>
+<span class="w-2 h-2 rounded-full bg-border-strong"></span>
+</div>
+<span class="font-body-sm text-[12px] font-semibold text-text-secondary truncate">IKE SA Audit</span>
+<span class="font-mono-packet text-[10px] text-text-muted truncate mt-0.5">QUEUED</span>
+</div>
+<!-- Stage 5 -->
+<div class="flex flex-col p-2.5 rounded bg-surface-base border border-border-subtle">
+<div class="flex items-center justify-between mb-1">
+<span class="font-mono-packet text-mono-packet text-text-muted">05</span>
+<span class="w-2 h-2 rounded-full bg-border-strong"></span>
+</div>
+<span class="font-body-sm text-[12px] font-semibold text-text-secondary truncate">ESP Crypto</span>
+<span class="font-mono-packet text-[10px] text-text-muted truncate mt-0.5">QUEUED</span>
+</div>
+<!-- Stage 6 -->
+<div class="flex flex-col p-2.5 rounded bg-surface-base border border-border-subtle">
+<div class="flex items-center justify-between mb-1">
+<span class="font-mono-packet text-mono-packet text-text-muted">06</span>
+<span class="w-2 h-2 rounded-full bg-border-strong"></span>
+</div>
+<span class="font-body-sm text-[12px] font-semibold text-text-secondary truncate">Assessment</span>
+<span class="font-mono-packet text-[10px] text-text-muted truncate mt-0.5">QUEUED</span>
+</div>
+<!-- Stage 7 -->
+<div class="flex flex-col p-2.5 rounded bg-surface-base border border-border-subtle">
+<div class="flex items-center justify-between mb-1">
+<span class="font-mono-packet text-mono-packet text-text-muted">07</span>
+<span class="w-2 h-2 rounded-full bg-border-strong"></span>
+</div>
+<span class="font-body-sm text-[12px] font-semibold text-text-secondary truncate">Traffic AI</span>
+<span class="font-mono-packet text-[10px] text-text-muted truncate mt-0.5">QUEUED</span>
+</div>
+<!-- Stage 8 -->
+<div class="flex flex-col p-2.5 rounded bg-surface-base border border-border-subtle">
+<div class="flex items-center justify-between mb-1">
+<span class="font-mono-packet text-mono-packet text-text-muted">08</span>
+<span class="w-2 h-2 rounded-full bg-border-strong"></span>
+</div>
+<span class="font-body-sm text-[12px] font-semibold text-text-secondary truncate">Report Gen</span>
+<span class="font-mono-packet text-[10px] text-text-muted truncate mt-0.5">QUEUED</span>
+</div>
+</div>
+</div>
+<!-- Recent Uploads Table with Re-Scan (PRD Sec 3) -->
+<div class="rounded bg-surface-subtle border border-border-subtle shadow-sm flex flex-col">
+<div class="px-4 py-3 border-b border-border-subtle flex items-center justify-between flex-wrap gap-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-text-muted text-[18px]">history</span>
+<span class="font-headline-sm text-[13px] text-text-primary font-semibold uppercase tracking-wider">Recent Captured Traces</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="relative">
+<input class="h-7 pl-7 pr-3 bg-surface-base border border-border-subtle rounded font-mono-data text-[12px] text-text-primary placeholder:text-text-muted focus:outline-none focus:border-border-active w-48" placeholder="Filter captures..." type="text"/>
+<span class="material-symbols-outlined absolute left-2 top-1.5 text-text-muted text-[14px]">filter_list</span>
+</div>
+<button class="h-7 px-2.5 rounded bg-surface-raised border border-border-subtle hover:border-primary text-text-secondary hover:text-text-primary font-mono-packet text-mono-packet flex items-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[14px]">refresh</span>
+<span>Sync</span>
+</button>
+</div>
+</div>
+<!-- Table Container with High-Density Layout -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-border-subtle bg-surface-container-lowest text-text-muted font-label-caps text-label-caps uppercase tracking-wider">
+<th class="py-2.5 px-4">Analysis Ref</th>
+<th class="py-2.5 px-4">Filename / Hash</th>
+<th class="py-2.5 px-4">Size</th>
+<th class="py-2.5 px-4">Detected Suite</th>
+<th class="py-2.5 px-4">Score</th>
+<th class="py-2.5 px-4">Risk Rating</th>
+<th class="py-2.5 px-4 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-subtle font-mono-data text-mono-data text-text-secondary">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-raised/40 transition-colors">
+<td class="py-2.5 px-4 text-primary font-semibold">#ANL-8910</td>
+<td class="py-2.5 px-4">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-text-primary font-medium">datacenter-core-gw01.pcap</span>
+<span class="font-mono-packet text-mono-packet text-text-muted truncate max-w-xs">9b1a03fc...a47b38d1</span>
+</div>
+</td>
+<td class="py-2.5 px-4 text-text-muted">112.4 MB</td>
+<td class="py-2.5 px-4">
+<span class="px-2 py-0.5 rounded bg-surface-raised border border-border-subtle font-mono-packet text-mono-packet text-text-primary">AES-GCM-256 · DH-19</span>
+</td>
+<td class="py-2.5 px-4">
+<span class="font-mono-metric text-[15px] text-threat-secure">94</span><span class="text-text-muted text-[11px]">/100</span>
+</td>
+<td class="py-2.5 px-4">
+<span class="px-2 py-0.5 rounded bg-threat-secure/15 text-threat-secure border border-threat-secure/30 font-label-caps text-label-caps uppercase">SECURE</span>
+</td>
+<td class="py-2.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="p-1 rounded text-text-muted hover:text-primary hover:bg-surface-raised transition-colors" title="Re-scan Capture" type="button">
+<span class="material-symbols-outlined text-[16px]">replay</span>
+</button>
+<button class="p-1 rounded text-text-muted hover:text-text-primary hover:bg-surface-raised transition-colors" title="View Full Report" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-raised/40 transition-colors">
+<td class="py-2.5 px-4 text-primary font-semibold">#ANL-8904</td>
+<td class="py-2.5 px-4">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-text-primary font-medium">branch-office-cisco-asa.pcapng</span>
+<span class="font-mono-packet text-mono-packet text-text-muted truncate max-w-xs">4f51e032...02cc1179</span>
+</div>
+</td>
+<td class="py-2.5 px-4 text-text-muted">18.9 MB</td>
+<td class="py-2.5 px-4">
+<span class="px-2 py-0.5 rounded bg-surface-raised border border-threat-critical/30 font-mono-packet text-mono-packet text-threat-critical">3DES-CBC · MD5 (Legacy)</span>
+</td>
+<td class="py-2.5 px-4">
+<span class="font-mono-metric text-[15px] text-threat-critical">31</span><span class="text-text-muted text-[11px]">/100</span>
+</td>
+<td class="py-2.5 px-4">
+<span class="px-2 py-0.5 rounded bg-threat-critical/15 text-threat-critical border border-threat-critical/30 font-label-caps text-label-caps uppercase">CRITICAL</span>
+</td>
+<td class="py-2.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="p-1 rounded text-threat-warning hover:text-primary hover:bg-surface-raised transition-colors" title="Re-scan Capture" type="button">
+<span class="material-symbols-outlined text-[16px]">replay</span>
+</button>
+<button class="p-1 rounded text-text-muted hover:text-text-primary hover:bg-surface-raised transition-colors" title="View Full Report" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-raised/40 transition-colors">
+<td class="py-2.5 px-4 text-primary font-semibold">#ANL-8871</td>
+<td class="py-2.5 px-4">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-text-primary font-medium">aws-vng-ipsec-probe.pcap</span>
+<span class="font-mono-packet text-mono-packet text-text-muted truncate max-w-xs">17d89004...99baf204</span>
+</div>
+</td>
+<td class="py-2.5 px-4 text-text-muted">64.1 MB</td>
+<td class="py-2.5 px-4">
+<span class="px-2 py-0.5 rounded bg-surface-raised border border-threat-warning/30 font-mono-packet text-mono-packet text-threat-warning">AES-CBC-128 · DH-14 (No PFS)</span>
+</td>
+<td class="py-2.5 px-4">
+<span class="font-mono-metric text-[15px] text-threat-warning">68</span><span class="text-text-muted text-[11px]">/100</span>
+</td>
+<td class="py-2.5 px-4">
+<span class="px-2 py-0.5 rounded bg-threat-warning/15 text-threat-warning border border-threat-warning/30 font-label-caps text-label-caps uppercase">WARNING</span>
+</td>
+<td class="py-2.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="p-1 rounded text-text-muted hover:text-primary hover:bg-surface-raised transition-colors" title="Re-scan Capture" type="button">
+<span class="material-symbols-outlined text-[16px]">replay</span>
+</button>
+<button class="p-1 rounded text-text-muted hover:text-text-primary hover:bg-surface-raised transition-colors" title="View Full Report" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer / Telemetry status -->
+<div class="px-4 py-2 bg-surface-base border-t border-border-subtle flex items-center justify-between font-mono-packet text-mono-packet text-text-muted">
+<span>Showing 3 of 42 historical captures</span>
+<div class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-threat-secure"></span>
+<span>Local In-Memory Cache Active</span>
+</div>
+</div>
+</div>
+<!-- Interactive JavaScript Behavior Script -->
+<script>
+    (function() {
+      const dropZone = document.getElementById('drop-container');
+      const fileInput = document.getElementById('file-input');
+      const previewCard = document.getElementById('file-preview-card');
+      const clearBtn = document.getElementById('clear-btn');
+      const clearBtnAlt = document.getElementById('btn-clear-alt');
+      const startBtn = document.getElementById('start-btn');
+
+      if (dropZone && fileInput) {
+        // Drag styling
+        ['dragenter', 'dragover'].forEach(eventName => {
+          dropZone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dropZone.classList.add('border-primary', 'bg-surface-raised/40');
+          }, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+          dropZone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dropZone.classList.remove('border-primary', 'bg-surface-raised/40');
+          }, false);
+        });
+
+        // File drop simulation
+        dropZone.addEventListener('drop', (e) => {
+          if (previewCard) {
+            previewCard.classList.remove('hidden');
+          }
+        });
+
+        fileInput.addEventListener('change', () => {
+          if (previewCard) {
+            previewCard.classList.remove('hidden');
+          }
+        });
+      }
+
+      // Clear File actions
+      const handleClear = () => {
+        if (fileInput) fileInput.value = '';
+        if (previewCard) {
+          previewCard.classList.add('opacity-40');
+          setTimeout(() => {
+            previewCard.classList.remove('opacity-40');
+          }, 300);
+        }
+      };
+
+      if (clearBtn) clearBtn.addEventListener('click', handleClear);
+      if (clearBtnAlt) clearBtnAlt.addEventListener('click', handleClear);
+
+      // Start Analysis Action
+      if (startBtn) {
+        startBtn.addEventListener('click', () => {
+          startBtn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">progress_activity</span><span>Dispatching Engine...</span>';
+          startBtn.classList.add('pointer-events-none', 'opacity-80');
+          setTimeout(() => {
+            startBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">done</span><span>Dispatched to Analyzer</span>';
+            setTimeout(() => {
+              startBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">lock_open</span><span>Start Security Assessment</span>';
+              startBtn.classList.remove('pointer-events-none', 'opacity-80');
+            }, 1800);
+          }, 1200);
+        });
+      }
+    })();
+  </script>
+</div></main></div><script src="/static/stitch_integration.js"></script></body></html>
+

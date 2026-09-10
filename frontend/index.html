@@ -1,277 +1,714 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CYBERSEC — AI-Powered IPsec VPN Security Analyzer</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/static/style.css">
-</head>
-<body>
-  <div class="app-container">
-    <!-- Navigation Bar -->
-    <header class="top-nav">
-      <div class="brand">
-        <div class="logo-shield">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            <path d="M9 12l2 2 4-4"/>
-          </svg>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "surface-container-low": "#181c24",
+          "threat-critical": "#EF4444",
+          "on-background": "#dfe2ee",
+          "threat-high": "#F97316",
+          "primary": "#4cd7f6",
+          "surface-variant": "#31353e",
+          "secondary-fixed-dim": "#adc6ff",
+          "on-surface-variant": "#bcc9cd",
+          "tertiary-fixed-dim": "#4edea3",
+          "inverse-primary": "#00687a",
+          "surface-overlay": "#283548",
+          "on-error-container": "#ffdad6",
+          "tertiary": "#4edea3",
+          "surface-subtle": "#111827",
+          "background": "#0f131c",
+          "on-tertiary": "#003824",
+          "border-subtle": "#1E293B",
+          "on-secondary-fixed-variant": "#004395",
+          "threat-secure": "#10B981",
+          "error": "#ffb4ab",
+          "secondary-fixed": "#d8e2ff",
+          "threat-info": "#06B6D4",
+          "on-tertiary-container": "#00452e",
+          "border-strong": "#334155",
+          "on-primary": "#003640",
+          "secondary-container": "#0566d9",
+          "surface-base": "#0B0F17",
+          "inverse-on-surface": "#2c3039",
+          "text-muted": "#64748B",
+          "secondary": "#adc6ff",
+          "surface-bright": "#353942",
+          "on-tertiary-fixed": "#002113",
+          "on-secondary-fixed": "#001a42",
+          "surface-tint": "#4cd7f6",
+          "on-surface": "#dfe2ee",
+          "on-secondary-container": "#e6ecff",
+          "tertiary-container": "#1bbd85",
+          "surface-container-lowest": "#0a0e16",
+          "border-active": "#06B6D4",
+          "on-secondary": "#002e6a",
+          "error-container": "#93000a",
+          "primary-fixed": "#acedff",
+          "on-error": "#690005",
+          "tertiary-fixed": "#6ffbbe",
+          "text-primary": "#F8FAFC",
+          "inverse-surface": "#dfe2ee",
+          "primary-container": "#06b6d4",
+          "surface": "#0f131c",
+          "on-primary-fixed": "#001f26",
+          "surface-container": "#1c2028",
+          "outline-variant": "#3d494c",
+          "on-tertiary-fixed-variant": "#005236",
+          "primary-fixed-dim": "#4cd7f6",
+          "threat-warning": "#F59E0B",
+          "surface-raised": "#1F2937",
+          "on-primary-container": "#00424f",
+          "outline": "#869397",
+          "surface-dim": "#0f131c",
+          "surface-container-high": "#262a33",
+          "on-primary-fixed-variant": "#004e5c",
+          "surface-container-highest": "#31353e",
+          "text-secondary": "#94A3B8"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "space-md": "0.75rem",
+          "space-lg": "1.5rem",
+          "space-2xs": "0.125rem",
+          "space-xl": "2rem",
+          "gutter-desktop": "1.5rem",
+          "space-2xl": "3rem",
+          "space-sm": "0.5rem",
+          "space-base": "1rem",
+          "sidebar-collapsed": "4rem",
+          "space-xs": "0.25rem",
+          "gutter-mobile": "0.75rem",
+          "header-height": "3.5rem",
+          "sidebar-expanded": "16rem"
+        },
+        "fontFamily": {
+          "headline-md": ["Geist"],
+          "display-lg": ["Geist"],
+          "label-caps": ["Inter"],
+          "mono-data": ["JetBrains Mono"],
+          "body-sm": ["Inter"],
+          "mono-packet": ["JetBrains Mono"],
+          "headline-sm": ["Geist"],
+          "display-lg-mobile": ["Geist"],
+          "body-lg": ["Inter"],
+          "mono-metric": ["JetBrains Mono"],
+          "body-md": ["Inter"]
+        },
+        "fontSize": {
+          "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+          "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+          "label-caps": ["11px", {"lineHeight": "14px", "letterSpacing": "0.06em", "fontWeight": "600"}],
+          "mono-data": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+          "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+          "mono-packet": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+          "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "500"}],
+          "display-lg-mobile": ["26px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+          "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+          "mono-metric": ["24px", {"lineHeight": "28px", "letterSpacing": "-0.03em", "fontWeight": "700"}],
+          "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+        }
+      }
+    }
+  }</script></head><body class="bg-surface-container-lowest font-body-md text-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 bottom-0 w-64 bg-surface-base border-r border-border-subtle z-50 flex flex-col justify-between select-none"><div class="flex flex-col"><div class="h-14 px-space-base flex items-center gap-space-sm border-b border-border-subtle bg-surface-container-lowest"><img alt="Brand logo. - Primary color: #06b6d4
+- Font: geist
+- Mode: dark
+- Roundness: rounded-sm
+" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Uok4RZYFrUjcg9Yvyo0u7UBscNxx8HYJUGHH9qgKJnm_TDrWmU16Z5s37PWzAIgpDvkbsIGrDK-e6rDAI5VhJZp3zkvUnQIsSRUj5CBvvvgPnVethxp0ADWbvbNM2I-UkDF84it2qep-hKl8lWbYbzCNO7QMrpPd9CZfMXcqJSx_Q1spsVJAz7v3_ygwjoKswR84Dp9ccoREOs_6GT4QCN74SNtfFDtL-TddSOyNJZdVIV7BL2N_8oBu4"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-text-primary tracking-tight font-semibold leading-tight">Cyber Wala</span><span class="font-label-caps text-label-caps text-primary tracking-wider uppercase">IPsec SOC Analyzer</span></div></div><div class="px-space-base pt-space-md pb-space-xs"><span class="font-label-caps text-label-caps text-text-muted uppercase tracking-wider font-semibold">SOC Operations</span></div><nav class="flex flex-col px-space-xs space-y-0.5" data-active-classes="bg-surface-raised text-primary border-l-2 border-border-active"><a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-space-xs rounded transition-colors font-body-sm bg-surface-raised text-primary border-l-2 border-border-active" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[18px]">space_dashboard</span><span>Dashboard</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-text-secondary hover:bg-surface-raised hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="analyze-pcap" href="#"><span class="material-symbols-outlined text-[18px]">upload_file</span><span>Analyze PCAP</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-text-secondary hover:bg-surface-raised hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="analyses" href="#"><span class="material-symbols-outlined text-[18px]">history</span><span>Analyses</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-text-secondary hover:bg-surface-raised hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="vpn-profiles" href="#"><span class="material-symbols-outlined text-[18px]">vpn_lock</span><span>VPN Profiles</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-text-secondary hover:bg-surface-raised hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="findings-and-threats" href="#"><span class="material-symbols-outlined text-[18px]">gshield</span><span>Findings &amp; Threats</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-text-secondary hover:bg-surface-raised hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="traffic-ai" href="#"><span class="material-symbols-outlined text-[18px]">neurology</span><span>Traffic AI</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-text-secondary hover:bg-surface-raised hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="packet-explorer" href="#"><span class="material-symbols-outlined text-[18px]">data_array</span><span>Packet Explorer</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-text-secondary hover:bg-surface-raised hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="reports" href="#"><span class="material-symbols-outlined text-[18px]">description</span><span>Reports</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-text-secondary hover:bg-surface-raised hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="settings" href="#"><span class="material-symbols-outlined text-[18px]">tune</span><span>Settings</span></a></nav></div><div class="p-space-base border-t border-border-subtle bg-surface-container-lowest flex flex-col gap-space-xs"><div class="flex items-center justify-between font-label-caps text-label-caps"><span class="text-text-muted flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-threat-secure">verified_user</span>Zero-Storage Mode</span><span class="text-threat-secure font-mono-data text-mono-data">ENFORCED</span></div><p class="font-mono-packet text-mono-packet text-text-muted leading-tight">Raw PCAP Not Stored · Ephemeral In-Memory Processing</p><div class="mt-space-xs pt-space-xs border-t border-border-subtle flex items-center justify-between font-mono-packet text-mono-packet"><span class="text-text-muted flex items-center gap-1"><span class="material-symbols-outlined text-[13px] text-threat-info">dns</span>API Ping</span><span class="text-threat-secure">12ms</span></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-14 bg-surface-base/95 backdrop-blur-md border-b border-border-subtle z-40 px-space-lg flex items-center justify-between"><div class="flex items-center gap-space-base flex-1 max-w-xl"><div class="relative w-full flex items-center"><span class="material-symbols-outlined absolute left-3 text-text-muted text-[18px]">search</span><input class="w-full h-8 pl-9 pr-12 bg-surface-subtle border border-border-subtle rounded font-mono-data text-mono-data text-text-primary placeholder:text-text-muted focus:outline-none focus:border-border-active transition-colors" placeholder="Filter IP, SPI, Hash or Analysis ID..." type="text"/><div class="absolute right-2 flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-surface-raised border border-border-strong text-text-muted font-mono-packet text-mono-packet"><span class="text-[10px]">⌘</span><span>K</span></div></div><div class="flex items-center gap-2 px-2.5 py-1 rounded bg-surface-subtle border border-border-subtle"><span class="w-2 h-2 rounded-full bg-threat-secure animate-pulse"></span><span class="font-mono-packet text-mono-packet text-text-secondary whitespace-nowrap">Engine: v2.4 Active · API Ready</span></div></div><div class="flex items-center gap-space-md"><button class="relative p-1.5 rounded hover:bg-surface-raised text-text-secondary hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 bg-threat-high rounded-full ring-2 ring-surface-base"></span></button><div class="h-5 w-[1px] bg-border-subtle"></div><div class="flex items-center gap-space-sm pl-space-xs"><div class="flex flex-col items-end"><span class="font-headline-sm text-[13px] text-text-primary font-medium leading-none">SOC Lead Analyst</span><span class="font-mono-packet text-mono-packet text-text-muted leading-none mt-1">analyst@cyberwala.sec</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="relative pt-14 min-h-screen bg-surface-container-lowest w-full px-space-lg py-space-md"><div class="flex flex-col w-full space-y-space-lg">
+<!-- Top Global Metrics Ribbon -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-space-sm">
+<!-- Stat 1: Total Analyses -->
+<div class="bg-surface-subtle p-space-md rounded-xl flex flex-col justify-between hover:bg-surface-raised transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-text-muted uppercase tracking-wider">Total Analyses</span>
+<span class="material-symbols-outlined text-[16px] text-primary">analytics</span>
+</div>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="font-mono-metric text-mono-metric text-text-primary tracking-tight">1,428</span>
+<span class="font-mono-packet text-mono-packet text-threat-secure flex items-center">
+<span class="material-symbols-outlined text-[12px]">arrow_upward</span>+12.4%
+        </span>
+</div>
+<span class="font-mono-packet text-mono-packet text-text-muted mt-1">Telemetry PCAP / PCAPNG</span>
+</div>
+<!-- Stat 2: Secure Tunnels -->
+<div class="bg-surface-subtle p-space-md rounded-xl flex flex-col justify-between hover:bg-surface-raised transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-text-muted uppercase tracking-wider">Secure Tunnels</span>
+<span class="material-symbols-outlined text-[16px] text-threat-secure">lock</span>
+</div>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="font-mono-metric text-mono-metric text-threat-secure tracking-tight">1,104</span>
+<span class="font-label-caps text-[10px] px-1.5 py-0.5 rounded bg-threat-secure/15 text-threat-secure">77.3%</span>
+</div>
+<span class="font-mono-packet text-mono-packet text-text-muted mt-1">PFS &amp; AES-GCM Compliant</span>
+</div>
+<!-- Stat 3: At-Risk -->
+<div class="bg-surface-subtle p-space-md rounded-xl flex flex-col justify-between hover:bg-surface-raised transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-text-muted uppercase tracking-wider">At-Risk</span>
+<span class="material-symbols-outlined text-[16px] text-threat-warning">warning</span>
+</div>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="font-mono-metric text-mono-metric text-threat-warning tracking-tight">284</span>
+<span class="font-label-caps text-[10px] px-1.5 py-0.5 rounded bg-threat-warning/15 text-threat-warning">WARN</span>
+</div>
+<span class="font-mono-packet text-mono-packet text-text-muted mt-1">DH Group &lt; 14 / CBC-HMAC</span>
+</div>
+<!-- Stat 4: Critical Vulnerabilities -->
+<div class="bg-surface-subtle p-space-md rounded-xl flex flex-col justify-between hover:bg-surface-raised transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-text-muted uppercase tracking-wider">Critical Vulns</span>
+<span class="material-symbols-outlined text-[16px] text-threat-critical">dangerous</span>
+</div>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="font-mono-metric text-mono-metric text-threat-critical tracking-tight">40</span>
+<span class="font-label-caps text-[10px] px-1.5 py-0.5 rounded bg-threat-critical/20 text-threat-critical animate-pulse">ACTION REQ</span>
+</div>
+<span class="font-mono-packet text-mono-packet text-text-muted mt-1">Aggressive Mode / 3DES / MD5</span>
+</div>
+<!-- Stat 5: Average Security Score -->
+<div class="bg-surface-subtle p-space-md rounded-xl flex flex-col justify-between hover:bg-surface-raised transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-text-muted uppercase tracking-wider">Posture Score</span>
+<span class="material-symbols-outlined text-[16px] text-primary">verified</span>
+</div>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="font-mono-metric text-mono-metric text-text-primary tracking-tight">82</span>
+<span class="font-mono-data text-mono-data text-text-muted">/100</span>
+<span class="font-label-caps text-[10px] px-1.5 py-0.5 rounded bg-threat-secure/15 text-threat-secure uppercase ml-auto">Good</span>
+</div>
+<div class="w-full bg-surface-raised h-1 rounded-full mt-2 overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 82%"></div>
+</div>
+</div>
+</div>
+<!-- Main Hero Grid: 4 Core SOC Analytics Modules -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-base">
+<!-- Module 1: Radial Gauge Widget (4 Cols) -->
+<div class="lg:col-span-4 bg-surface-subtle rounded-xl p-space-lg flex flex-col justify-between shadow-sm">
+<div class="flex items-start justify-between">
+<div>
+<span class="font-label-caps text-label-caps text-text-muted uppercase tracking-wider block">Aggregate Metric</span>
+<h2 class="font-headline-sm text-headline-sm text-text-primary font-semibold mt-0.5">IPsec Posture Score</h2>
+</div>
+<span class="font-mono-packet text-[10px] uppercase tracking-wider px-2 py-0.5 bg-surface-raised rounded text-primary">Live SLA: 99.98%</span>
+</div>
+<!-- Gauge Visualization -->
+<div class="flex flex-col items-center justify-center my-4 relative">
+<div class="relative w-48 h-48 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 160 160">
+<!-- Background track -->
+<circle cx="80" cy="80" fill="transparent" r="66" stroke="#1F2937" stroke-linecap="round" stroke-width="12"></circle>
+<!-- Zone segments underlying -->
+<circle class="transition-all duration-1000 ease-out" cx="80" cy="80" fill="transparent" r="66" stroke="#06B6D4" stroke-dasharray="414.69" stroke-dashoffset="74.64" stroke-linecap="round" stroke-width="12"></circle>
+</svg>
+<!-- Center Gauge Readings -->
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center select-none">
+<span class="font-mono-metric text-[38px] leading-none font-bold text-text-primary">82</span>
+<span class="font-label-caps text-label-caps uppercase text-threat-secure tracking-widest font-semibold mt-1">GOOD</span>
+<span class="font-mono-packet text-[10px] text-text-muted mt-0.5">SCALE 0 - 100</span>
+</div>
+</div>
+<!-- Metric Zone Legend Scale -->
+<div class="grid grid-cols-5 w-full gap-1 mt-3 px-2">
+<div class="flex flex-col items-center">
+<div class="h-1 w-full bg-threat-critical rounded-full mb-1"></div>
+<span class="font-mono-packet text-[9px] text-text-muted">0-24</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="h-1 w-full bg-threat-high rounded-full mb-1"></div>
+<span class="font-mono-packet text-[9px] text-text-muted">25-49</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="h-1 w-full bg-threat-warning rounded-full mb-1"></div>
+<span class="font-mono-packet text-[9px] text-text-muted">50-74</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="h-1 w-full bg-primary rounded-full mb-1"></div>
+<span class="font-mono-packet text-[9px] text-primary font-semibold">75-89</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="h-1 w-full bg-threat-secure rounded-full mb-1"></div>
+<span class="font-mono-packet text-[9px] text-text-muted">90-100</span>
+</div>
+</div>
+</div>
+<!-- Footnote microcopy -->
+<div class="bg-surface-container-lowest p-2.5 rounded-lg flex items-start gap-2">
+<span class="material-symbols-outlined text-[15px] text-primary shrink-0 mt-0.5">verified_user</span>
+<p class="font-mono-packet text-mono-packet text-text-muted leading-tight">
+          Evaluated across 14 IPsec crypto parameters &amp; traffic heuristics including PFS renegotiation, anti-replay windows, and DH modulus strength.
+        </p>
+</div>
+</div>
+<!-- Module 2: Interactive SVG 30-Day Trend (8 Cols) -->
+<div class="lg:col-span-8 bg-surface-subtle rounded-xl p-space-lg flex flex-col justify-between shadow-sm">
+<div class="flex flex-wrap items-center justify-between gap-2">
+<div>
+<span class="font-label-caps text-label-caps text-text-muted uppercase tracking-wider block">Temporal Observability</span>
+<h2 class="font-headline-sm text-headline-sm text-text-primary font-semibold mt-0.5">Posture Score Trend (Past 30 Days)</h2>
+</div>
+<div class="flex items-center gap-1 bg-surface-raised p-0.5 rounded-lg">
+<button class="px-2.5 py-1 rounded font-mono-packet text-mono-packet text-text-primary bg-surface-subtle" type="button">30D</button>
+<button class="px-2.5 py-1 rounded font-mono-packet text-mono-packet text-text-muted hover:text-text-primary transition-colors" type="button">14D</button>
+<button class="px-2.5 py-1 rounded font-mono-packet text-mono-packet text-text-muted hover:text-text-primary transition-colors" type="button">7D</button>
+<button class="px-2.5 py-1 rounded font-mono-packet text-mono-packet text-text-muted hover:text-text-primary transition-colors" type="button">24H</button>
+</div>
+</div>
+<!-- SVG Sparkline / Area chart -->
+<div class="relative w-full h-52 mt-4">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 600 200">
+<defs>
+<lineargradient id="scoreAreaGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#06B6D4" stop-opacity="0.3"></stop>
+<stop offset="100%" stop-color="#06B6D4" stop-opacity="0.0"></stop>
+</lineargradient>
+</defs>
+<!-- Horizontal Grid Lines -->
+<line stroke="#1F2937" stroke-dasharray="4 4" stroke-width="1" x1="0" x2="600" y1="30" y2="30"></line>
+<line stroke="#1F2937" stroke-dasharray="4 4" stroke-width="1" x1="0" x2="600" y1="80" y2="80"></line>
+<line stroke="#1F2937" stroke-dasharray="4 4" stroke-width="1" x1="0" x2="600" y1="130" y2="130"></line>
+<line stroke="#1F2937" stroke-width="1" x1="0" x2="600" y1="180" y2="180"></line>
+<!-- Filled Trend Area -->
+<polygon fill="url(#scoreAreaGradient)" points="
+            0,140
+            40,132
+            80,128
+            120,136
+            160,118
+            200,105
+            240,112
+            280,95
+            320,90
+            360,78
+            400,84
+            440,65
+            480,72
+            520,58
+            560,50
+            600,45
+            600,180
+            0,180
+          "></polygon>
+<!-- Polyline Trend -->
+<polyline fill="none" points="
+            0,140
+            40,132
+            80,128
+            120,136
+            160,118
+            200,105
+            240,112
+            280,95
+            320,90
+            360,78
+            400,84
+            440,65
+            480,72
+            520,58
+            560,50
+            600,45
+          " stroke="#06B6D4" stroke-linejoin="round" stroke-width="2.5"></polyline>
+<!-- High-water mark pinpoint -->
+<circle cx="600" cy="45" fill="#06B6D4" r="4.5" stroke="#0B0F17" stroke-width="2"></circle>
+<!-- Anomaly Dip pinpoint (Day 11) -->
+<circle cx="200" cy="105" fill="#EF4444" r="3.5" stroke="#0B0F17" stroke-width="1.5"></circle>
+</svg>
+<!-- Dynamic Marker Tooltip Overlays -->
+<div class="absolute top-4 right-2 bg-surface-container-lowest border border-border-subtle p-2 rounded shadow-md pointer-events-none">
+<div class="flex items-center gap-1.5 font-mono-packet text-mono-packet text-text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span>Current: <strong class="text-primary font-semibold">82.4</strong> PTS (+14% vs T-30)</span>
+</div>
+</div>
+<div class="absolute top-20 left-[30%] hidden sm:flex items-center gap-1 bg-surface-container-lowest/90 px-2 py-1 rounded text-[11px] font-mono-packet text-text-muted">
+<span class="text-threat-critical">●</span> IKEv1 Flap Resolved
         </div>
-        <div class="brand-text">
-          <h1>CYBERSEC <span class="badge-tag">AI ANALYZER</span></h1>
-          <p class="subtitle">Privacy-Preserving IPsec Security & Side-Channel Assessment</p>
-        </div>
-      </div>
+</div>
+<!-- Chart Footer Telemetry Bar -->
+<div class="flex items-center justify-between font-mono-packet text-mono-packet text-text-muted pt-3">
+<span>T-30 (Score: 68 · Deprecated DES detected)</span>
+<span class="flex items-center gap-2">
+<span class="inline-block w-2 h-0.5 bg-primary"></span> Moving Avg: 78.6
+        </span>
+<span>Today (Score: 82 · Target &gt; 85)</span>
+</div>
+</div>
+<!-- Module 3: Findings by Severity Donut (6 Cols) -->
+<div class="lg:col-span-6 bg-surface-subtle rounded-xl p-space-lg flex flex-col justify-between shadow-sm">
+<div class="flex items-center justify-between">
+<div>
+<span class="font-label-caps text-label-caps text-text-muted uppercase tracking-wider block">Risk Triage</span>
+<h2 class="font-headline-sm text-headline-sm text-text-primary font-semibold mt-0.5">Findings by Severity</h2>
+</div>
+<span class="font-mono-data text-mono-data text-text-primary font-semibold bg-surface-raised px-2.5 py-1 rounded">284 Total Issues</span>
+</div>
+<div class="flex flex-col sm:flex-row items-center justify-around gap-6 my-4">
+<!-- SVG Donut Chart -->
+<div class="relative w-36 h-36 shrink-0 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 120 120">
+<!-- Circumference = 2 * PI * 46 = ~289 -->
+<!-- Low (99/284 ~ 35% -> stroke-dasharray 101, 289) -->
+<circle cx="60" cy="60" fill="none" r="46" stroke="#334155" stroke-width="14"></circle>
+<!-- Medium (145/284 ~ 51%) -->
+<circle cx="60" cy="60" fill="none" r="46" stroke="#F59E0B" stroke-dasharray="147 289" stroke-dashoffset="0" stroke-width="14"></circle>
+<!-- High (32/284 ~ 11%) -->
+<circle cx="60" cy="60" fill="none" r="46" stroke="#F97316" stroke-dasharray="32 289" stroke-dashoffset="-147" stroke-width="14"></circle>
+<!-- Critical (8/284 ~ 3%) -->
+<circle cx="60" cy="60" fill="none" r="46" stroke="#EF4444" stroke-dasharray="9 289" stroke-dashoffset="-179" stroke-width="14"></circle>
+</svg>
+<div class="absolute flex flex-col items-center justify-center text-center">
+<span class="font-mono-metric text-[20px] font-bold text-threat-critical">8</span>
+<span class="font-label-caps text-[9px] uppercase tracking-wider text-text-muted">Critical</span>
+</div>
+</div>
+<!-- Segmented Breakdown Legend -->
+<div class="flex flex-col w-full space-y-2.5 max-w-xs">
+<!-- Critical -->
+<div class="flex items-center justify-between font-mono-data text-mono-data">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-sm bg-threat-critical"></span>
+<span class="text-text-primary">Critical Severity</span>
+</div>
+<span class="text-threat-critical font-bold">8</span>
+</div>
+<!-- High -->
+<div class="flex items-center justify-between font-mono-data text-mono-data">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-sm bg-threat-high"></span>
+<span class="text-text-primary">High Severity</span>
+</div>
+<span class="text-threat-high font-bold">32</span>
+</div>
+<!-- Medium -->
+<div class="flex items-center justify-between font-mono-data text-mono-data">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-sm bg-threat-warning"></span>
+<span class="text-text-primary">Medium / Warnings</span>
+</div>
+<span class="text-threat-warning font-bold">145</span>
+</div>
+<!-- Low -->
+<div class="flex items-center justify-between font-mono-data text-mono-data">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-sm bg-border-strong"></span>
+<span class="text-text-secondary">Low / Informational</span>
+</div>
+<span class="text-text-muted font-bold">99</span>
+</div>
+</div>
+</div>
+<div class="pt-2">
+<a class="w-full flex items-center justify-center gap-1.5 py-1.5 rounded-lg bg-surface-raised hover:bg-surface-overlay text-text-secondary hover:text-text-primary transition-colors font-body-sm text-body-sm" href="#">
+<span>Open Full Threat Matrix</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</a>
+</div>
+</div>
+<!-- Module 4: VPN Configuration Distribution (6 Cols) -->
+<div class="lg:col-span-6 bg-surface-subtle rounded-xl p-space-lg flex flex-col justify-between shadow-sm">
+<div class="flex items-center justify-between">
+<div>
+<span class="font-label-caps text-label-caps text-text-muted uppercase tracking-wider block">Topology Breakdown</span>
+<h2 class="font-headline-sm text-headline-sm text-text-primary font-semibold mt-0.5">Configuration &amp; Protocols</h2>
+</div>
+<span class="font-mono-packet text-mono-packet text-threat-secure flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-threat-secure"></span> In-Spec: 78%
+        </span>
+</div>
+<div class="space-y-4 my-2">
+<!-- Item 1: IKE Versioning -->
+<div class="space-y-1.5">
+<div class="flex justify-between font-mono-data text-mono-data">
+<span class="text-text-primary">Key Exchange: IKEv2 vs IKEv1</span>
+<span class="text-text-muted"><strong class="text-primary">78%</strong> IKEv2 · 22% IKEv1</span>
+</div>
+<div class="h-2 w-full bg-surface-raised rounded-full overflow-hidden flex">
+<div class="bg-primary h-full" style="width: 78%" title="IKEv2 (Secure)"></div>
+<div class="bg-threat-high h-full" style="width: 22%" title="IKEv1 (Legacy/Deprecated)"></div>
+</div>
+</div>
+<!-- Item 2: Encapsulation Mode -->
+<div class="space-y-1.5">
+<div class="flex justify-between font-mono-data text-mono-data">
+<span class="text-text-primary">ESP Encapsulation Mode</span>
+<span class="text-text-muted"><strong class="text-tertiary">91%</strong> Tunnel · 9% Transport</span>
+</div>
+<div class="h-2 w-full bg-surface-raised rounded-full overflow-hidden flex">
+<div class="bg-tertiary h-full" style="width: 91%" title="ESP Tunnel Mode"></div>
+<div class="bg-surface-bright h-full" style="width: 9%" title="ESP Transport Mode"></div>
+</div>
+</div>
+<!-- Item 3: NAT Traversal -->
+<div class="space-y-1.5">
+<div class="flex justify-between font-mono-data text-mono-data">
+<span class="text-text-primary">NAT-T Traversal (UDP 4500)</span>
+<span class="text-text-muted"><strong class="text-text-primary">64%</strong> Active · 36% Direct ESP</span>
+</div>
+<div class="h-2 w-full bg-surface-raised rounded-full overflow-hidden flex">
+<div class="bg-secondary h-full" style="width: 64%" title="NAT-T Detected"></div>
+<div class="bg-surface-bright h-full" style="width: 36%" title="Native Protocol 50"></div>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-2.5 rounded-lg flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-threat-warning">warning</span>
+<span class="font-mono-packet text-mono-packet text-text-secondary">22% tunnels maintain legacy IKEv1 Phase 1 Main Mode</span>
+</div>
+<button class="font-label-caps text-label-caps text-primary hover:underline uppercase" type="button">Audit List</button>
+</div>
+</div>
+</div>
+<!-- Bottom Operational Section -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-base items-start">
+<!-- Recent Analysis Queue Table (8 Cols) -->
+<div class="lg:col-span-8 bg-surface-subtle rounded-xl p-space-lg shadow-sm flex flex-col space-y-space-md">
+<div class="flex flex-wrap items-center justify-between gap-2">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-primary animate-ping"></div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-semibold">Active Ingestion &amp; Analyses Queue</h3>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-mono-packet text-mono-packet text-text-muted">Auto-refresh (5s)</span>
+<a class="px-2.5 py-1 bg-surface-raised hover:bg-surface-overlay rounded text-text-secondary hover:text-text-primary transition-colors font-mono-packet text-mono-packet" href="#">View All (1,428)</a>
+</div>
+</div>
+<!-- Tabular Queue Representation -->
+<div class="overflow-x-auto rounded-lg bg-surface-container-lowest">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-raised font-label-caps text-label-caps text-text-muted uppercase tracking-wider">
+<th class="py-2.5 px-3">Analysis ID</th>
+<th class="py-2.5 px-3">Target Capture</th>
+<th class="py-2.5 px-3">Ingested</th>
+<th class="py-2.5 px-3">Score</th>
+<th class="py-2.5 px-3">Primary Finding</th>
+<th class="py-2.5 px-3 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="font-mono-data text-mono-data divide-y divide-transparent">
+<!-- Active Row 1: Target from prompt -->
+<tr class="bg-surface-container-low/60 hover:bg-surface-raised/60 transition-colors">
+<td class="py-2.5 px-3 font-semibold text-primary flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-threat-warning"></span>
+<span>#ANL-8921</span>
+</td>
+<td class="py-2.5 px-3 text-text-primary">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-text-muted">description</span>
+                  prod-gateway-01.pcap
+                </span>
+</td>
+<td class="py-2.5 px-3 text-text-muted font-mono-packet text-mono-packet">3 mins ago</td>
+<td class="py-2.5 px-3">
+<span class="inline-flex items-center gap-1 font-semibold px-2 py-0.5 rounded bg-threat-warning/15 text-threat-warning font-mono-packet text-mono-packet">
+                  74/100
+                </span>
+</td>
+<td class="py-2.5 px-3">
+<div class="flex items-center gap-1.5">
+<span class="font-label-caps text-[10px] px-1.5 py-0.2 rounded bg-threat-warning/20 text-threat-warning font-semibold uppercase">WARN</span>
+<span class="text-text-secondary truncate max-w-[210px]" title="Weak Diffie-Hellman Group 2 in IKE SA">Weak Diffie-Hellman Group 2 in IKE SA</span>
+</div>
+</td>
+<td class="py-2.5 px-3 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="px-2 py-1 bg-surface-raised hover:bg-primary hover:text-on-primary rounded text-text-primary font-body-sm text-body-sm transition-colors" title="View Full Assessment" type="button">
+                    Assessment
+                  </button>
+<button class="p-1 hover:bg-surface-raised rounded text-text-muted hover:text-text-primary transition-colors" title="Export Report" type="button">
+<span class="material-symbols-outlined text-[16px]">file_download</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="bg-surface-container-lowest hover:bg-surface-raised/60 transition-colors">
+<td class="py-2.5 px-3 font-semibold text-primary flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-threat-secure"></span>
+<span>#ANL-8920</span>
+</td>
+<td class="py-2.5 px-3 text-text-primary">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-text-muted">description</span>
+                  edge-firewall-ch2.pcapng
+                </span>
+</td>
+<td class="py-2.5 px-3 text-text-muted font-mono-packet text-mono-packet">14 mins ago</td>
+<td class="py-2.5 px-3">
+<span class="inline-flex items-center gap-1 font-semibold px-2 py-0.5 rounded bg-threat-secure/15 text-threat-secure font-mono-packet text-mono-packet">
+                  96/100
+                </span>
+</td>
+<td class="py-2.5 px-3">
+<div class="flex items-center gap-1.5">
+<span class="font-label-caps text-[10px] px-1.5 py-0.2 rounded bg-threat-secure/20 text-threat-secure font-semibold uppercase">SECURE</span>
+<span class="text-text-secondary truncate max-w-[210px]">AES-256-GCM · Curve25519 PFS verified</span>
+</div>
+</td>
+<td class="py-2.5 px-3 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="px-2 py-1 bg-surface-raised hover:bg-primary hover:text-on-primary rounded text-text-primary font-body-sm text-body-sm transition-colors" type="button">
+                    Assessment
+                  </button>
+<button class="p-1 hover:bg-surface-raised rounded text-text-muted hover:text-text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">file_download</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="bg-surface-container-low/60 hover:bg-surface-raised/60 transition-colors">
+<td class="py-2.5 px-3 font-semibold text-primary flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-threat-critical"></span>
+<span>#ANL-8919</span>
+</td>
+<td class="py-2.5 px-3 text-text-primary">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-text-muted">description</span>
+                  branch-router-dal.pcap
+                </span>
+</td>
+<td class="py-2.5 px-3 text-text-muted font-mono-packet text-mono-packet">42 mins ago</td>
+<td class="py-2.5 px-3">
+<span class="inline-flex items-center gap-1 font-semibold px-2 py-0.5 rounded bg-threat-critical/20 text-threat-critical font-mono-packet text-mono-packet">
+                  38/100
+                </span>
+</td>
+<td class="py-2.5 px-3">
+<div class="flex items-center gap-1.5">
+<span class="font-label-caps text-[10px] px-1.5 py-0.2 rounded bg-threat-critical/20 text-threat-critical font-semibold uppercase">CRIT</span>
+<span class="text-text-secondary truncate max-w-[210px]">Aggressive Mode with Pre-Shared Key</span>
+</div>
+</td>
+<td class="py-2.5 px-3 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="px-2 py-1 bg-surface-raised hover:bg-primary hover:text-on-primary rounded text-text-primary font-body-sm text-body-sm transition-colors" type="button">
+                    Assessment
+                  </button>
+<button class="p-1 hover:bg-surface-raised rounded text-text-muted hover:text-text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">file_download</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Quick AI Traffic Notice Card inside Section -->
+<div class="rounded-lg bg-surface-container p-3 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">neurology</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-[13px] font-semibold text-text-primary">Encrypted Flow Intelligence</span>
+<span class="font-mono-packet text-mono-packet text-text-muted">Video-like heuristic streaming identified across 3 IPsec child SAs (91% confidence)</span>
+</div>
+</div>
+<span class="font-mono-packet text-[10px] px-2 py-1 rounded bg-surface-raised text-text-secondary">Ephemeral Heuristics</span>
+</div>
+</div>
+<!-- Quick Action Card: Ingest / Upload Dropzone (4 Cols) -->
+<div class="lg:col-span-4 bg-surface-subtle rounded-xl p-space-lg shadow-sm flex flex-col justify-between space-y-space-md">
+<div>
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-text-muted uppercase tracking-wider block">Direct Triage Engine</span>
+<span class="font-label-caps text-[10px] px-2 py-0.5 rounded bg-threat-secure/15 text-threat-secure">ZERO-STORAGE</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary font-semibold mt-1">Analyze New PCAP / PCAPNG</h3>
+<p class="font-body-sm text-body-sm text-text-secondary mt-1">
+          Instant deep extraction for IKE_SA_INIT, ESP sequence counter replay, and crypto suite deprecation checks.
+        </p>
+</div>
+<!-- Interactive Dropzone Teaser -->
+<div class="bg-surface-container-lowest rounded-lg p-space-base flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-raised/40 transition-colors group" id="dropzone">
+<div class="w-12 h-12 rounded-full bg-surface-raised flex items-center justify-center group-hover:scale-110 transition-transform text-primary">
+<span class="material-symbols-outlined text-[28px]">cloud_upload</span>
+</div>
+<span class="font-headline-sm text-[14px] text-text-primary font-medium mt-3">Drop raw capture file here</span>
+<span class="font-mono-packet text-mono-packet text-text-muted mt-1">Supports .pcap, .pcapng, .cap up to 250MB</span>
+<div class="mt-3 flex items-center gap-1.5 font-mono-packet text-[10px] text-primary">
+<span class="material-symbols-outlined text-[12px]">security</span>
+<span>In-Memory Parsing · SHA-256 Verified</span>
+</div>
+</div>
+<!-- Action Panel -->
+<div class="space-y-2">
+<button class="w-full h-9 bg-primary hover:bg-primary-container text-surface-base font-semibold rounded-lg flex items-center justify-center gap-2 transition-colors font-body-sm text-body-sm" id="start-analysis-btn" type="button">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+<span>Start Instant Analysis</span>
+</button>
+<div class="flex items-center justify-between px-1">
+<span class="font-mono-packet text-[11px] text-text-muted">Profile: Standard NIST-SP800</span>
+<a class="font-mono-packet text-[11px] text-primary hover:underline flex items-center gap-0.5" href="#">
+            Configure Profile
+            <span class="material-symbols-outlined text-[12px]">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Compliance Statement -->
+<div class="bg-surface-container p-2.5 rounded-lg">
+<p class="font-mono-packet text-[10px] text-text-muted leading-tight">
+          Privacy Notice: Classification is based on observable encrypted traffic metadata and does not decrypt user payloads or request pre-shared keys.
+        </p>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Simple micro-interaction for the Dropzone file preview
+  (function() {
+    const dropzone = document.getElementById('dropzone');
+    const startBtn = document.getElementById('start-analysis-btn');
 
-      <div class="nav-actions">
-        <div class="status-pill active">
-          <span class="status-dot"></span>
-          <span class="status-label">Local Privacy Engine: Active</span>
-        </div>
-        <button id="load-demo-btn" class="btn btn-secondary">
-          <span class="btn-icon">⚡</span> Load PRD Demo Analysis
-        </button>
-        <a href="/docs" target="_blank" class="btn btn-ghost">API Docs</a>
-      </div>
-    </header>
+    if (dropzone) {
+      dropzone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropzone.classList.add('bg-surface-raised');
+      });
 
-    <!-- Main Content Grid -->
-    <main class="dashboard-content">
-      <!-- Upload & Ingestion Strip -->
-      <section class="upload-section glass-panel">
-        <div class="upload-dropzone" id="dropzone">
-          <input type="file" id="pcap-file-input" accept=".pcap,.pcapng,.cap" hidden>
-          <div class="dropzone-content">
-            <div class="upload-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                <polyline points="17 8 12 3 7 8"/>
-                <line x1="12" y1="3" x2="12" y2="15"/>
-              </svg>
-            </div>
-            <div class="dropzone-text">
-              <h3>Drop IPsec Capture (.pcap / .pcapng) or <span class="highlight">Browse</span></h3>
-              <p>Untrusted input validation: Magic bytes, SHA-256 integrity, structural inspection</p>
-            </div>
-          </div>
-          <div class="sample-pcap-pills">
-            <span class="pill-label">Testbed Scenarios:</span>
-            <button class="sample-btn" data-sample="secure_ikev2_tunnel.pcap">Secure IKEv2 Tunnel</button>
-            <button class="sample-btn" data-sample="weak_ikev1_tunnel.pcap">Weak IKEv1 (3DES/MD5)</button>
-            <button class="sample-btn" data-sample="transport_gcm.pcap">Transport Mode</button>
-          </div>
-        </div>
-        <div id="upload-progress" class="upload-progress hidden">
-          <div class="progress-bar-fill"></div>
-          <span class="progress-text">Analyzing encrypted flows & running AI models...</span>
-        </div>
-      </section>
+      dropzone.addEventListener('dragleave', () => {
+        dropzone.classList.remove('bg-surface-raised');
+      });
 
-      <!-- Overview Cards & Score Dashboard -->
-      <div class="grid-row top-row">
-        <!-- Security Score Dial -->
-        <section class="card glass-panel score-card">
-          <div class="card-header">
-            <h2>Overall Security Posture</h2>
-            <span id="risk-badge" class="risk-badge badge-good">GOOD</span>
-          </div>
-          <div class="score-display-container">
-            <div class="score-circle">
-              <svg class="score-svg" viewBox="0 0 160 160">
-                <circle class="score-bg" cx="80" cy="80" r="70"></circle>
-                <circle id="score-meter" class="score-meter" cx="80" cy="80" r="70"></circle>
-              </svg>
-              <div class="score-center-text">
-                <span id="score-val" class="score-number">82</span>
-                <span class="score-max">/ 100</span>
+      dropzone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropzone.classList.remove('bg-surface-raised');
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+          dropzone.innerHTML = `
+            <div class="flex items-center gap-2 text-threat-secure py-2">
+              <span class="material-symbols-outlined text-[24px]">check_circle</span>
+              <div class="flex flex-col text-left">
+                <span class="font-mono-data text-mono-data text-text-primary font-semibold">\${files[0].name}</span>
+                <span class="font-mono-packet text-mono-packet text-text-muted">\${(files[0].size / (1024*1024)).toFixed(2)} MB · Ready to parse</span>
               </div>
             </div>
-            <div class="score-breakdown">
-              <div class="score-dim">
-                <span class="dim-name">Cryptography (25%)</span>
-                <div class="dim-bar"><div class="dim-fill" style="width: 100%;"></div></div>
-                <span class="dim-score">100</span>
-              </div>
-              <div class="score-dim">
-                <span class="dim-name">Key Exchange (15%)</span>
-                <div class="dim-bar"><div class="dim-fill" style="width: 100%;"></div></div>
-                <span class="dim-score">100</span>
-              </div>
-              <div class="score-dim">
-                <span class="dim-name">PFS Secrecy (15%)</span>
-                <div class="dim-bar"><div class="dim-fill" style="width: 100%;"></div></div>
-                <span class="dim-score">100</span>
-              </div>
-              <div class="score-dim">
-                <span class="dim-name">Replay Defense (10%)</span>
-                <div class="dim-bar"><div class="dim-fill" style="width: 100%;"></div></div>
-                <span class="dim-score">100</span>
-              </div>
-              <div class="score-dim">
-                <span class="dim-name">Metadata Privacy (5%)</span>
-                <div class="dim-bar"><div class="dim-fill" style="width: 48%;"></div></div>
-                <span class="dim-score">48</span>
-              </div>
-            </div>
-          </div>
-        </section>
+          `;
+        }
+      });
+    }
 
-        <!-- AI Traffic Classification & Anomaly -->
-        <section class="card glass-panel ai-card">
-          <div class="card-header">
-            <h2>AI Encrypted Traffic Classifier</h2>
-            <span class="ai-badge">Random Forest Engine</span>
-          </div>
-          <div class="ai-body">
-            <div class="prediction-banner">
-              <div class="pred-label-box">
-                <span class="pred-title">Predicted Behavior</span>
-                <span id="pred-class" class="pred-class-val">Video-like</span>
-              </div>
-              <div class="pred-confidence-box">
-                <span class="pred-title">Confidence</span>
-                <span id="pred-confidence" class="pred-conf-val">91.0%</span>
-              </div>
-              <div class="anomaly-indicator" id="anomaly-badge">
-                <span class="anomaly-dot normal"></span>
-                <span id="anomaly-label">Normal Flow Baseline</span>
-              </div>
-            </div>
+    if (startBtn) {
+      startBtn.addEventListener('click', function() {
+        const originalText = this.innerHTML;
+        this.innerHTML = `<span class="material-symbols-outlined animate-spin text-[18px]">progress_activity</span> Ingesting Capture...`;
+        this.disabled = true;
+        setTimeout(() => {
+          this.innerHTML = originalText;
+          this.disabled = false;
+        }, 1800);
+      });
+    }
+  })();
+</script></main></div><script src="/static/stitch_integration.js"></script></body></html>
 
-            <p id="ai-explanation" class="ai-explanation-text">
-              Classified as Video-like with 91.0% confidence based on high average packet size (1303.8 bytes), high throughput bursts (182 pkts/s), and asymmetric download streaming ratio (0.08).
-            </p>
-
-            <div class="flow-metrics-grid">
-              <div class="metric-chip">
-                <span class="chip-label">Packets</span>
-                <span id="stat-packets" class="chip-val">1,850</span>
-              </div>
-              <div class="metric-chip">
-                <span class="chip-label">Data Volume</span>
-                <span id="stat-volume" class="chip-val">2.41 MB</span>
-              </div>
-              <div class="metric-chip">
-                <span class="chip-label">Mean Pkt Size</span>
-                <span id="stat-size" class="chip-val">1,303 B</span>
-              </div>
-              <div class="metric-chip">
-                <span class="chip-label">Peak Burst</span>
-                <span id="stat-burst" class="chip-val">182 pkts/s</span>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-
-      <!-- Second Row: Protocol Inspector & Metadata Exposure -->
-      <div class="grid-row mid-row">
-        <!-- Protocol Telemetry Inspector -->
-        <section class="card glass-panel protocol-card">
-          <div class="card-header">
-            <h2>IPsec Protocol & Session Inspection</h2>
-            <span class="mode-tag" id="ipsec-mode-tag">Tunnel Mode (96% Confidence)</span>
-          </div>
-          <div class="protocol-grid">
-            <div class="proto-item">
-              <span class="p-label">Protocol Version</span>
-              <span id="p-proto" class="p-val">IKEv2 (RFC 7296)</span>
-            </div>
-            <div class="proto-item">
-              <span class="p-label">Encryption Transform</span>
-              <span id="p-cipher" class="p-val text-cyan">AES-256-GCM (AEAD)</span>
-            </div>
-            <div class="proto-item">
-              <span class="p-label">Diffie-Hellman Group</span>
-              <span id="p-dh" class="p-val">Group 19 (256-bit ECP)</span>
-            </div>
-            <div class="proto-item">
-              <span class="p-label">Perfect Forward Secrecy</span>
-              <span id="p-pfs" class="p-val text-emerald">Enabled (VERIFIED)</span>
-            </div>
-            <div class="proto-item">
-              <span class="p-label">Inbound ESP SPI</span>
-              <span id="p-spi" class="p-val font-mono">0x7f3a910c</span>
-            </div>
-            <div class="proto-item">
-              <span class="p-label">Anti-Replay Window</span>
-              <span id="p-replay" class="p-val text-emerald">Active (Seq 1 - 1850)</span>
-            </div>
-          </div>
-        </section>
-
-        <!-- Metadata Side-Channel Exposure -->
-        <section class="card glass-panel exposure-card">
-          <div class="card-header">
-            <h2>Metadata Side-Channel Exposure</h2>
-            <span class="exposure-index" id="meta-index">Index: 52 / 100</span>
-          </div>
-          <div class="exposure-list">
-            <div class="exp-item">
-              <div class="exp-header">
-                <span>Packet Size Leaks (Chunk Signatures)</span>
-                <span id="exp-size-val">78%</span>
-              </div>
-              <div class="exp-bar"><div id="exp-size-bar" class="exp-fill" style="width: 78%;"></div></div>
-            </div>
-            <div class="exp-item">
-              <div class="exp-header">
-                <span>Volume Asymmetry</span>
-                <span id="exp-vol-val">65%</span>
-              </div>
-              <div class="exp-bar"><div id="exp-vol-bar" class="exp-fill" style="width: 65%;"></div></div>
-            </div>
-            <div class="exp-item">
-              <div class="exp-header">
-                <span>Endpoint Geography Disclosure</span>
-                <span id="exp-end-val">45%</span>
-              </div>
-              <div class="exp-bar"><div id="exp-end-bar" class="exp-fill" style="width: 45%;"></div></div>
-            </div>
-            <div class="exp-item">
-              <div class="exp-header">
-                <span>Timing Jitter Predictability</span>
-                <span id="exp-time-val">35%</span>
-              </div>
-              <div class="exp-bar"><div id="exp-time-bar" class="exp-fill" style="width: 35%;"></div></div>
-            </div>
-          </div>
-        </section>
-      </div>
-
-      <!-- Third Row: Security Findings & Threat Matrix -->
-      <section class="card glass-panel findings-section">
-        <div class="card-header">
-          <div class="findings-title-wrap">
-            <h2>Security Findings & Threat Matrix</h2>
-            <span id="findings-count" class="findings-count-badge">6 Identified</span>
-          </div>
-          <!-- Download Report Action Buttons -->
-          <div class="report-actions">
-            <button id="dl-exec-pdf" class="btn btn-action">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Executive PDF
-            </button>
-            <button id="dl-tech-pdf" class="btn btn-action">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Technical PDF
-            </button>
-            <button id="dl-json" class="btn btn-action btn-outline">
-              JSON Export
-            </button>
-          </div>
-        </div>
-
-        <div id="findings-container" class="findings-list">
-          <!-- Dynamic Finding Cards will be rendered here -->
-        </div>
-      </section>
-    </main>
-  </div>
-
-  <script src="/static/app.js"></script>
-</body>
-</html>

@@ -77,17 +77,25 @@ app.include_router(api_router, prefix=settings.API_V1_STR)
 if FRONTEND_DIR.exists():
     app.mount("/static", StaticFiles(directory=str(FRONTEND_DIR)), name="static")
 
-@app.get("/", tags=["Frontend Dashboard"])
+@app.get("/", tags=["Frontend"])
 def index():
-    index_path = FRONTEND_DIR / "index.html"
-    if index_path.exists():
-        return FileResponse(str(index_path))
-    return {
-        "service": settings.PROJECT_NAME,
-        "version": settings.VERSION,
-        "documentation": "/docs",
-        "api_v1": settings.API_V1_STR
-    }
+    path = FRONTEND_DIR / "index.html"
+    return FileResponse(str(path)) if path.exists() else {"service": settings.PROJECT_NAME}
+
+@app.get("/analyze.html", tags=["Frontend"])
+def analyze_page():
+    path = FRONTEND_DIR / "analyze.html"
+    return FileResponse(str(path)) if path.exists() else {"error": "Page not found"}
+
+@app.get("/results.html", tags=["Frontend"])
+def results_page():
+    path = FRONTEND_DIR / "results.html"
+    return FileResponse(str(path)) if path.exists() else {"error": "Page not found"}
+
+@app.get("/traffic-ai.html", tags=["Frontend"])
+def traffic_ai_page():
+    path = FRONTEND_DIR / "traffic-ai.html"
+    return FileResponse(str(path)) if path.exists() else {"error": "Page not found"}
 
 @app.get("/health", tags=["Health"])
 def health_check():

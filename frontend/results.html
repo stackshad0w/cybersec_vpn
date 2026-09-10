@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "surface-container-low": "#181c24",
+          "threat-critical": "#EF4444",
+          "on-background": "#dfe2ee",
+          "threat-high": "#F97316",
+          "primary": "#4cd7f6",
+          "surface-variant": "#31353e",
+          "secondary-fixed-dim": "#adc6ff",
+          "on-surface-variant": "#bcc9cd",
+          "tertiary-fixed-dim": "#4edea3",
+          "inverse-primary": "#00687a",
+          "surface-overlay": "#283548",
+          "on-error-container": "#ffdad6",
+          "tertiary": "#4edea3",
+          "surface-subtle": "#111827",
+          "background": "#0f131c",
+          "on-tertiary": "#003824",
+          "border-subtle": "#1E293B",
+          "on-secondary-fixed-variant": "#004395",
+          "threat-secure": "#10B981",
+          "error": "#ffb4ab",
+          "secondary-fixed": "#d8e2ff",
+          "threat-info": "#06B6D4",
+          "on-tertiary-container": "#00452e",
+          "border-strong": "#334155",
+          "on-primary": "#003640",
+          "secondary-container": "#0566d9",
+          "surface-base": "#0B0F17",
+          "inverse-on-surface": "#2c3039",
+          "text-muted": "#64748B",
+          "secondary": "#adc6ff",
+          "surface-bright": "#353942",
+          "on-tertiary-fixed": "#002113",
+          "on-secondary-fixed": "#001a42",
+          "surface-tint": "#4cd7f6",
+          "on-surface": "#dfe2ee",
+          "on-secondary-container": "#e6ecff",
+          "tertiary-container": "#1bbd85",
+          "surface-container-lowest": "#0a0e16",
+          "border-active": "#06B6D4",
+          "on-secondary": "#002e6a",
+          "error-container": "#93000a",
+          "primary-fixed": "#acedff",
+          "on-error": "#690005",
+          "tertiary-fixed": "#6ffbbe",
+          "text-primary": "#F8FAFC",
+          "inverse-surface": "#dfe2ee",
+          "primary-container": "#06b6d4",
+          "surface": "#0f131c",
+          "on-primary-fixed": "#001f26",
+          "surface-container": "#1c2028",
+          "outline-variant": "#3d494c",
+          "on-tertiary-fixed-variant": "#005236",
+          "primary-fixed-dim": "#4cd7f6",
+          "threat-warning": "#F59E0B",
+          "surface-raised": "#1F2937",
+          "on-primary-container": "#00424f",
+          "outline": "#869397",
+          "surface-dim": "#0f131c",
+          "surface-container-high": "#262a33",
+          "on-primary-fixed-variant": "#004e5c",
+          "surface-container-highest": "#31353e",
+          "text-secondary": "#94A3B8"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "space-md": "0.75rem",
+          "space-lg": "1.5rem",
+          "space-2xs": "0.125rem",
+          "space-xl": "2rem",
+          "gutter-desktop": "1.5rem",
+          "space-2xl": "3rem",
+          "space-sm": "0.5rem",
+          "space-base": "1rem",
+          "sidebar-collapsed": "4rem",
+          "space-xs": "0.25rem",
+          "gutter-mobile": "0.75rem",
+          "header-height": "3.5rem",
+          "sidebar-expanded": "16rem"
+        },
+        "fontFamily": {
+          "headline-md": ["Geist"],
+          "display-lg": ["Geist"],
+          "label-caps": ["Inter"],
+          "mono-data": ["JetBrains Mono"],
+          "body-sm": ["Inter"],
+          "mono-packet": ["JetBrains Mono"],
+          "headline-sm": ["Geist"],
+          "display-lg-mobile": ["Geist"],
+          "body-lg": ["Inter"],
+          "mono-metric": ["JetBrains Mono"],
+          "body-md": ["Inter"]
+        },
+        "fontSize": {
+          "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+          "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+          "label-caps": ["11px", {"lineHeight": "14px", "letterSpacing": "0.06em", "fontWeight": "600"}],
+          "mono-data": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+          "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+          "mono-packet": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+          "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "500"}],
+          "display-lg-mobile": ["26px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+          "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+          "mono-metric": ["24px", {"lineHeight": "28px", "letterSpacing": "-0.03em", "fontWeight": "700"}],
+          "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+        }
+      }
+    }
+  }</script></head><body class="bg-surface-container-lowest font-body-md text-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 bottom-0 w-64 bg-surface-base border-r border-border-subtle z-50 flex flex-col justify-between select-none"><div class="flex flex-col"><div class="h-14 px-space-base flex items-center gap-space-sm border-b border-border-subtle bg-surface-container-lowest"><img alt="Brand logo. - Primary color: #06b6d4
+- Font: geist
+- Mode: dark
+- Roundness: rounded-sm
+" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Uok4RZYFrUjcg9Yvyo0u7UBscNxx8HYJUGHH9qgKJnm_TDrWmU16Z5s37PWzAIgpDvkbsIGrDK-e6rDAI5VhJZp3zkvUnQIsSRUj5CBvvvgPnVethxp0ADWbvbNM2I-UkDF84it2qep-hKl8lWbYbzCNO7QMrpPd9CZfMXcqJSx_Q1spsVJAz7v3_ygwjoKswR84Dp9ccoREOs_6GT4QCN74SNtfFDtL-TddSOyNJZdVIV7BL2N_8oBu4"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-text-primary tracking-tight font-semibold leading-tight">Cyber Wala</span><span class="font-label-caps text-label-caps text-primary tracking-wider uppercase">IPsec SOC Analyzer</span></div></div><div class="px-space-base pt-space-md pb-space-xs"><span class="font-label-caps text-label-caps text-text-muted uppercase tracking-wider font-semibold">SOC Operations</span></div><nav class="flex flex-col px-space-xs space-y-0.5" data-active-classes="bg-surface-raised text-primary border-l-2 border-border-active"><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-text-secondary hover:bg-surface-raised hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[18px]">space_dashboard</span><span>Dashboard</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-text-secondary hover:bg-surface-raised hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="analyze-pcap" href="#"><span class="material-symbols-outlined text-[18px]">upload_file</span><span>Analyze PCAP</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-space-xs rounded transition-colors font-body-sm bg-surface-raised text-primary border-l-2 border-border-active" data-path="analyses" href="#"><span class="material-symbols-outlined text-[18px]">history</span><span>Analyses</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-text-secondary hover:bg-surface-raised hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="vpn-profiles" href="#"><span class="material-symbols-outlined text-[18px]">vpn_lock</span><span>VPN Profiles</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-text-secondary hover:bg-surface-raised hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="findings-and-threats" href="#"><span class="material-symbols-outlined text-[18px]">gshield</span><span>Findings &amp; Threats</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-text-secondary hover:bg-surface-raised hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="traffic-ai" href="#"><span class="material-symbols-outlined text-[18px]">neurology</span><span>Traffic AI</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-text-secondary hover:bg-surface-raised hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="packet-explorer" href="#"><span class="material-symbols-outlined text-[18px]">data_array</span><span>Packet Explorer</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-text-secondary hover:bg-surface-raised hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="reports" href="#"><span class="material-symbols-outlined text-[18px]">description</span><span>Reports</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded text-text-secondary hover:bg-surface-raised hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="settings" href="#"><span class="material-symbols-outlined text-[18px]">tune</span><span>Settings</span></a></nav></div><div class="p-space-base border-t border-border-subtle bg-surface-container-lowest flex flex-col gap-space-xs"><div class="flex items-center justify-between font-label-caps text-label-caps"><span class="text-text-muted flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-threat-secure">verified_user</span>Zero-Storage Mode</span><span class="text-threat-secure font-mono-data text-mono-data">ENFORCED</span></div><p class="font-mono-packet text-mono-packet text-text-muted leading-tight">Raw PCAP Not Stored · Ephemeral In-Memory Processing</p><div class="mt-space-xs pt-space-xs border-t border-border-subtle flex items-center justify-between font-mono-packet text-mono-packet"><span class="text-text-muted flex items-center gap-1"><span class="material-symbols-outlined text-[13px] text-threat-info">dns</span>API Ping</span><span class="text-threat-secure">12ms</span></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-14 bg-surface-base/95 backdrop-blur-md border-b border-border-subtle z-40 px-space-lg flex items-center justify-between"><div class="flex items-center gap-space-base flex-1 max-w-xl"><div class="relative w-full flex items-center"><span class="material-symbols-outlined absolute left-3 text-text-muted text-[18px]">search</span><input class="w-full h-8 pl-9 pr-12 bg-surface-subtle border border-border-subtle rounded font-mono-data text-mono-data text-text-primary placeholder:text-text-muted focus:outline-none focus:border-border-active transition-colors" placeholder="Filter IP, SPI, Hash or Analysis ID..." type="text"/><div class="absolute right-2 flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-surface-raised border border-border-strong text-text-muted font-mono-packet text-mono-packet"><span class="text-[10px]">⌘</span><span>K</span></div></div><div class="flex items-center gap-2 px-2.5 py-1 rounded bg-surface-subtle border border-border-subtle"><span class="w-2 h-2 rounded-full bg-threat-secure animate-pulse"></span><span class="font-mono-packet text-mono-packet text-text-secondary whitespace-nowrap">Engine: v2.4 Active · API Ready</span></div></div><div class="flex items-center gap-space-md"><button class="relative p-1.5 rounded hover:bg-surface-raised text-text-secondary hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 bg-threat-high rounded-full ring-2 ring-surface-base"></span></button><div class="h-5 w-[1px] bg-border-subtle"></div><div class="flex items-center gap-space-sm pl-space-xs"><div class="flex flex-col items-end"><span class="font-headline-sm text-[13px] text-text-primary font-medium leading-none">SOC Lead Analyst</span><span class="font-mono-packet text-mono-packet text-text-muted leading-none mt-1">analyst@cyberwala.sec</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="relative pt-14 min-h-screen bg-surface-container-lowest w-full px-space-lg py-space-md"><div class="flex flex-col w-full space-y-4 pb-12">
+<!-- Top Breadcrumb & Metadata Action Bar -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-surface-container p-4 rounded-xl shadow-md">
+<div class="flex flex-col gap-1.5">
+<div class="flex flex-wrap items-center gap-2">
+<span class="font-label-caps text-label-caps text-text-muted uppercase">Analyses</span>
+<span class="text-text-muted font-mono-packet text-mono-packet">/</span>
+<span class="font-mono-data text-mono-data text-primary font-medium tracking-wide">ANL-9042-IPSEC</span>
+<span class="px-2 py-0.5 rounded font-mono-packet text-mono-packet bg-surface-raised text-primary">IKEv2 / ESP</span>
+<span class="flex items-center gap-1 font-mono-packet text-mono-packet text-threat-secure">
+<span class="w-1.5 h-1.5 rounded-full bg-threat-secure animate-pulse"></span>
+          Parsed 48,204 pkts
+        </span>
+</div>
+<div class="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono-packet text-mono-packet text-text-secondary">
+<span class="flex items-center gap-1 text-text-primary">
+<span class="material-symbols-outlined text-[15px] text-text-muted">description</span>
+          ipsec_core_tunnel_dc1.pcapng
+        </span>
+<span class="text-text-muted">|</span>
+<span>Size: <strong class="text-text-primary">18.4 MB</strong></span>
+<span class="text-text-muted">|</span>
+<span>SHA-256: <code class="text-text-muted">e9a4f7...31c0</code></span>
+<span class="text-text-muted">|</span>
+<span class="text-threat-secure">Analyzed: Just now</span>
+</div>
+</div>
+<!-- Action Toolset -->
+<div class="flex flex-wrap items-center gap-2">
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-raised hover:bg-surface-bright text-text-primary font-body-sm text-body-sm transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px] text-primary">download</span>
+<span>JSON Matrix</span>
+</button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-raised hover:bg-surface-bright text-text-primary font-body-sm text-body-sm transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px] text-threat-high">picture_as_pdf</span>
+<span>Export PDF</span>
+</button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary hover:bg-primary-fixed text-on-primary font-body-sm text-body-sm font-semibold transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px]">data_array</span>
+<span>Packet Explorer</span>
+</button>
+</div>
+</div>
+<!-- Hero Triage Bento (Score Gauge + Executive Telemetry + Crypto Health) -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+<!-- Security Gauge Card -->
+<div class="md:col-span-4 bg-surface-container p-5 rounded-xl flex flex-col justify-between shadow-md relative overflow-hidden">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-text-muted uppercase">Posture Index</span>
+<span class="px-2 py-0.5 rounded font-label-caps text-label-caps font-semibold bg-surface-raised text-threat-warning">MODERATE RISK</span>
+</div>
+<div class="flex items-center gap-5 my-4">
+<!-- Metric Dial Inline SVG -->
+<div class="relative w-24 h-24 flex-shrink-0">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+<path class="text-surface-raised" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3.5"></path>
+<path class="text-threat-warning" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="68, 100" stroke-linecap="round" stroke-width="3.5"></path>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-mono-metric text-mono-metric text-text-primary leading-none">68</span>
+<span class="font-mono-packet text-mono-packet text-text-muted">/100</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 min-w-0">
+<span class="font-headline-sm text-headline-sm text-text-primary leading-tight">Cryptographic Downgrade</span>
+<p class="font-body-sm text-body-sm text-text-secondary leading-normal">
+            Tunnel configuration is penalised by insecure Phase 2 3DES cipher suites and Phase 1 DH Group 2.
+          </p>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-2 pt-3 bg-surface-container-low p-2 rounded-lg">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-threat-critical uppercase">Critical</span>
+<span class="font-mono-metric text-[18px] text-threat-critical">2</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-threat-high uppercase">High</span>
+<span class="font-mono-metric text-[18px] text-threat-high">2</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-threat-warning uppercase">Warnings</span>
+<span class="font-mono-metric text-[18px] text-threat-warning">1</span>
+</div>
+</div>
+</div>
+<!-- VPN Tunnel Architecture Overview Card -->
+<div class="md:col-span-8 bg-surface-container p-5 rounded-xl shadow-md flex flex-col justify-between">
+<div class="flex items-center justify-between pb-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">router</span>
+<span class="font-headline-sm text-headline-sm text-text-primary font-medium">Protocol Architecture Overview</span>
+</div>
+<span class="px-2.5 py-0.5 rounded font-mono-packet text-mono-packet bg-surface-raised text-threat-secure flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-threat-secure"></span>
+          STATE: ACTIVE / ESTABLISHED
+        </span>
+</div>
+<!-- Tunnel Flow Map Schematic -->
+<div class="grid grid-cols-1 sm:grid-cols-4 gap-2 my-3">
+<div class="bg-surface-subtle p-3 rounded-lg flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-text-muted">IKE HANDSHAKE</span>
+<div class="mt-1">
+<span class="font-mono-data text-mono-data text-text-primary font-bold">IKEv2</span>
+<span class="block font-mono-packet text-mono-packet text-text-secondary">RFC 7296 (Port 500/4500)</span>
+</div>
+<div class="mt-2 text-primary font-mono-packet text-mono-packet flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">lock</span>
+            SA Established
+          </div>
+</div>
+<div class="bg-surface-subtle p-3 rounded-lg flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-text-muted">ENCAPSULATION</span>
+<div class="mt-1">
+<span class="font-mono-data text-mono-data text-text-primary font-bold">Tunnel Mode</span>
+<span class="block font-mono-packet text-mono-packet text-text-secondary">IPv4 Outer / IPv4 Inner</span>
+</div>
+<div class="mt-2 text-threat-secure font-mono-packet text-mono-packet flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">layers</span>
+            Complete Subnet Mask
+          </div>
+</div>
+<div class="bg-surface-subtle p-3 rounded-lg flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-text-muted">TRANSPORT LAYER</span>
+<div class="mt-1">
+<span class="font-mono-data text-mono-data text-text-primary font-bold">ESP (Proto 50)</span>
+<span class="block font-mono-packet text-mono-packet text-text-secondary">NAT-T Active (UDP 4500)</span>
+</div>
+<div class="mt-2 text-primary font-mono-packet text-mono-packet flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">sync_alt</span>
+            Keepalives OK (20s)
+          </div>
+</div>
+<div class="bg-surface-subtle p-3 rounded-lg flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-text-muted">FORWARD SECRECY</span>
+<div class="mt-1">
+<span class="font-mono-data text-mono-data text-threat-critical font-bold">PFS Disabled</span>
+<span class="block font-mono-packet text-mono-packet text-threat-critical">No Child SA Re-key DH</span>
+</div>
+<div class="mt-2 text-threat-critical font-mono-packet text-mono-packet flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">gpp_bad</span>
+            Historic Replay Risk
+          </div>
+</div>
+</div>
+<!-- Security Parameters Index (SPI) Bar -->
+<div class="bg-surface-container-low p-2.5 rounded-lg flex flex-wrap items-center justify-between gap-3 font-mono-packet text-mono-packet">
+<div class="flex items-center gap-3">
+<span class="text-text-muted">Inbound SPI:</span>
+<span class="text-primary bg-surface-raised px-2 py-0.5 rounded font-bold">0x8FA411B2</span>
+<span class="text-text-muted">Direction: Peer → Local</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-text-muted">Outbound SPI:</span>
+<span class="text-primary bg-surface-raised px-2 py-0.5 rounded font-bold">0x3C99014E</span>
+<span class="text-text-muted">Direction: Local → Peer</span>
+</div>
+<div class="flex items-center gap-1 text-threat-secure">
+<span class="material-symbols-outlined text-[14px]">done_all</span>
+          Sequence: Synchronized
+        </div>
+</div>
+</div>
+</div>
+<!-- Cryptographic Suite Audit Matrix -->
+<div class="bg-surface-container p-5 rounded-xl shadow-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4">
+<div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-primary">enhanced_encryption</span>
+<span class="font-headline-sm text-headline-sm text-text-primary font-semibold">Cryptographic Suite Audit Matrix</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary mt-0.5">
+          Dual-phase cryptanalysis isolating cipher proposals, hash integrity algorithms, and ephemeral key exchanges against NIST SP 800-52r2.
+        </p>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded font-mono-packet text-mono-packet bg-surface-raised text-text-secondary">NIST SP 800-52r2</span>
+<span class="px-2 py-0.5 rounded font-mono-packet text-mono-packet bg-surface-raised text-text-secondary">CNSA 2.0</span>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+<!-- Phase 1: IKE SA Control Plane -->
+<div class="bg-surface-container-low p-4 rounded-lg flex flex-col space-y-3">
+<div class="flex items-center justify-between pb-1">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+<span class="font-headline-sm text-[15px] text-text-primary font-semibold">Phase 1 • Main / IKE_SA Handshake</span>
+</div>
+<span class="font-mono-packet text-mono-packet text-text-muted">Control Plane (Port 500/4500)</span>
+</div>
+<div class="space-y-2">
+<!-- Row 1: Encryption -->
+<div class="flex items-center justify-between p-2.5 rounded bg-surface-subtle">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-text-muted uppercase">Cipher &amp; Key Length</span>
+<span class="font-mono-data text-mono-data text-text-primary font-medium">AES-CBC-256</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded font-mono-packet text-mono-packet bg-surface-raised text-threat-secure">SECURE</span>
+<span class="material-symbols-outlined text-threat-secure text-[18px]">verified</span>
+</div>
+</div>
+<!-- Row 2: Hash / Integrity -->
+<div class="flex items-center justify-between p-2.5 rounded bg-surface-subtle">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-text-muted uppercase">Integrity / PRF</span>
+<span class="font-mono-data text-mono-data text-text-primary font-medium">HMAC-SHA256-128</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded font-mono-packet text-mono-packet bg-surface-raised text-threat-secure">SECURE</span>
+<span class="material-symbols-outlined text-threat-secure text-[18px]">verified</span>
+</div>
+</div>
+<!-- Row 3: Diffie-Hellman Group -->
+<div class="flex items-center justify-between p-2.5 rounded bg-surface-subtle">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-text-muted uppercase">Diffie-Hellman Exchange</span>
+<span class="font-mono-data text-mono-data text-threat-critical font-medium">Group 2 (1024-bit MODP)</span>
+<span class="font-mono-packet text-mono-packet text-threat-critical mt-0.5">Under 2048-bit threshold (Logjam / Precomputation attack)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded font-mono-packet text-mono-packet bg-surface-raised text-threat-critical">CRITICAL</span>
+<span class="material-symbols-outlined text-threat-critical text-[18px]">error</span>
+</div>
+</div>
+<!-- Row 4: Auth Scheme -->
+<div class="flex items-center justify-between p-2.5 rounded bg-surface-subtle">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-text-muted uppercase">Peer Authentication</span>
+<span class="font-mono-data text-mono-data text-threat-warning font-medium">Pre-Shared Key (PSK)</span>
+<span class="font-mono-packet text-mono-packet text-text-muted mt-0.5">Entropy: Medium (Entropy test: 4.8 bits/byte)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded font-mono-packet text-mono-packet bg-surface-raised text-threat-warning">WARN</span>
+<span class="material-symbols-outlined text-threat-warning text-[18px]">warning</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Phase 2: Child / ESP SA Data Plane -->
+<div class="bg-surface-container-low p-4 rounded-lg flex flex-col space-y-3">
+<div class="flex items-center justify-between pb-1">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-threat-critical"></span>
+<span class="font-headline-sm text-[15px] text-text-primary font-semibold">Phase 2 • Child SA / ESP Payload</span>
+</div>
+<span class="font-mono-packet text-mono-packet text-text-muted">Data Plane Encapsulation</span>
+</div>
+<div class="space-y-2">
+<!-- Row 1: 3DES -->
+<div class="flex items-center justify-between p-2.5 rounded bg-surface-subtle">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-text-muted uppercase">Payload Encryption</span>
+<span class="font-mono-data text-mono-data text-threat-critical font-medium">3DES-EDE-CBC</span>
+<span class="font-mono-packet text-mono-packet text-threat-critical mt-0.5">64-bit block cipher vulnerable to Sweet32 (CVE-2016-2183)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded font-mono-packet text-mono-packet bg-surface-raised text-threat-critical">CRITICAL</span>
+<span class="material-symbols-outlined text-threat-critical text-[18px]">gpp_bad</span>
+</div>
+</div>
+<!-- Row 2: SHA1 -->
+<div class="flex items-center justify-between p-2.5 rounded bg-surface-subtle">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-text-muted uppercase">Data Integrity Authentication</span>
+<span class="font-mono-data text-mono-data text-threat-high font-medium">HMAC-SHA1-96</span>
+<span class="font-mono-packet text-mono-packet text-threat-high mt-0.5">Truncated 96-bit MAC with collision weaknesses</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded font-mono-packet text-mono-packet bg-surface-raised text-threat-high">HIGH RISK</span>
+<span class="material-symbols-outlined text-threat-high text-[18px]">report_problem</span>
+</div>
+</div>
+<!-- Row 3: PFS -->
+<div class="flex items-center justify-between p-2.5 rounded bg-surface-subtle">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-text-muted uppercase">Perfect Forward Secrecy (PFS)</span>
+<span class="font-mono-data text-mono-data text-threat-high font-medium">Disabled (No DH in Create_Child_SA)</span>
+<span class="font-mono-packet text-mono-packet text-threat-high mt-0.5">If Phase 1 master key compromises, all ESP traffic decodes</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded font-mono-packet text-mono-packet bg-surface-raised text-threat-high">HIGH RISK</span>
+<span class="material-symbols-outlined text-threat-high text-[18px]">vpn_key_alert</span>
+</div>
+</div>
+<!-- Row 4: Anti-Replay Window -->
+<div class="flex items-center justify-between p-2.5 rounded bg-surface-subtle">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-text-muted uppercase">Anti-Replay Protection</span>
+<span class="font-mono-data text-mono-data text-text-primary font-medium">64-Packet Bitmap Window</span>
+<span class="font-mono-packet text-mono-packet text-text-secondary mt-0.5">Zero duplicate or out-of-order drops logged</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded font-mono-packet text-mono-packet bg-surface-raised text-threat-secure">ACTIVE</span>
+<span class="material-symbols-outlined text-threat-secure text-[18px]">security</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Key Findings & Threat Matrix Cards -->
+<div class="space-y-3">
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-threat-high">crisis_alert</span>
+<span class="font-headline-sm text-headline-sm text-text-primary font-semibold">Key Findings &amp; Threat Matrix</span>
+<span class="ml-2 px-2 py-0.5 rounded font-mono-packet text-mono-packet bg-surface-container text-text-secondary">4 Discovered Flags</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-2.5 py-1 rounded bg-surface-container hover:bg-surface-raised font-mono-packet text-mono-packet text-text-primary transition-colors" type="button">
+          Sort by Severity ↓
+        </button>
+</div>
+</div>
+<!-- Finding Card 1: 3DES Sweet32 (Critical) -->
+<div class="bg-surface-container rounded-xl p-5 shadow-md flex flex-col space-y-3">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2">
+<div class="flex items-center gap-3">
+<span class="px-2 py-0.5 rounded font-label-caps text-label-caps font-semibold bg-surface-raised text-threat-critical">CRITICAL</span>
+<span class="font-headline-sm text-[16px] text-text-primary font-bold">CVE-2016-2183: 3DES Birthday Attack Vulnerability (Sweet32)</span>
+</div>
+<div class="flex items-center gap-2 font-mono-packet text-mono-packet text-text-muted">
+<span>Confidence: <strong class="text-text-primary">100% Deterministic</strong></span>
+<span>•</span>
+<span>Rule: <code class="text-primary">RULE-CRYPTO-SWEET32</code></span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Impact -->
+<div class="bg-surface-container-low p-3 rounded-lg flex flex-col">
+<span class="font-label-caps text-label-caps text-threat-critical uppercase mb-1">Impact Analysis</span>
+<p class="font-body-sm text-body-sm text-text-secondary">
+            ESP child security associations rely on Triple-DES (64-bit block size). In long-lived high-throughput tunnels, collision probability reaches threshold after ~32GB of data, enabling plaintext plaintext session extraction.
+          </p>
+</div>
+<!-- Remediation -->
+<div class="bg-surface-container-low p-3 rounded-lg flex flex-col">
+<span class="font-label-caps text-label-caps text-threat-secure uppercase mb-1">Remediation Directive</span>
+<p class="font-body-sm text-body-sm text-text-secondary">
+            Deprecate 3DES instantly. Migrate Phase 2 proposal to <strong class="text-text-primary">AES-GCM-256</strong> (AEAD mode) or <strong class="text-text-primary">AES-CBC-256</strong> with SHA-384 integrity.
+          </p>
+</div>
+<!-- Raw Packet Evidence -->
+<div class="bg-surface-container-lowest p-3 rounded-lg font-mono-packet text-mono-packet text-text-muted flex flex-col justify-between overflow-x-auto">
+<div>
+<div class="flex items-center justify-between text-text-secondary pb-1">
+<span>Frame #12 • IKE_AUTH Response</span>
+<span class="text-primary">Offset: 0x004A</span>
+</div>
+<div class="text-text-secondary">
+<code>Transform Type 1 (ENCR): ID=3 (3DES-CBC)</code><br/>
+<code>Attr: KEY_LENGTH = 192 bits (3 x 56 keying)</code><br/>
+<code>Notification: NO_PROPOSAL_CHOSEN avoidance fallback</code>
+</div>
+</div>
+<div class="pt-2 text-[10px] text-threat-critical flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">flag</span> Captured in raw PCAP payload descriptor
+          </div>
+</div>
+</div>
+</div>
+<!-- Finding Card 2: DH Group 2 (Critical) -->
+<div class="bg-surface-container rounded-xl p-5 shadow-md flex flex-col space-y-3">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2">
+<div class="flex items-center gap-3">
+<span class="px-2 py-0.5 rounded font-label-caps text-label-caps font-semibold bg-surface-raised text-threat-critical">CRITICAL</span>
+<span class="font-headline-sm text-[16px] text-text-primary font-bold">Insecure Diffie-Hellman Group 2 (1024-bit MODP) in Phase 1</span>
+</div>
+<div class="flex items-center gap-2 font-mono-packet text-mono-packet text-text-muted">
+<span>Confidence: <strong class="text-text-primary">100% Deterministic</strong></span>
+<span>•</span>
+<span>Rule: <code class="text-primary">RULE-IKE-DH-WEAK</code></span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="bg-surface-container-low p-3 rounded-lg flex flex-col">
+<span class="font-label-caps text-label-caps text-threat-critical uppercase mb-1">Impact Analysis</span>
+<p class="font-body-sm text-body-sm text-text-secondary">
+            Group 2 uses a 1024-bit prime modulus. State-level threat actors with Number Field Sieve (NFS) precomputation capabilities can compute discrete logarithms in real time to break master secrets (Logjam variant).
+          </p>
+</div>
+<div class="bg-surface-container-low p-3 rounded-lg flex flex-col">
+<span class="font-label-caps text-label-caps text-threat-secure uppercase mb-1">Remediation Directive</span>
+<p class="font-body-sm text-body-sm text-text-secondary">
+            Enforce <strong class="text-text-primary">DH Group 14 (2048-bit MODP)</strong> as minimum floor, or modernize to Elliptic Curves: <strong class="text-text-primary">Group 19 (256-bit ECP)</strong> or <strong class="text-text-primary">Group 21 (Curve25519)</strong>.
+          </p>
+</div>
+<div class="bg-surface-container-lowest p-3 rounded-lg font-mono-packet text-mono-packet text-text-muted flex flex-col justify-between overflow-x-auto">
+<div>
+<div class="flex items-center justify-between text-text-secondary pb-1">
+<span>Frame #4 • IKE_SA_INIT Request</span>
+<span class="text-primary">Offset: 0x0028</span>
+</div>
+<div class="text-text-secondary">
+<code>Security Association Payload (SA)</code><br/>
+<code>Proposal #1: Proto=IKE, SPI_size=0, Transforms=4</code><br/>
+<code>Transform Type 4 (D-H): ID=2 (1024-bit MODP group)</code>
+</div>
+</div>
+<div class="pt-2 text-[10px] text-threat-critical flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">gpp_bad</span> Violates NIST SP 800-131A Rev 2
+          </div>
+</div>
+</div>
+</div>
+<!-- Finding Card 3: Absence of PFS (High Risk) -->
+<div class="bg-surface-container rounded-xl p-5 shadow-md flex flex-col space-y-3">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2">
+<div class="flex items-center gap-3">
+<span class="px-2 py-0.5 rounded font-label-caps text-label-caps font-semibold bg-surface-raised text-threat-high">HIGH RISK</span>
+<span class="font-headline-sm text-[16px] text-text-primary font-bold">Perfect Forward Secrecy (PFS) Disabled on Child SAs</span>
+</div>
+<div class="flex items-center gap-2 font-mono-packet text-mono-packet text-text-muted">
+<span>Confidence: <strong class="text-text-primary">95% Confirmed</strong></span>
+<span>•</span>
+<span>Rule: <code class="text-primary">RULE-ESP-NO-PFS</code></span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="bg-surface-container-low p-3 rounded-lg flex flex-col">
+<span class="font-label-caps text-label-caps text-threat-high uppercase mb-1">Impact Analysis</span>
+<p class="font-body-sm text-body-sm text-text-secondary">
+            Without ongoing ephemeral DH exchanges during re-keying operations, new ESP keys derive strictly from the original Phase 1 SKEYSEED. A past compromise retroactively decrypts all captured tunnel traffic.
+          </p>
+</div>
+<div class="bg-surface-container-low p-3 rounded-lg flex flex-col">
+<span class="font-label-caps text-label-caps text-threat-secure uppercase mb-1">Remediation Directive</span>
+<p class="font-body-sm text-body-sm text-text-secondary">
+            Configure <code class="text-text-primary font-mono-data">pfs=yes</code> in IPsec tunnel config (strongSwan/Cisco ASA). Bind DH Group 19 or Group 20 to the Child SA definition.
+          </p>
+</div>
+<div class="bg-surface-container-lowest p-3 rounded-lg font-mono-packet text-mono-packet text-text-muted flex flex-col justify-between overflow-x-auto">
+<div>
+<div class="flex items-center justify-between text-text-secondary pb-1">
+<span>Frame #18 • CREATE_CHILD_SA Exchange</span>
+<span class="text-primary">Offset: 0x0072</span>
+</div>
+<div class="text-text-secondary">
+<code>Transform Type 1 (ENCR): ID=3 (3DES)</code><br/>
+<code>Transform Type 3 (INTEG): ID=2 (AUTH_HMAC_SHA1_96)</code><br/>
+<code>Transform Type 4 (D-H): NULL / OMITTED</code>
+</div>
+</div>
+<div class="pt-2 text-[10px] text-threat-high flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">history_toggle_off</span> Ephemeral regeneration absent
+          </div>
+</div>
+</div>
+</div>
+</div>
+<!-- AI Behavioral Traffic Intelligence & Telemetry Preview -->
+<div class="bg-surface-container rounded-xl p-5 shadow-md flex flex-col space-y-4">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-primary">psychology</span>
+<span class="font-headline-sm text-headline-sm text-text-primary font-semibold">Traffic AI &amp; Metadata Exposure Telemetry</span>
+</div>
+<span class="px-2 py-0.5 rounded font-mono-packet text-mono-packet bg-surface-raised text-primary">
+        Model: Antigravity-Flow-v2.8
+      </span>
+</div>
+<!-- AI Classification Card -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+<div class="md:col-span-4 bg-surface-container-low p-4 rounded-lg flex flex-col justify-between">
+<div>
+<span class="font-label-caps text-label-caps text-text-muted uppercase">Predicted Traffic Signature</span>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="font-headline-md text-headline-md text-text-primary">Enterprise RDP</span>
+<span class="font-label-caps text-label-caps text-threat-secure">91% CONFIDENCE</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary mt-2">
+            Observable packet-size distribution, burst periodicity (50ms), and asymmetric flow direction align with interactive Remote Desktop Protocol encapsulated inside ESP.
+          </p>
+</div>
+<div class="mt-4 pt-3 bg-surface-subtle p-2.5 rounded">
+<div class="flex items-center justify-between font-mono-packet text-mono-packet text-text-muted mb-1">
+<span>Model Confidence</span>
+<span class="text-primary font-bold">91.4%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-raised rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 91.4%;"></div>
+</div>
+</div>
+</div>
+<!-- Packet Size & Timing Distribution Chart -->
+<div class="md:col-span-8 bg-surface-container-low p-4 rounded-lg flex flex-col justify-between">
+<div class="flex items-center justify-between pb-2">
+<span class="font-label-caps text-label-caps text-text-muted uppercase">ESP Inter-Arrival &amp; Packet Size Cluster (Sampled 1,000 pkts)</span>
+<span class="font-mono-packet text-mono-packet text-text-muted">Mean MTU: 1380 bytes</span>
+</div>
+<!-- Inline SVG Spark-Scatter/Bar Chart -->
+<div class="w-full h-28 flex items-end gap-1 px-1 pt-2">
+<div class="flex-1 bg-surface-raised rounded-t hover:bg-primary transition-colors h-[18%]" title="64-128 bytes: Keepalives"></div>
+<div class="flex-1 bg-surface-raised rounded-t hover:bg-primary transition-colors h-[22%]" title="128-256 bytes"></div>
+<div class="flex-1 bg-surface-raised rounded-t hover:bg-primary transition-colors h-[15%]" title="256-512 bytes"></div>
+<div class="flex-1 bg-surface-raised rounded-t hover:bg-primary transition-colors h-[35%]" title="512-768 bytes"></div>
+<div class="flex-1 bg-surface-raised rounded-t hover:bg-primary transition-colors h-[45%]" title="768-1024 bytes"></div>
+<div class="flex-1 bg-primary rounded-t hover:bg-primary-fixed transition-colors h-[82%]" title="1024-1280 bytes: Heavy Payload"></div>
+<div class="flex-1 bg-primary rounded-t hover:bg-primary-fixed transition-colors h-[96%]" title="1280-1420 bytes: Bulk RDP Frames"></div>
+<div class="flex-1 bg-surface-raised rounded-t hover:bg-primary transition-colors h-[28%]" title="1420+ bytes"></div>
+</div>
+<div class="flex items-center justify-between font-mono-packet text-mono-packet text-text-muted pt-2">
+<span>64 B</span>
+<span>512 B</span>
+<span>1024 B</span>
+<span>1420 B (ESP Pad)</span>
+</div>
+</div>
+</div>
+<!-- Mandatory AI Disclaimer Notice per PRD Section 5 -->
+<div class="flex items-center gap-2.5 bg-surface-container-low px-3.5 py-2.5 rounded-lg text-text-secondary">
+<span class="material-symbols-outlined text-[18px] text-threat-info flex-shrink-0">info</span>
+<p class="font-mono-packet text-mono-packet leading-relaxed">
+<strong>Security &amp; Privacy Mandate:</strong> Classification is based on observable encrypted traffic metadata and does not decrypt user payloads. Ephemeral in-memory parsing active; zero PCAPs are retained.
+      </p>
+</div>
+</div>
+</div></main></div><script src="/static/stitch_integration.js"></script></body></html>
+
