@@ -1,5 +1,5 @@
 from typing import Optional, Dict, Any
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 class TrafficPredictionResponse(BaseModel):
     id: int
@@ -20,8 +20,7 @@ class TrafficPredictionResponse(BaseModel):
     anomaly_score: float
     anomaly_evidence: Optional[str] = None
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class FeatureMetricsResponse(BaseModel):
     features: Dict[str, Any]

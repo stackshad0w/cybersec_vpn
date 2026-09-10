@@ -1,5 +1,5 @@
 from typing import Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 class IKESessionResponse(BaseModel):
     id: int
@@ -20,8 +20,7 @@ class IKESessionResponse(BaseModel):
     sa_lifetime_seconds: Optional[int] = None
     evidence: Optional[str] = None
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class IPsecSessionResponse(BaseModel):
     id: int
@@ -40,5 +39,4 @@ class IPsecSessionResponse(BaseModel):
     duplicate_sequences_count: int
     out_of_order_count: int
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)

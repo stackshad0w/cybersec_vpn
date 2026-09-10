@@ -143,3 +143,20 @@ def test_pdf_report_downloads(client):
     json_res = client.get(f"/api/v1/analyses/{analysis_id}/reports/export.json")
     assert json_res.status_code == 200
     assert json_res.headers["content-type"] == "application/json"
+
+def test_testbed_scenario_loading(client):
+    res_secure = client.post("/api/v1/demo/scenario/secure_ikev2")
+    assert res_secure.status_code == 200
+    data_secure = res_secure.json()
+    assert data_secure["security_score"] >= 75
+    assert len(data_secure["ipsec_sessions"]) >= 1
+
+    res_weak = client.post("/api/v1/demo/scenario/weak_ikev1")
+    assert res_weak.status_code == 200
+    data_weak = res_weak.json()
+    assert data_weak["security_score"] < 60
+    assert data_weak["risk_level"] in ("High Risk", "Critical")
+    # Verify replay violations or weak crypto finding
+    finding_titles = [f["title"] for f in data_weak["findings"]]
+    assert any("3DES" in t or "Replay" in t or "Diffie-Hellman" in t or "IKEv1" in t for t in finding_titles)
+

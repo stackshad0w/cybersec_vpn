@@ -1,5 +1,5 @@
 from typing import Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 class MetadataExposureResponse(BaseModel):
     id: int
@@ -15,5 +15,4 @@ class MetadataExposureResponse(BaseModel):
     volume_evidence: Optional[str] = None
     ike_evidence: Optional[str] = None
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)

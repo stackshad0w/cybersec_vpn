@@ -1,6 +1,6 @@
 from typing import Optional, List
 from datetime import datetime
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from backend.app.models.analysis import AnalysisStatus, RiskLevel
 from backend.app.schemas.finding import SecurityFindingResponse
 from backend.app.schemas.ipsec import IKESessionResponse, IPsecSessionResponse
@@ -17,8 +17,7 @@ class CaptureFileResponse(BaseModel):
     duration_seconds: float
     uploaded_at: datetime
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class AnalysisSummaryResponse(BaseModel):
     id: int
@@ -32,8 +31,7 @@ class AnalysisSummaryResponse(BaseModel):
     completed_at: Optional[datetime] = None
     capture: Optional[CaptureFileResponse] = None
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class AnalysisDetailResponse(AnalysisSummaryResponse):
     error_message: Optional[str] = None
@@ -43,5 +41,4 @@ class AnalysisDetailResponse(AnalysisSummaryResponse):
     traffic_prediction: Optional[TrafficPredictionResponse] = None
     metadata_exposure: Optional[MetadataExposureResponse] = None
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)

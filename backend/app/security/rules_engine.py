@@ -60,8 +60,9 @@ class SecurityRulesEngine:
             }])
 
         for ike in ike_sessions:
-            enc = (ike.get("encryption_algorithm") or "").upper()
-            integ = (ike.get("integrity_algorithm") or "").upper()
+            prop = ike.get("proposals", {}) if isinstance(ike, dict) else {}
+            enc = (ike.get("encryption_algorithm") or prop.get("encryption") or "").upper()
+            integ = (ike.get("integrity_algorithm") or prop.get("integrity") or "").upper()
 
             # Cipher evaluation
             if "DES" in enc and "3DES" not in enc:
@@ -149,8 +150,15 @@ class SecurityRulesEngine:
             return RuleResult("key_exchange", 70.0, [])
 
         for ike in ike_sessions:
-            group_num = ike.get("dh_group_number")
-            group_name = ike.get("dh_group") or f"Group {group_num}"
+            prop = ike.get("proposals", {}) if isinstance(ike, dict) else {}
+            group_num = ike.get("dh_group_number") or prop.get("dh_group_num")
+            group_name = ike.get("dh_group") or prop.get("dh_group") or (f"Group {group_num}" if group_num else None)
+            if not group_num and group_name:
+                # Try to extract number if string contains e.g. Group 19 or Group 2
+                import re
+                m = re.search(r"Group\s+(\d+)", group_name)
+                if m:
+                    group_num = int(m.group(1))
 
             if group_num in (1, 2):
                 score = min(score, 25.0)
@@ -216,7 +224,10 @@ class SecurityRulesEngine:
     @classmethod
     def _evaluate_pfs(cls, ike_sessions: List[Dict[str, Any]], policy: SecurityPolicyConfig) -> RuleResult:
         findings = []
-        pfs_detected = any(ike.get("pfs_enabled") for ike in ike_sessions)
+        pfs_detected = any(
+            bool(ike.get("pfs_enabled") or (ike.get("proposals", {}) if isinstance(ike, dict) else {}).get("pfs_enabled"))
+            for ike in ike_sessions
+        )
 
         if pfs_detected:
             score = 100.0
@@ -253,11 +264,13 @@ class SecurityRulesEngine:
         if not esp_sessions:
             return RuleResult("replay_protection", 80.0, [])
 
+        any_duplicates = False
         for esp in esp_sessions:
             dup_count = esp.get("duplicate_sequences_count", 0)
             pkt_count = esp.get("packet_count", 0)
 
             if dup_count > 0:
+                any_duplicates = True
                 score = min(score, 30.0)
                 findings.append({
                     "title": "Critical: Duplicate ESP Sequence Numbers Observed (Replay Attack)",
@@ -269,17 +282,19 @@ class SecurityRulesEngine:
                     "recommendation": "Ensure anti-replay window is strictly enforced on gateways.",
                     "remediation_command": "Cisco: crypto ipsec security-association replay window-size 1024"
                 })
-            else:
-                findings.append({
-                    "title": "Anti-Replay Protection Validated",
-                    "category": FindingCategory.REPLAY_PROTECTION,
-                    "severity": FindingSeverity.INFO,
-                    "evidence_status": EvidenceStatus.VERIFIED.value,
-                    "evidence": f"Strictly monotonic sequence numbers (1 to {esp.get('max_sequence_number', 1)}) with zero duplicates across {pkt_count} packets.",
-                    "impact": "Defends against packet replay attacks.",
-                    "recommendation": "Maintain replay window enforcement.",
-                    "remediation_command": None
-                })
+
+        if not any_duplicates and esp_sessions:
+            total_pkts = sum(esp.get("packet_count", 0) for esp in esp_sessions)
+            findings.append({
+                "title": "Anti-Replay Protection Validated",
+                "category": FindingCategory.REPLAY_PROTECTION,
+                "severity": FindingSeverity.INFO,
+                "evidence_status": EvidenceStatus.VERIFIED.value,
+                "evidence": f"Strictly monotonic sequence numbers with zero duplicates across {total_pkts} packets.",
+                "impact": "Defends against packet replay attacks.",
+                "recommendation": "Maintain replay window enforcement.",
+                "remediation_command": None
+            })
 
         return RuleResult("replay_protection", score, findings)
 
